@@ -1,0 +1,26 @@
+{
+  "cwd": "/Users/thienpow/development/ESM/FrontEnd/esm-admin2",
+  "type": [
+    "web"
+  ],
+  "name": "ESM Admin",
+  "framework": "svelte",
+  "template": "split-view",
+  "bundler": "webpack",
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false,
+  "webpack": {
+    "developmentSourceMap": true,
+    "productionSourceMap": true,
+    "hashAssets": false,
+    "preserveAssetsPaths": false,
+    "inlineAssets": true
+  }
+}
