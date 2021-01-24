@@ -55,11 +55,19 @@ import {
   ListPrizeRequest,
   ListPrizeTypeRequest,
   // Tournament
-  AddTournamentRequest, 
+  AddTournamentRequest,
+  AddTournamentSetRequest,
+  AddTournamentSetGameRuleRequest, 
   UpdateTournamentRequest,
+  UpdateTournamentSetRequest,
+  UpdateTournamentSetGameRuleRequest,
   DeleteTournamentRequest,
+  DeleteTournamentSetRequest,
+  DeleteTournamentSetGameRuleRequest,
   GetTournamentCountRequest,
   ListTournamentRequest,
+  ListTournamentSetRequest,
+  ListTournamentSetGameRuleRequest,
   // Winner
   AddWinnerRequest, 
   DeleteWinnerRequest,
@@ -150,10 +158,18 @@ const dataClient = () => {
 
     // Tournament
     addTournamentRequest: new AddTournamentRequest(),
+    addTournamentSetRequest: new AddTournamentSetRequest(),
+    addTournamentSetGameRuleRequest: new AddTournamentSetGameRuleRequest(),
     updateTournamentRequest: new UpdateTournamentRequest(),
+    updateTournamentSetRequest: new UpdateTournamentSetRequest(),
+    updateTournamentSetGameRuleRequest: new UpdateTournamentSetGameRuleRequest(),
     deleteTournamentRequest: new DeleteTournamentRequest(),
+    deleteTournamentSetRequest: new DeleteTournamentSetRequest(),
+    deleteTournamentSetGameRuleRequest: new DeleteTournamentSetGameRuleRequest(),
     getTournamentCountRequest: new GetTournamentCountRequest(),
     listTournamentRequest: new ListTournamentRequest(),
+    listTournamentSetRequest: new ListTournamentSetRequest(),
+    listTournamentSetGameRuleRequest: new ListTournamentSetGameRuleRequest(),
 
     // Winner
     listWinnerRequest: new ListWinnerRequest(),
@@ -301,10 +317,7 @@ const dataClient = () => {
     tournament: {
       id: 0, 
       title: "", 
-      scheduled_on: [],
-      scheduled_off: [],
-      prize_ids: [], 
-      game_ids: [],
+      tour_set_ids: [],
       status: 1
     },
     tournaments: [],
@@ -314,8 +327,24 @@ const dataClient = () => {
       published: 0,
       archived: 0,
     },
-
-
+    tournament_set: {
+      id: 0, 
+      title: "", 
+      duration_days: 0,
+      duration_hours: 0,
+      is_group: false,
+    },
+    tournament_sets: [],
+    tournament_set_game_rule: {
+      id: 0, 
+      set_id: 0, 
+      game_id: 0,
+      duration_days: 0,
+      duration_hours: 0,
+      duration_minutes: 0,
+      group_id: 0,
+    },
+    tournament_set_game_rules: []
 	}
 	
 
@@ -1282,6 +1311,7 @@ const dataClient = () => {
       
       },
 
+      
       async getPrizeTypeList() {
         
         let request = state.listPrizeTypeRequest;
@@ -1309,18 +1339,10 @@ const dataClient = () => {
        */
       async addTournament() {
 
-        let scheduled_on = new Date(state.tournament.scheduled_on);
-        let scheduled_off = new Date(state.tournament.scheduled_off);
-        
-        let prize_ids = state.tournament.prize_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        let game_ids = state.tournament.game_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        
+        let tour_set_ids = state.tournament.tour_set_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
         let request = state.addTournamentRequest;
         request.setTitle(state.tournament.title);
-        request.setScheduledOn([scheduled_on.valueOf() / 1000]);
-        request.setScheduledOff([scheduled_off.valueOf() / 1000]);
-        request.setPrizeIdsList(prize_ids);
-        request.setGameIdsList(game_ids);
+        request.setTourSetIdsList(tour_set_ids);
         request.setStatus(state.tournament.status);
         
         try {
@@ -1333,36 +1355,103 @@ const dataClient = () => {
         
       },
 
+      async addTournamentSet() {
+
+        let request = state.addTournamentSetRequest;
+        request.setTitle(state.tournament_set.title);
+        request.setDurationDays(state.tournament_set.duration_days);
+        request.setDurationHours(state.tournament_set.duration_hours);
+        request.setIsGroup(state.tournament_set.is_group);
+        
+        try {
+          const response = await state.apiClient.addTournamentSet(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+      },
+
+
+      async addTournamentSetGameRule() {
+
+        let request = state.addTournamentSetGameRuleRequest;
+        request.setSetId(state.tournament_set_game_rule.set_id);
+        request.setGameId(state.tournament_set_game_rule.game_id);
+        request.setDurationDays(state.tournament_set_game_rule.duration_days);
+        request.setDurationHours(state.tournament_set_game_rule.duration_hours);
+        request.setDurationMinutes(state.tournament_set_game_rule.duration_minutes);
+        request.setGroupId(state.tournament_set_game_rule.group_id);
+        
+        try {
+          const response = await state.apiClient.addTournamentSetGameRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+      },
+
+
       async updateTournament() {
 
-        let scheduled_on = new Date(state.tournament.scheduled_on);
-        let scheduled_off = new Date(state.tournament.scheduled_off);
-        
-        let prize_ids = state.tournament.prize_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        let game_ids = state.tournament.game_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
+        let tour_set_ids = state.tournament.tour_set_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
         
         let request = state.updateTournamentRequest;
         request.setId(state.tournament.id);
         request.setTitle(state.tournament.title);
-        request.setScheduledOn([scheduled_on.valueOf() / 1000]);
-        request.setScheduledOff([scheduled_off.valueOf() / 1000]);
-        request.setPrizeIdsList(prize_ids);
-        request.setGameIdsList(game_ids);
+        request.setTourSetIdsList(tour_set_ids);
         request.setStatus(state.tournament.status);
-
+        
         try {
-
           const response = await state.apiClient.updateTournament(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          alert(err.message)
-          console.log(err);
-          //state.isLoggedIn = false;
-
+          //console.log(err);
+          state.isLoggedIn = false;
         }
-      
-        return false;
       },
+
+
+      async updateTournamentSet() {
+
+        let request = state.updateTournamentSetRequest;
+        request.setId(state.tournament_set.id);
+        request.setTitle(state.tournament_set.title);
+        request.setDurationDays(state.tournament_set.duration_days);
+        request.setDurationHours(state.tournament_set.duration_hours);
+        request.setIsGroup(state.tournament_set.is_group);
+        
+        try {
+          const response = await state.apiClient.updateTournamentSet(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+      },
+
+
+      async updateTournamentSetGameRule() {
+
+        let request = state.updateTournamentSetGameRuleRequest;
+        request.setId(state.tournament_set_game_rule.id);
+        request.setSetId(state.tournament_set_game_rule.set_id);
+        request.setGameId(state.tournament_set_game_rule.game_id);
+        request.setDurationDays(state.tournament_set_game_rule.duration_days);
+        request.setDurationHours(state.tournament_set_game_rule.duration_hours);
+        request.setDurationMinutes(state.tournament_set_game_rule.duration_minutes);
+        request.setGroupId(state.tournament_set_game_rule.group_id);
+        
+        try {
+          const response = await state.apiClient.updateTournamentSetGameRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+      },
+
 
       async deleteTournament(id) {
 
@@ -1378,6 +1467,39 @@ const dataClient = () => {
         }
         
       },
+
+
+      async deleteTournamentSet(id) {
+
+        let request = state.deleteTournamentSetRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.deleteTournamentSet(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+
+      async deleteTournamentSetGameRule(id) {
+
+        let request = state.deleteTournamentSetGameRuleRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.deleteTournamentSetGameRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        
+      },
+
 
       async getTournamentCount() {
 
@@ -1401,6 +1523,7 @@ const dataClient = () => {
         
       },
 
+
       async getTournamentList(row_count) {
           
         let request = state.listTournamentRequest;
@@ -1415,11 +1538,68 @@ const dataClient = () => {
             state.tournaments = [...state.tournaments,  {
               id: item.getId(),
               title: item.getTitle(),
-              scheduled_on: [timeConverter(item.getScheduledOn())],
-              scheduled_off: [timeConverter(item.getScheduledOff())],
-              prize_ids: item.getPrizeIdsList(),
-              game_ids: item.getGameIdsList(),
+              tour_set_ids: item.getTourSetIdsList(),
               status: item.getStatus()
+            }];
+          }
+            
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+
+      async getTournamentSetList() {
+          
+        let request = state.listTournamentSetRequest;
+        request.setLimit(1000);
+        request.setOffset(0);
+
+        try {
+          const response = await state.apiClient.listTournamentSet(request, {'authorization': state.jwtToken});
+
+          state.tournament_sets = [];
+          for (let item of response.getResultList()) {
+            state.tournament_sets = [...state.tournament_sets,  {
+              id: item.getId(),
+              title: item.getTitle(),
+              duration_days: item.getDurationDays(),
+              duration_hours: item.getDurationHours(),
+              is_group: item.getIsGroup()
+            }];
+          }
+            
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+
+      async getTournamentSetList() {
+          
+        let request = state.listTournamentSetGameRuleRequest;
+        request.setLimit(1000);
+        request.setOffset(0);
+
+        try {
+          const response = await state.apiClient.listTournamentSetGameRule(request, {'authorization': state.jwtToken});
+
+          state.tournament_set_game_rules = [];
+          for (let item of response.getResultList()) {
+            state.tournament_set_game_rules = [...state.tournament_set_game_rules,  {
+              id: item.getId(),
+              set_id: item.getSetId(),
+              game_id: item.getGameId(),
+              duration_days: item.getDurationDays(),
+              duration_hours: item.getDurationHours(),
+              duration_minutes: item.getDurationMinutes(),
+              group_id: item.getGroupId()
             }];
           }
             

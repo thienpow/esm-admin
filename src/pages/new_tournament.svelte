@@ -14,17 +14,8 @@
 
     ></ListInput>
 
-    <ListInput
-      class="item-content-input"
-      label="Scheduled On"
-      calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
-      type="datepicker"
-      value={$dataClient.tournament.scheduled_on}
-      on:calendarChange={(e) => $dataClient.tournament.scheduled_on = e.detail[0]}
-      required
-      validate
-    ></ListInput>
-
+    <!--
+      
     <ListInput
       class="item-content-input"
       label="Scheduled Off"
@@ -36,23 +27,14 @@
       validate
     ></ListInput>
 
+    -->
+    
     <ListInput
       class="item-content-input"
-      label="Prize IDs"
+      label="Set IDs"
       type="text"
-      value={$dataClient.tournament.prize_ids}
-      onInput={(e) => $dataClient.tournament.prize_ids = e.target.value}
-      required
-      validate
-
-    ></ListInput>
-  
-    <ListInput
-      class="item-content-input"
-      label="Game IDs"
-      type="text"
-      value={$dataClient.tournament.game_ids}
-      onInput={(e) => $dataClient.tournament.game_ids = e.target.value}
+      value={$dataClient.tournament.tour_set_ids}
+      onInput={(e) => $dataClient.tournament.tour_set_ids = e.target.value}
       required
       validate
 

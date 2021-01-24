@@ -47,34 +47,15 @@
         <MenuItem iconF7="table" dropdown>
           <MenuDropdown right>
             <List class="theme-dark">
+              
               <ListItem
                 checkbox
-                title="scheduled on"
-                value={$show_scheduled_on}
-                checked={$show_scheduled_on}
-                onChange={(e) => $show_scheduled_on = e.target.checked}
+                title="set_ids"
+                value={$tour_set_ids}
+                checked={$tour_set_ids}
+                onChange={(e) => $tour_set_ids = e.target.checked}
               ></ListItem>
-              <ListItem
-                checkbox
-                title="scheduled off"
-                value={$show_scheduled_off}
-                checked={$show_scheduled_off}
-                onChange={(e) => $show_scheduled_off = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="prize ids"
-                value={$prize_ids}
-                checked={$prize_ids}
-                onChange={(e) => $prize_ids = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="game ids"
-                value={$game_ids}
-                checked={$game_ids}
-                onChange={(e) => $game_ids = e.target.checked}
-              ></ListItem>
+
               <ListItem
                 checkbox
                 title="status"
@@ -82,6 +63,7 @@
                 checked={$show_status}
                 onChange={(e) => $show_status = e.target.checked}
               ></ListItem>
+              
             </List>
           </MenuDropdown>
         </MenuItem>
@@ -137,23 +119,15 @@
         <tr>
           <th class="numeric-cell">ID</th>
           <th class="label-cell">Title</th>
-          {#if innerWidth >= 1024 }
-            {#if $show_scheduled_on}
-          <th class="label-cell">Scheduled On</th>
-            {/if}
-            {#if $show_scheduled_off}
-          <th class="label-cell">Scheduled Off</th>
-            {/if}
+          
+          {#if $tour_set_ids}
+          <th class="numeric-cell">Set IDs</th>
           {/if}
-          {#if $prize_ids}
-          <th class="numeric-cell">Prize IDs</th>
-          {/if}
-          {#if $game_ids}
-          <th class="numeric-cell">Game IDs</th>
-          {/if}
+
           {#if $show_status}
           <th>Status</th>
           {/if}
+          
         </tr>
       </thead>
       <tbody>
@@ -162,23 +136,15 @@
         <tr on:click={onRowClick(tournament)}>
           <td class="numeric-cell">{tournament.id}</td>
           <td class="label-cell">{tournament.title}</td>
-          {#if innerWidth >= 1024 }
-            {#if $show_scheduled_on}
-          <td class="label-cell">{tournament.scheduled_on[0]}</td>
-            {/if}
-            {#if $show_scheduled_off}
-          <td class="label-cell">{tournament.scheduled_off[0]}</td>
-            {/if}
+
+          {#if $tour_set_ids}
+          <td class="numeric-cell">{tournament.tour_set_ids}</td>
           {/if}
-          {#if $prize_ids}
-          <td class="numeric-cell">{tournament.prize_ids}</td>
-          {/if}
-          {#if $game_ids}
-          <td class="numeric-cell">{tournament.game_ids}</td>
-          {/if}
+
           {#if $show_status}
           <td class="label-cell">{dataClient.displayStatusTitle(tournament.status)}</td>
           {/if}
+
         </tr>
         {/each}
         
@@ -193,7 +159,7 @@
   import { onMount } from 'svelte';
   import { theme, Searchbar, NavLeft, NavTitle, NavRight, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient.js';
-  import {show_scheduled_on, show_scheduled_off, prize_ids, game_ids, show_status, row_count} from '../stores/ui.js';
+  import {tour_set_ids, show_status, row_count} from '../stores/ui.js';
   
 
   export let f7router;
@@ -216,10 +182,7 @@
     $dataClient.tournament = {
         id: 0, 
         title: "", 
-        scheduled_on: [new Date()],
-        scheduled_off: [new Date()],
-        prize_ids: [], 
-        game_ids: [],
+        tour_set_ids: [],
         status: 0
       };
     f7router.navigate("/newtournament/0/");

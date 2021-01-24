@@ -18,8 +18,7 @@ export const show_last_login = writable('show_last_login', true);
 export const show_tickets_collected = writable('show_tickets_collected', true);
 export const show_gems = writable('show_gems', false);
 
-export const prize_ids = writable('prize_ids', true);
-export const game_ids = writable('game_ids', true);
+export const tour_set_ids = writable('tour_set_ids', true);
 
 export const row_count = writable('row_count', 20);
 
