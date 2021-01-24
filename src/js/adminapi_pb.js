@@ -19547,7 +19547,7 @@ proto.adminapi.esm.ItemTypeDetail.prototype.setTitle = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.adminapi.esm.AddPrizeRequest.repeatedFields_ = [11,13];
+proto.adminapi.esm.AddPrizeRequest.repeatedFields_ = [12,14];
 
 
 
@@ -19584,15 +19584,16 @@ proto.adminapi.esm.AddPrizeRequest.toObject = function(includeInstance, msg) {
     subtitle: jspb.Message.getFieldWithDefault(msg, 2, ""),
     imgUrl: jspb.Message.getFieldWithDefault(msg, 3, ""),
     content: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    countDownHours: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    typeId: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    rewardId: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    rewardAmount: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    typeId: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    durationDays: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    durationHours: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    timezone: jspb.Message.getFieldWithDefault(msg, 9, 0),
     scheduledOn: jspb.Message.getFieldWithDefault(msg, 10, 0),
-    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 11)) == null ? undefined : f,
-    status: jspb.Message.getFieldWithDefault(msg, 12, 0),
-    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f
+    isRepeat: jspb.Message.getBooleanFieldWithDefault(msg, 11, false),
+    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 12)) == null ? undefined : f,
+    status: jspb.Message.getFieldWithDefault(msg, 13, 0),
+    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 14)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -19646,38 +19647,42 @@ proto.adminapi.esm.AddPrizeRequest.deserializeBinaryFromReader = function(msg, r
       msg.setContent(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTicketsRequired(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCountDownHours(value);
-      break;
-    case 7:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setTypeId(value);
       break;
-    case 8:
+    case 6:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setRewardId(value);
+      msg.setTicketsRequired(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationDays(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationHours(value);
       break;
     case 9:
       var value = /** @type {number} */ (reader.readInt32());
-      msg.setRewardAmount(value);
+      msg.setTimezone(value);
       break;
     case 10:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setScheduledOn(value);
       break;
     case 11:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsRepeat(value);
+      break;
+    case 12:
       var value = /** @type {!Array<number>} */ (reader.readPackedInt32());
       msg.setRepeatedOnList(value);
       break;
-    case 12:
+    case 13:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setStatus(value);
       break;
-    case 13:
+    case 14:
       var value = /** @type {!Array<number>} */ (reader.readPackedInt64());
       msg.setTournamentIdsList(value);
       break;
@@ -19738,35 +19743,35 @@ proto.adminapi.esm.AddPrizeRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getTicketsRequired();
+  f = message.getTypeId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       5,
       f
     );
   }
-  f = message.getCountDownHours();
+  f = message.getTicketsRequired();
   if (f !== 0) {
-    writer.writeInt32(
+    writer.writeInt64(
       6,
       f
     );
   }
-  f = message.getTypeId();
+  f = message.getDurationDays();
   if (f !== 0) {
     writer.writeInt32(
       7,
       f
     );
   }
-  f = message.getRewardId();
+  f = message.getDurationHours();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       8,
       f
     );
   }
-  f = message.getRewardAmount();
+  f = message.getTimezone();
   if (f !== 0) {
     writer.writeInt32(
       9,
@@ -19780,24 +19785,31 @@ proto.adminapi.esm.AddPrizeRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
+  f = message.getIsRepeat();
+  if (f) {
+    writer.writeBool(
+      11,
+      f
+    );
+  }
   f = message.getRepeatedOnList();
   if (f.length > 0) {
     writer.writePackedInt32(
-      11,
+      12,
       f
     );
   }
   f = message.getStatus();
   if (f !== 0) {
     writer.writeInt32(
-      12,
+      13,
       f
     );
   }
   f = message.getTournamentIdsList();
   if (f.length > 0) {
     writer.writePackedInt64(
-      13,
+      14,
       f
     );
   }
@@ -19877,10 +19889,10 @@ proto.adminapi.esm.AddPrizeRequest.prototype.setContent = function(value) {
 
 
 /**
- * optional int64 tickets_required = 5;
+ * optional int32 type_id = 5;
  * @return {number}
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.getTicketsRequired = function() {
+proto.adminapi.esm.AddPrizeRequest.prototype.getTypeId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
@@ -19889,16 +19901,16 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getTicketsRequired = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.setTicketsRequired = function(value) {
+proto.adminapi.esm.AddPrizeRequest.prototype.setTypeId = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
 /**
- * optional int32 count_down_hours = 6;
+ * optional int64 tickets_required = 6;
  * @return {number}
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.getCountDownHours = function() {
+proto.adminapi.esm.AddPrizeRequest.prototype.getTicketsRequired = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
@@ -19907,16 +19919,16 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getCountDownHours = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.setCountDownHours = function(value) {
+proto.adminapi.esm.AddPrizeRequest.prototype.setTicketsRequired = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
 /**
- * optional int32 type_id = 7;
+ * optional int32 duration_days = 7;
  * @return {number}
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.getTypeId = function() {
+proto.adminapi.esm.AddPrizeRequest.prototype.getDurationDays = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -19925,16 +19937,16 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getTypeId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.setTypeId = function(value) {
+proto.adminapi.esm.AddPrizeRequest.prototype.setDurationDays = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional int64 reward_id = 8;
+ * optional int32 duration_hours = 8;
  * @return {number}
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.getRewardId = function() {
+proto.adminapi.esm.AddPrizeRequest.prototype.getDurationHours = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
@@ -19943,16 +19955,16 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getRewardId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.setRewardId = function(value) {
+proto.adminapi.esm.AddPrizeRequest.prototype.setDurationHours = function(value) {
   return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
 /**
- * optional int32 reward_amount = 9;
+ * optional int32 timezone = 9;
  * @return {number}
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.getRewardAmount = function() {
+proto.adminapi.esm.AddPrizeRequest.prototype.getTimezone = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
@@ -19961,7 +19973,7 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getRewardAmount = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
-proto.adminapi.esm.AddPrizeRequest.prototype.setRewardAmount = function(value) {
+proto.adminapi.esm.AddPrizeRequest.prototype.setTimezone = function(value) {
   return jspb.Message.setProto3IntField(this, 9, value);
 };
 
@@ -19985,11 +19997,29 @@ proto.adminapi.esm.AddPrizeRequest.prototype.setScheduledOn = function(value) {
 
 
 /**
- * repeated int32 repeated_on = 11;
+ * optional bool is_repeat = 11;
+ * @return {boolean}
+ */
+proto.adminapi.esm.AddPrizeRequest.prototype.getIsRepeat = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 11, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
+ */
+proto.adminapi.esm.AddPrizeRequest.prototype.setIsRepeat = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 11, value);
+};
+
+
+/**
+ * repeated int32 repeated_on = 12;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.getRepeatedOnList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 11));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 12));
 };
 
 
@@ -19998,7 +20028,7 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getRepeatedOnList = function() {
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.setRepeatedOnList = function(value) {
-  return jspb.Message.setField(this, 11, value || []);
+  return jspb.Message.setField(this, 12, value || []);
 };
 
 
@@ -20008,7 +20038,7 @@ proto.adminapi.esm.AddPrizeRequest.prototype.setRepeatedOnList = function(value)
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.addRepeatedOn = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 11, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 12, value, opt_index);
 };
 
 
@@ -20022,11 +20052,11 @@ proto.adminapi.esm.AddPrizeRequest.prototype.clearRepeatedOnList = function() {
 
 
 /**
- * optional int32 status = 12;
+ * optional int32 status = 13;
  * @return {number}
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
 };
 
 
@@ -20035,16 +20065,16 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getStatus = function() {
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3IntField(this, 12, value);
+  return jspb.Message.setProto3IntField(this, 13, value);
 };
 
 
 /**
- * repeated int64 tournament_ids = 13;
+ * repeated int64 tournament_ids = 14;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.getTournamentIdsList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 13));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 14));
 };
 
 
@@ -20053,7 +20083,7 @@ proto.adminapi.esm.AddPrizeRequest.prototype.getTournamentIdsList = function() {
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.setTournamentIdsList = function(value) {
-  return jspb.Message.setField(this, 13, value || []);
+  return jspb.Message.setField(this, 14, value || []);
 };
 
 
@@ -20063,7 +20093,7 @@ proto.adminapi.esm.AddPrizeRequest.prototype.setTournamentIdsList = function(val
  * @return {!proto.adminapi.esm.AddPrizeRequest} returns this
  */
 proto.adminapi.esm.AddPrizeRequest.prototype.addTournamentIds = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 13, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 14, value, opt_index);
 };
 
 
@@ -20212,7 +20242,7 @@ proto.adminapi.esm.AddPrizeResponse.prototype.setResult = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.adminapi.esm.UpdatePrizeRequest.repeatedFields_ = [12,14];
+proto.adminapi.esm.UpdatePrizeRequest.repeatedFields_ = [13,15];
 
 
 
@@ -20250,15 +20280,16 @@ proto.adminapi.esm.UpdatePrizeRequest.toObject = function(includeInstance, msg) 
     subtitle: jspb.Message.getFieldWithDefault(msg, 3, ""),
     imgUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
     content: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    countDownHours: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    typeId: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    rewardId: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    rewardAmount: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    typeId: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    durationDays: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    durationHours: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    timezone: jspb.Message.getFieldWithDefault(msg, 10, 0),
     scheduledOn: jspb.Message.getFieldWithDefault(msg, 11, 0),
-    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 12)) == null ? undefined : f,
-    status: jspb.Message.getFieldWithDefault(msg, 13, 0),
-    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 14)) == null ? undefined : f
+    isRepeat: jspb.Message.getBooleanFieldWithDefault(msg, 12, false),
+    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f,
+    status: jspb.Message.getFieldWithDefault(msg, 14, 0),
+    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 15)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -20316,38 +20347,42 @@ proto.adminapi.esm.UpdatePrizeRequest.deserializeBinaryFromReader = function(msg
       msg.setContent(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTicketsRequired(value);
-      break;
-    case 7:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCountDownHours(value);
-      break;
-    case 8:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setTypeId(value);
       break;
-    case 9:
+    case 7:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setRewardId(value);
+      msg.setTicketsRequired(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationDays(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationHours(value);
       break;
     case 10:
       var value = /** @type {number} */ (reader.readInt32());
-      msg.setRewardAmount(value);
+      msg.setTimezone(value);
       break;
     case 11:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setScheduledOn(value);
       break;
     case 12:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsRepeat(value);
+      break;
+    case 13:
       var value = /** @type {!Array<number>} */ (reader.readPackedInt32());
       msg.setRepeatedOnList(value);
       break;
-    case 13:
+    case 14:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setStatus(value);
       break;
-    case 14:
+    case 15:
       var value = /** @type {!Array<number>} */ (reader.readPackedInt64());
       msg.setTournamentIdsList(value);
       break;
@@ -20415,35 +20450,35 @@ proto.adminapi.esm.UpdatePrizeRequest.serializeBinaryToWriter = function(message
       f
     );
   }
-  f = message.getTicketsRequired();
+  f = message.getTypeId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       6,
       f
     );
   }
-  f = message.getCountDownHours();
+  f = message.getTicketsRequired();
   if (f !== 0) {
-    writer.writeInt32(
+    writer.writeInt64(
       7,
       f
     );
   }
-  f = message.getTypeId();
+  f = message.getDurationDays();
   if (f !== 0) {
     writer.writeInt32(
       8,
       f
     );
   }
-  f = message.getRewardId();
+  f = message.getDurationHours();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       9,
       f
     );
   }
-  f = message.getRewardAmount();
+  f = message.getTimezone();
   if (f !== 0) {
     writer.writeInt32(
       10,
@@ -20457,24 +20492,31 @@ proto.adminapi.esm.UpdatePrizeRequest.serializeBinaryToWriter = function(message
       f
     );
   }
+  f = message.getIsRepeat();
+  if (f) {
+    writer.writeBool(
+      12,
+      f
+    );
+  }
   f = message.getRepeatedOnList();
   if (f.length > 0) {
     writer.writePackedInt32(
-      12,
+      13,
       f
     );
   }
   f = message.getStatus();
   if (f !== 0) {
     writer.writeInt32(
-      13,
+      14,
       f
     );
   }
   f = message.getTournamentIdsList();
   if (f.length > 0) {
     writer.writePackedInt64(
-      14,
+      15,
       f
     );
   }
@@ -20572,10 +20614,10 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.setContent = function(value) {
 
 
 /**
- * optional int64 tickets_required = 6;
+ * optional int32 type_id = 6;
  * @return {number}
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.getTicketsRequired = function() {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getTypeId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
@@ -20584,16 +20626,16 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getTicketsRequired = function() 
  * @param {number} value
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.setTicketsRequired = function(value) {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setTypeId = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
 /**
- * optional int32 count_down_hours = 7;
+ * optional int64 tickets_required = 7;
  * @return {number}
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.getCountDownHours = function() {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getTicketsRequired = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -20602,16 +20644,16 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getCountDownHours = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.setCountDownHours = function(value) {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setTicketsRequired = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional int32 type_id = 8;
+ * optional int32 duration_days = 8;
  * @return {number}
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.getTypeId = function() {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getDurationDays = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
@@ -20620,16 +20662,16 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getTypeId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.setTypeId = function(value) {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setDurationDays = function(value) {
   return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
 /**
- * optional int64 reward_id = 9;
+ * optional int32 duration_hours = 9;
  * @return {number}
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.getRewardId = function() {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getDurationHours = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
@@ -20638,16 +20680,16 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getRewardId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.setRewardId = function(value) {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setDurationHours = function(value) {
   return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
 /**
- * optional int32 reward_amount = 10;
+ * optional int32 timezone = 10;
  * @return {number}
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.getRewardAmount = function() {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getTimezone = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
@@ -20656,7 +20698,7 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getRewardAmount = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
-proto.adminapi.esm.UpdatePrizeRequest.prototype.setRewardAmount = function(value) {
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setTimezone = function(value) {
   return jspb.Message.setProto3IntField(this, 10, value);
 };
 
@@ -20680,11 +20722,29 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.setScheduledOn = function(value)
 
 
 /**
- * repeated int32 repeated_on = 12;
+ * optional bool is_repeat = 12;
+ * @return {boolean}
+ */
+proto.adminapi.esm.UpdatePrizeRequest.prototype.getIsRepeat = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 12, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
+ */
+proto.adminapi.esm.UpdatePrizeRequest.prototype.setIsRepeat = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 12, value);
+};
+
+
+/**
+ * repeated int32 repeated_on = 13;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.getRepeatedOnList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 12));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 13));
 };
 
 
@@ -20693,7 +20753,7 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getRepeatedOnList = function() {
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.setRepeatedOnList = function(value) {
-  return jspb.Message.setField(this, 12, value || []);
+  return jspb.Message.setField(this, 13, value || []);
 };
 
 
@@ -20703,7 +20763,7 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.setRepeatedOnList = function(val
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.addRepeatedOn = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 12, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 13, value, opt_index);
 };
 
 
@@ -20717,11 +20777,11 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.clearRepeatedOnList = function()
 
 
 /**
- * optional int32 status = 13;
+ * optional int32 status = 14;
  * @return {number}
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 14, 0));
 };
 
 
@@ -20730,16 +20790,16 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getStatus = function() {
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3IntField(this, 13, value);
+  return jspb.Message.setProto3IntField(this, 14, value);
 };
 
 
 /**
- * repeated int64 tournament_ids = 14;
+ * repeated int64 tournament_ids = 15;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.getTournamentIdsList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 14));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 15));
 };
 
 
@@ -20748,7 +20808,7 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.getTournamentIdsList = function(
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.setTournamentIdsList = function(value) {
-  return jspb.Message.setField(this, 14, value || []);
+  return jspb.Message.setField(this, 15, value || []);
 };
 
 
@@ -20758,7 +20818,7 @@ proto.adminapi.esm.UpdatePrizeRequest.prototype.setTournamentIdsList = function(
  * @return {!proto.adminapi.esm.UpdatePrizeRequest} returns this
  */
 proto.adminapi.esm.UpdatePrizeRequest.prototype.addTournamentIds = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 14, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 15, value, opt_index);
 };
 
 
@@ -21517,7 +21577,7 @@ proto.adminapi.esm.ListPrizeResponse.prototype.clearResultList = function() {
  * @private {!Array<number>}
  * @const
  */
-proto.adminapi.esm.PrizeDetail.repeatedFields_ = [12,16];
+proto.adminapi.esm.PrizeDetail.repeatedFields_ = [13,15];
 
 
 
@@ -21555,17 +21615,18 @@ proto.adminapi.esm.PrizeDetail.toObject = function(includeInstance, msg) {
     subtitle: jspb.Message.getFieldWithDefault(msg, 3, ""),
     imgUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
     content: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    countDownHours: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    typeId: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    rewardId: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    rewardAmount: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    typeId: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    ticketsRequired: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    durationDays: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    durationHours: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    timezone: jspb.Message.getFieldWithDefault(msg, 10, 0),
     scheduledOn: jspb.Message.getFieldWithDefault(msg, 11, 0),
-    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 12)) == null ? undefined : f,
-    status: jspb.Message.getFieldWithDefault(msg, 13, 0),
-    statusPrize: jspb.Message.getFieldWithDefault(msg, 14, 0),
-    ticketsCollected: jspb.Message.getFieldWithDefault(msg, 15, 0),
-    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 16)) == null ? undefined : f
+    isRepeat: jspb.Message.getBooleanFieldWithDefault(msg, 12, false),
+    repeatedOnList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f,
+    status: jspb.Message.getFieldWithDefault(msg, 14, 0),
+    tournamentIdsList: (f = jspb.Message.getRepeatedField(msg, 15)) == null ? undefined : f,
+    statusPrize: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    ticketsCollected: jspb.Message.getFieldWithDefault(msg, 17, 0)
   };
 
   if (includeInstance) {
@@ -21623,48 +21684,52 @@ proto.adminapi.esm.PrizeDetail.deserializeBinaryFromReader = function(msg, reade
       msg.setContent(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setTicketsRequired(value);
-      break;
-    case 7:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCountDownHours(value);
-      break;
-    case 8:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setTypeId(value);
       break;
-    case 9:
+    case 7:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setRewardId(value);
+      msg.setTicketsRequired(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationDays(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setDurationHours(value);
       break;
     case 10:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setRewardAmount(value);
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTimezone(value);
       break;
     case 11:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setScheduledOn(value);
       break;
     case 12:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsRepeat(value);
+      break;
+    case 13:
       var value = /** @type {!Array<number>} */ (reader.readPackedInt32());
       msg.setRepeatedOnList(value);
       break;
-    case 13:
+    case 14:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setStatus(value);
       break;
-    case 14:
+    case 15:
+      var value = /** @type {!Array<number>} */ (reader.readPackedInt64());
+      msg.setTournamentIdsList(value);
+      break;
+    case 16:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setStatusPrize(value);
       break;
-    case 15:
+    case 17:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setTicketsCollected(value);
-      break;
-    case 16:
-      var value = /** @type {!Array<number>} */ (reader.readPackedInt64());
-      msg.setTournamentIdsList(value);
       break;
     default:
       reader.skipField();
@@ -21730,37 +21795,37 @@ proto.adminapi.esm.PrizeDetail.serializeBinaryToWriter = function(message, write
       f
     );
   }
-  f = message.getTicketsRequired();
+  f = message.getTypeId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       6,
       f
     );
   }
-  f = message.getCountDownHours();
+  f = message.getTicketsRequired();
   if (f !== 0) {
-    writer.writeInt32(
+    writer.writeInt64(
       7,
       f
     );
   }
-  f = message.getTypeId();
+  f = message.getDurationDays();
   if (f !== 0) {
     writer.writeInt32(
       8,
       f
     );
   }
-  f = message.getRewardId();
+  f = message.getDurationHours();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       9,
       f
     );
   }
-  f = message.getRewardAmount();
+  f = message.getTimezone();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeInt32(
       10,
       f
     );
@@ -21772,38 +21837,45 @@ proto.adminapi.esm.PrizeDetail.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getIsRepeat();
+  if (f) {
+    writer.writeBool(
+      12,
+      f
+    );
+  }
   f = message.getRepeatedOnList();
   if (f.length > 0) {
     writer.writePackedInt32(
-      12,
+      13,
       f
     );
   }
   f = message.getStatus();
   if (f !== 0) {
     writer.writeInt32(
-      13,
-      f
-    );
-  }
-  f = message.getStatusPrize();
-  if (f !== 0) {
-    writer.writeInt32(
       14,
-      f
-    );
-  }
-  f = message.getTicketsCollected();
-  if (f !== 0) {
-    writer.writeInt64(
-      15,
       f
     );
   }
   f = message.getTournamentIdsList();
   if (f.length > 0) {
     writer.writePackedInt64(
+      15,
+      f
+    );
+  }
+  f = message.getStatusPrize();
+  if (f !== 0) {
+    writer.writeInt32(
       16,
+      f
+    );
+  }
+  f = message.getTicketsCollected();
+  if (f !== 0) {
+    writer.writeInt64(
+      17,
       f
     );
   }
@@ -21901,10 +21973,10 @@ proto.adminapi.esm.PrizeDetail.prototype.setContent = function(value) {
 
 
 /**
- * optional int64 tickets_required = 6;
+ * optional int32 type_id = 6;
  * @return {number}
  */
-proto.adminapi.esm.PrizeDetail.prototype.getTicketsRequired = function() {
+proto.adminapi.esm.PrizeDetail.prototype.getTypeId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
@@ -21913,16 +21985,16 @@ proto.adminapi.esm.PrizeDetail.prototype.getTicketsRequired = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setTicketsRequired = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setTypeId = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
 /**
- * optional int32 count_down_hours = 7;
+ * optional int64 tickets_required = 7;
  * @return {number}
  */
-proto.adminapi.esm.PrizeDetail.prototype.getCountDownHours = function() {
+proto.adminapi.esm.PrizeDetail.prototype.getTicketsRequired = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -21931,16 +22003,16 @@ proto.adminapi.esm.PrizeDetail.prototype.getCountDownHours = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setCountDownHours = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setTicketsRequired = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional int32 type_id = 8;
+ * optional int32 duration_days = 8;
  * @return {number}
  */
-proto.adminapi.esm.PrizeDetail.prototype.getTypeId = function() {
+proto.adminapi.esm.PrizeDetail.prototype.getDurationDays = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
@@ -21949,16 +22021,16 @@ proto.adminapi.esm.PrizeDetail.prototype.getTypeId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setTypeId = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setDurationDays = function(value) {
   return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
 /**
- * optional int64 reward_id = 9;
+ * optional int32 duration_hours = 9;
  * @return {number}
  */
-proto.adminapi.esm.PrizeDetail.prototype.getRewardId = function() {
+proto.adminapi.esm.PrizeDetail.prototype.getDurationHours = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
@@ -21967,16 +22039,16 @@ proto.adminapi.esm.PrizeDetail.prototype.getRewardId = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setRewardId = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setDurationHours = function(value) {
   return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
 /**
- * optional int64 reward_amount = 10;
+ * optional int32 timezone = 10;
  * @return {number}
  */
-proto.adminapi.esm.PrizeDetail.prototype.getRewardAmount = function() {
+proto.adminapi.esm.PrizeDetail.prototype.getTimezone = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
@@ -21985,7 +22057,7 @@ proto.adminapi.esm.PrizeDetail.prototype.getRewardAmount = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setRewardAmount = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setTimezone = function(value) {
   return jspb.Message.setProto3IntField(this, 10, value);
 };
 
@@ -22009,11 +22081,29 @@ proto.adminapi.esm.PrizeDetail.prototype.setScheduledOn = function(value) {
 
 
 /**
- * repeated int32 repeated_on = 12;
+ * optional bool is_repeat = 12;
+ * @return {boolean}
+ */
+proto.adminapi.esm.PrizeDetail.prototype.getIsRepeat = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 12, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.adminapi.esm.PrizeDetail} returns this
+ */
+proto.adminapi.esm.PrizeDetail.prototype.setIsRepeat = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 12, value);
+};
+
+
+/**
+ * repeated int32 repeated_on = 13;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.PrizeDetail.prototype.getRepeatedOnList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 12));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 13));
 };
 
 
@@ -22022,7 +22112,7 @@ proto.adminapi.esm.PrizeDetail.prototype.getRepeatedOnList = function() {
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
 proto.adminapi.esm.PrizeDetail.prototype.setRepeatedOnList = function(value) {
-  return jspb.Message.setField(this, 12, value || []);
+  return jspb.Message.setField(this, 13, value || []);
 };
 
 
@@ -22032,7 +22122,7 @@ proto.adminapi.esm.PrizeDetail.prototype.setRepeatedOnList = function(value) {
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
 proto.adminapi.esm.PrizeDetail.prototype.addRepeatedOn = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 12, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 13, value, opt_index);
 };
 
 
@@ -22046,28 +22136,10 @@ proto.adminapi.esm.PrizeDetail.prototype.clearRepeatedOnList = function() {
 
 
 /**
- * optional int32 status = 13;
+ * optional int32 status = 14;
  * @return {number}
  */
 proto.adminapi.esm.PrizeDetail.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.adminapi.esm.PrizeDetail} returns this
- */
-proto.adminapi.esm.PrizeDetail.prototype.setStatus = function(value) {
-  return jspb.Message.setProto3IntField(this, 13, value);
-};
-
-
-/**
- * optional int32 status_prize = 14;
- * @return {number}
- */
-proto.adminapi.esm.PrizeDetail.prototype.getStatusPrize = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 14, 0));
 };
 
@@ -22076,35 +22148,17 @@ proto.adminapi.esm.PrizeDetail.prototype.getStatusPrize = function() {
  * @param {number} value
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
-proto.adminapi.esm.PrizeDetail.prototype.setStatusPrize = function(value) {
+proto.adminapi.esm.PrizeDetail.prototype.setStatus = function(value) {
   return jspb.Message.setProto3IntField(this, 14, value);
 };
 
 
 /**
- * optional int64 tickets_collected = 15;
- * @return {number}
- */
-proto.adminapi.esm.PrizeDetail.prototype.getTicketsCollected = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.adminapi.esm.PrizeDetail} returns this
- */
-proto.adminapi.esm.PrizeDetail.prototype.setTicketsCollected = function(value) {
-  return jspb.Message.setProto3IntField(this, 15, value);
-};
-
-
-/**
- * repeated int64 tournament_ids = 16;
+ * repeated int64 tournament_ids = 15;
  * @return {!Array<number>}
  */
 proto.adminapi.esm.PrizeDetail.prototype.getTournamentIdsList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 16));
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 15));
 };
 
 
@@ -22113,7 +22167,7 @@ proto.adminapi.esm.PrizeDetail.prototype.getTournamentIdsList = function() {
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
 proto.adminapi.esm.PrizeDetail.prototype.setTournamentIdsList = function(value) {
-  return jspb.Message.setField(this, 16, value || []);
+  return jspb.Message.setField(this, 15, value || []);
 };
 
 
@@ -22123,7 +22177,7 @@ proto.adminapi.esm.PrizeDetail.prototype.setTournamentIdsList = function(value) 
  * @return {!proto.adminapi.esm.PrizeDetail} returns this
  */
 proto.adminapi.esm.PrizeDetail.prototype.addTournamentIds = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 16, value, opt_index);
+  return jspb.Message.addToRepeatedField(this, 15, value, opt_index);
 };
 
 
@@ -22133,6 +22187,42 @@ proto.adminapi.esm.PrizeDetail.prototype.addTournamentIds = function(value, opt_
  */
 proto.adminapi.esm.PrizeDetail.prototype.clearTournamentIdsList = function() {
   return this.setTournamentIdsList([]);
+};
+
+
+/**
+ * optional int32 status_prize = 16;
+ * @return {number}
+ */
+proto.adminapi.esm.PrizeDetail.prototype.getStatusPrize = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.adminapi.esm.PrizeDetail} returns this
+ */
+proto.adminapi.esm.PrizeDetail.prototype.setStatusPrize = function(value) {
+  return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * optional int64 tickets_collected = 17;
+ * @return {number}
+ */
+proto.adminapi.esm.PrizeDetail.prototype.getTicketsCollected = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 17, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.adminapi.esm.PrizeDetail} returns this
+ */
+proto.adminapi.esm.PrizeDetail.prototype.setTicketsCollected = function(value) {
+  return jspb.Message.setProto3IntField(this, 17, value);
 };
 
 

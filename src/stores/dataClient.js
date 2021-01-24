@@ -293,17 +293,25 @@ const dataClient = () => {
       subtitle: "", 
       img_url: "", 
       content: "", 
-      tickets_required: 0,
-      count_down_hours: 0,
       type_id: 0, 
-      reward_id: 0,
-      reward_amount: 0,
+      tickets_required: 0,
+      duration_days: 0,
+      duration_hours: 0,
+      timezone: 0,
       scheduled_on: 0,
+      is_repeat: false,
       repeated_on: [], 
+      repeated_on_mon: false,
+      repeated_on_tue: false,
+      repeated_on_wed: false,
+      repeated_on_thu: false,
+      repeated_on_fri: false,
+      repeated_on_sat: false,
+      repeated_on_sun: false,
       status: 1,
+      tournament_ids: [],
       status_prize: 0,
       tickets_collected: 0,
-      tournament_ids: [],
     },
     prizes: [],
     prizeCount: {
@@ -1171,6 +1179,7 @@ const dataClient = () => {
        */
       async addPrize() {
 
+      
         let scheduled_on = new Date(state.prize.scheduled_on);
         let repeated_on = state.prize.repeated_on.toString().replace(/\s/g, '').split`,`.map(x=>+x);
         let tournament_ids = state.prize.tournament_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
@@ -1180,20 +1189,23 @@ const dataClient = () => {
         request.setSubtitle(state.prize.subtitle);
         request.setImgUrl(state.prize.img_url);
         request.setContent(state.prize.content);
-        request.setTicketsRequired(state.prize.tickets_required);
-        request.setCountDownHours(state.prize.count_down_hours);
+
         request.setTypeId(state.prize.type_id);
-        request.setRewardId(state.prize.reward_id);
-        request.setRewardAmount(state.prize.reward_amount);
+        request.setTicketsRequired(state.prize.tickets_required);
+        request.setDurationDays(state.prize.duration_days);
+        request.setDurationHours(state.prize.duration_hours);
+
+        request.setTimezone(state.prize.timezone);
         request.setScheduledOn([scheduled_on.valueOf() / 1000]);
+
+        request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
         request.setTournamentIdsList(tournament_ids);
         
         try {
           const response = await state.apiClient.addPrize(request, {'authorization': state.jwtToken});
-          alert('')
-          console.log(response)
+          //console.log(response)
           return response.getResult() > 0
         } catch (err) {
           console.log(err);
@@ -1214,12 +1226,16 @@ const dataClient = () => {
         request.setSubtitle(state.prize.subtitle);
         request.setImgUrl(state.prize.img_url);
         request.setContent(state.prize.content);
-        request.setTicketsRequired(state.prize.tickets_required);
-        request.setCountDownHours(state.prize.count_down_hours);
+
         request.setTypeId(state.prize.type_id);
-        request.setRewardId(state.prize.reward_id);
-        request.setRewardAmount(state.prize.reward_amount);
+        request.setTicketsRequired(state.prize.tickets_required);
+        request.setDurationDays(state.prize.duration_days);
+        request.setDurationHours(state.prize.duration_hours);
+
+        request.setTimezone(state.prize.timezone);
         request.setScheduledOn([scheduled_on.valueOf() / 1000]);
+
+        request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
         request.setTournamentIdsList(tournament_ids);
@@ -1288,13 +1304,14 @@ const dataClient = () => {
               title: item.getTitle(), 
               subtitle: item.getSubtitle(), 
               img_url: item.getImgUrl(), 
-              content: item.getContent(), 
-              tickets_required: item.getTicketsRequired(),
-              count_down_hours: item.getCountDownHours(),
+              content: item.getContent(),
               type_id: item.getTypeId(), 
-              reward_id: item.getRewardId(), 
-              reward_amount: item.getRewardAmount(), 
+              tickets_required: item.getTicketsRequired(),
+              duration_days: item.getDurationDays(),
+              duration_hours: item.getDurationHours(),
+              timezone: item.getTimezone(),
               scheduled_on: [timeConverter(item.getScheduledOn())],
+              is_repeat: item.getIsRepeat(),
               repeated_on: item.getRepeatedOnList(),
               status: item.getStatus(),
               status_prize: item.getStatusPrize(),

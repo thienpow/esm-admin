@@ -121,7 +121,7 @@
           <th class="label-cell">Title</th>
           
           {#if $tour_set_ids}
-          <th class="numeric-cell">Set IDs</th>
+          <th class="numeric-cell">Format Set IDs</th>
           {/if}
 
           {#if $show_status}
