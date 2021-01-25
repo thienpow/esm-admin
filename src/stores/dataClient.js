@@ -1391,19 +1391,19 @@ const dataClient = () => {
       },
 
 
-      async addTournamentSetGameRule() {
+      async addTournamentSetGameRule(set_id, game_id, duration_days, duration_hours, duration_minutes, group_id) {
 
         let request = state.addTournamentSetGameRuleRequest;
-        request.setSetId(state.tournament_set_game_rule.set_id);
-        request.setGameId(state.tournament_set_game_rule.game_id);
-        request.setDurationDays(state.tournament_set_game_rule.duration_days);
-        request.setDurationHours(state.tournament_set_game_rule.duration_hours);
-        request.setDurationMinutes(state.tournament_set_game_rule.duration_minutes);
-        request.setGroupId(state.tournament_set_game_rule.group_id);
+        request.setSetId(set_id);
+        request.setGameId(game_id);
+        request.setDurationDays(duration_days);
+        request.setDurationHours(duration_hours);
+        request.setDurationMinutes(duration_minutes);
+        request.setGroupId(group_id);
         
         try {
           const response = await state.apiClient.addTournamentSetGameRule(request, {'authorization': state.jwtToken});
-          return response.getResult() > 0
+          return response.getResult()
         } catch (err) {
           //console.log(err);
           state.isLoggedIn = false;
@@ -1600,15 +1600,14 @@ const dataClient = () => {
       },
 
 
-      async getTournamentSetGameRuleList() {
+      async getTournamentSetGameRuleList(id) {
           
         let request = state.listTournamentSetGameRuleRequest;
-        request.setLimit(1000);
-        request.setOffset(0);
+        request.setId(id);
 
         try {
           const response = await state.apiClient.listTournamentSetGameRule(request, {'authorization': state.jwtToken});
-
+          //console.log(response);
           state.tournament_set_game_rules = [];
           for (let item of response.getResultList()) {
             state.tournament_set_game_rules = [...state.tournament_set_game_rules,  {
