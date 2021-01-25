@@ -145,14 +145,14 @@
           <Col width="100" medium="50">
 
             <ListInput
-            class="item-content-input"
-            label="Scheduled On"
-            calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
-            type="datepicker"
-            value={$dataClient.prize.scheduled_on}
-            on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0]}
-            required
-            validate />
+              class="item-content-input"
+              label="Scheduled On"
+              calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
+              type="datepicker"
+              value={$dataClient.prize.scheduled_on}
+              on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0]}
+              required
+              validate />
 
           </Col>
         </Row>
@@ -160,8 +160,8 @@
           <Col width="100" medium="20">
             <BlockTitle>Repeat</BlockTitle>
             <List>
-              <ListItem radio value={$dataClient.prize.is_repeat} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = e.detail[0].returnValue} name="radio-repeat" title="Yes" />
-              <ListItem radio value={!$dataClient.prize.is_repeat} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = !e.detail[0].returnValue} name="radio-repeat" title="No" />
+              <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
+              <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
             </List>
               
           </Col>
@@ -177,13 +177,13 @@
               <Col>S</Col>
             </Row>
             <Row>
-              <Col><ListItem checkbox title="Mon" name="cb-repeated" checked={$dataClient.prize.repeated_on_mon} on:change={(e) => $dataClient.prize.repeated_on_mon = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Tue" name="cb-repeated" checked={$dataClient.prize.repeated_on_tue} on:change={(e) => $dataClient.prize.repeated_on_tue = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Wed" name="cb-repeated" checked={$dataClient.prize.repeated_on_wed} on:change={(e) => $dataClient.prize.repeated_on_wed = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Thu" name="cb-repeated" checked={$dataClient.prize.repeated_on_thu} on:change={(e) => $dataClient.prize.repeated_on_thu = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Fri" name="cb-repeated" checked={$dataClient.prize.repeated_on_fri} on:change={(e) => $dataClient.prize.repeated_on_fri = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Sat" name="cb-repeated" checked={$dataClient.prize.repeated_on_sat} on:change={(e) => $dataClient.prize.repeated_on_sat = e.detail[0].returnValue} /></Col>
-              <Col><ListItem checkbox title="Sun" name="cb-repeated" checked={$dataClient.prize.repeated_on_sun} on:change={(e) => $dataClient.prize.repeated_on_sun = e.detail[0].returnValue} /></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
+              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
             </Row>
           </Col>
         </Row>
@@ -196,7 +196,7 @@
                   title="Find & Select Tournaments" 
                   smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
                 >
-                  <select name="car" multiple value={$dataClient.prize.tournament_ids}>
+                  <select multiple bind:value={$dataClient.prize.tournament_ids}>
                     <option value={1}>test game 1</option>
                       <option value={2}>test game 2</option>
                       <option value={3}>test game 3</option>
@@ -265,32 +265,32 @@ import {
 
   $: title = id > 0 ? "Edit Prize" : "New Prize";
 
-  let tournament_ids = [];
 
   async function doSave() {
 
-    console.log(tournament_ids);
     const isValid = f7.input.validateInputs('#prizeForm');
     if (!isValid) {
       return;
     }
 
-    $dataClient.prize.repeated_on = [];
+    let repeated_on = [];
     if ($dataClient.prize.repeated_on_mon)
-      $dataClient.prize.repeated_on.push(1);
+      repeated_on.push(1);
     if ($dataClient.prize.repeated_on_tue)
-      $dataClient.prize.repeated_on.push(2);
+      repeated_on.push(2);
     if ($dataClient.prize.repeated_on_wed)
-      $dataClient.prize.repeated_on.push(3);
+      repeated_on.push(3);
     if ($dataClient.prize.repeated_on_thu)
-      $dataClient.prize.repeated_on.push(4);
+      repeated_on.push(4);
     if ($dataClient.prize.repeated_on_fri)
-      $dataClient.prize.repeated_on.push(5);
+      repeated_on.push(5);
     if ($dataClient.prize.repeated_on_sat)
-      $dataClient.prize.repeated_on.push(6);
+      repeated_on.push(6);
     if ($dataClient.prize.repeated_on_sun)
-      $dataClient.prize.repeated_on.push(7);
-
+      repeated_on.push(7);
+    
+    $dataClient.prize.repeated_on = repeated_on;
+    
     let result = false;
     if (id > 0) {
       result = await dataClient.updatePrize();

@@ -80,7 +80,7 @@
               title="Find a Game" 
               smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Game'}}
             >
-              <select name="car" value={game_id} oninput={(e) => alert(e)}>
+              <select name="car" bind:value={game_id} oninput={(e) => alert(e)}>
                 <option value={0}>Not Selected</option>
                 <option value={1}>test game 1</option>
                 <option value={2}>test game 2</option>
@@ -139,40 +139,47 @@
           </Col>
         </Row>
               
-        <div class="data-table">
-          <table>
-          <thead>
-            <tr>
-              <th class="numeric-cell">GameID</th>
-              <th class="numeric-cell">Days</th>
-              <th class="numeric-cell">Hours</th>
-              <th class="numeric-cell">Minutes</th>
-              {#if $dataClient.tournament_set.is_group}
-              <th class="numeric-cell">GroupID</th>
-              {/if}
-              <th class="numeric-cell"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each set_game_rules as set, i}
-              <tr>
-                <td class="numeric-cell">{set.game_id}</td>
-                <td class="numeric-cell">{set.duration_days}</td>
-                <td class="numeric-cell">{set.duration_hours}</td>
-                <td class="numeric-cell">{set.duration_minutes}</td>
-                {#if $dataClient.tournament_set.is_group}
-                <td class="numeric-cell">{set.group_id}</td>
-                {/if}
-                <td>
-                  <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
-                    <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:minus_circle" />
-                  </Link>
-                </td>
-              </tr>
-            {/each}
-          </tbody>
-          </table>
-        </div>
+        <BlockTitle>List  of Linked Games</BlockTitle>
+        <Card>
+          <CardContent>
+
+            <div class="data-table">
+              <table>
+              <thead>
+                <tr>
+                  <th class="numeric-cell">GameID</th>
+                  <th class="numeric-cell">Days</th>
+                  <th class="numeric-cell">Hours</th>
+                  <th class="numeric-cell">Minutes</th>
+                  {#if $dataClient.tournament_set.is_group}
+                  <th class="numeric-cell">GroupID</th>
+                  {/if}
+                  <th class="numeric-cell"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {#each set_game_rules as set, i}
+                  <tr>
+                    <td class="numeric-cell">{set.game_id}</td>
+                    <td class="numeric-cell">{set.duration_days}</td>
+                    <td class="numeric-cell">{set.duration_hours}</td>
+                    <td class="numeric-cell">{set.duration_minutes}</td>
+                    {#if $dataClient.tournament_set.is_group}
+                    <td class="numeric-cell">{set.group_id}</td>
+                    {/if}
+                    <td>
+                      <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
+                        <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:minus_circle" />
+                      </Link>
+                    </td>
+                  </tr>
+                {/each}
+              </tbody>
+              </table>
+            </div>
+    
+          </CardContent>
+        </Card>
 
 
       </CardContent>

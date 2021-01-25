@@ -49,7 +49,7 @@
               title="Find & Select Format Sets" 
               smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Format Set'}}
             >
-              <select name="car" multiple value={$dataClient.tournament.tour_set_ids}>
+              <select name="car" multiple bind:value={$dataClient.tournament.tour_set_ids}>
                 <option value={1}>test format 1</option>
                   <option value={2}>test format 2</option>
                   <option value={3}>test format 3</option>
