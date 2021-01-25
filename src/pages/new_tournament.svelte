@@ -44,10 +44,21 @@
     <Card>
       <CardContent>
         <Row>
-          <Col width="30">
-            <Button fill raised color="blue" animate={false}>Find & Select Format Sets</Button>
-          </Col>
           <Col width="70">
+            <ListItem 
+              title="Find & Select Format Sets" 
+              smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Format Set'}}
+            >
+              <select name="car" multiple value={$dataClient.tournament.tour_set_ids}>
+                <option value={1}>test format 1</option>
+                  <option value={2}>test format 2</option>
+                  <option value={3}>test format 3</option>
+                  <option value={4}>test format 4</option>
+                  <option value={5}>test format 5</option>
+              </select>
+            </ListItem>
+          </Col>
+          <Col width="30">
   
             <ListInput
               class="item-content-input"

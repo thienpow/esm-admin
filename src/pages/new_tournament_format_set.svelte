@@ -59,7 +59,7 @@
     <Card>
       <CardContent>
         <Row>
-          <Col width="25">
+          <Col width="20">
             {#if $dataClient.tournament_set.is_group}
             <ListInput
               class="item-content-input"
@@ -75,7 +75,22 @@
             {/if}
 
           </Col>
-          <Col width="50">
+          <Col width="60">
+            <ListItem 
+              title="Find a Game" 
+              smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Game'}}
+            >
+              <select name="car" value={game_id} oninput={(e) => alert(e)}>
+                <option value={0}>Not Selected</option>
+                <option value={1}>test game 1</option>
+                <option value={2}>test game 2</option>
+                <option value={3}>test game 3</option>
+                <option value={4}>test game 4</option>
+                <option value={5}>test game 5</option>
+              </select>
+            </ListItem>
+          </Col>
+          <Col width="20">
             <ListInput
               label="Game"
               floatingLabel
@@ -86,9 +101,6 @@
               value={game_id}
               onInput={(e) => game_id = parseInt(e.target.value)}
             />
-          </Col>
-          <Col width="25">
-            <Button fill raised color="blue" animate={false}>Find a Game</Button>
           </Col>
         </Row>
         <Row>

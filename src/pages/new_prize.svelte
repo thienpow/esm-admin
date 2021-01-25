@@ -78,6 +78,7 @@
                 type="select"
                 value={$dataClient.prize.type_id}
                 onInput={(e) => $dataClient.prize.type_id = e.target.value}
+                required validate
                 placeholder="Please choose...">
 
               {#each $dataClient.prizeTypes as pT}
@@ -97,7 +98,7 @@
               type="number"
               step="1"
               value={$dataClient.prize.tickets_required}
-              onInput={(e) => $dataClient.prize.tickets_required = parseInt(e.target.value)} />
+              onInput={(e) => $dataClient.prize.tickets_required = parseInt(e.target.value)} required validate />
 
             {/if}
             {#if $dataClient.prize.type_id == 3 || $dataClient.prize.type_id == 4}
@@ -110,7 +111,7 @@
                     type="number"
                     step="1"
                     value={$dataClient.prize.duration_days}
-                    onInput={(e) => $dataClient.prize.duration_days = parseInt(e.target.value)} />
+                    onInput={(e) => $dataClient.prize.duration_days = parseInt(e.target.value)} required validate />
 
                 </Col>
                 <Col width="100" medium="50">
@@ -121,7 +122,7 @@
                   type="number"
                   step="1"
                   value={$dataClient.prize.duration_hours}
-                  onInput={(e) => $dataClient.prize.duration_hours = parseInt(e.target.value)} />
+                  onInput={(e) => $dataClient.prize.duration_hours = parseInt(e.target.value)} required validate />
 
                 </Col>
               </Row>
@@ -190,10 +191,21 @@
         <Card>
           <CardContent>
             <Row>
-              <Col width="30">
-                <Button fill raised color="blue" animate={false}>Find & Select Tournaments</Button>
-              </Col>
               <Col width="70">
+                <ListItem 
+                  title="Find & Select Tournaments" 
+                  smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
+                >
+                  <select name="car" multiple value={$dataClient.prize.tournament_ids}>
+                    <option value={1}>test game 1</option>
+                      <option value={2}>test game 2</option>
+                      <option value={3}>test game 3</option>
+                      <option value={4}>test game 4</option>
+                      <option value={5}>test game 5</option>
+                  </select>
+                </ListItem>
+              </Col>
+              <Col width="30">
                 <ListInput
                   label="Tournament Formats"
                   floatingLabel
@@ -225,7 +237,7 @@
 
 </Page>
 <script>
-  import {
+import {
     f7,
     theme,
     Card, CardContent,
@@ -253,9 +265,11 @@
 
   $: title = id > 0 ? "Edit Prize" : "New Prize";
 
+  let tournament_ids = [];
 
   async function doSave() {
 
+    console.log(tournament_ids);
     const isValid = f7.input.validateInputs('#prizeForm');
     if (!isValid) {
       return;
