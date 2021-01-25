@@ -97,7 +97,7 @@
               type="number"
               step="1"
               value={$dataClient.prize.tickets_required}
-              onInput={(e) => $dataClient.prize.tickets_required = e.target.value} />
+              onInput={(e) => $dataClient.prize.tickets_required = parseInt(e.target.value)} />
 
             {/if}
             {#if $dataClient.prize.type_id == 3 || $dataClient.prize.type_id == 4}
@@ -110,7 +110,7 @@
                     type="number"
                     step="1"
                     value={$dataClient.prize.duration_days}
-                    onInput={(e) => $dataClient.prize.duration_days = e.target.value} />
+                    onInput={(e) => $dataClient.prize.duration_days = parseInt(e.target.value)} />
 
                 </Col>
                 <Col width="100" medium="50">
@@ -121,7 +121,7 @@
                   type="number"
                   step="1"
                   value={$dataClient.prize.duration_hours}
-                  onInput={(e) => $dataClient.prize.duration_hours = e.target.value} />
+                  onInput={(e) => $dataClient.prize.duration_hours = parseInt(e.target.value)} />
 
                 </Col>
               </Row>

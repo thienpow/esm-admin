@@ -44,7 +44,10 @@
     <Card>
       <CardContent>
         <Row>
-          <Col>
+          <Col width="30">
+            <Button fill raised color="blue" animate={false}>Find & Select Format Sets</Button>
+          </Col>
+          <Col width="70">
   
             <ListInput
               class="item-content-input"
@@ -57,7 +60,6 @@
         
       
           </Col>
-          <Col></Col>
         </Row>
       </CardContent>
     </Card>

@@ -33,7 +33,7 @@
               type="number"
               step="1"
               value={$dataClient.tournament_set.duration_days}
-              onInput={(e) => $dataClient.tournament_set.duration_days = e.target.value} />
+              onInput={(e) => $dataClient.tournament_set.duration_days = parseInt(e.target.value)} />
     
           </Col>
           <Col width="100" medium="35">
@@ -44,7 +44,7 @@
             type="number"
             step="1"
             value={$dataClient.tournament_set.duration_hours}
-            onInput={(e) => $dataClient.tournament_set.duration_hours = e.target.value} />
+            onInput={(e) => $dataClient.tournament_set.duration_hours = parseInt(e.target.value)} />
     
           </Col>
     
@@ -151,7 +151,11 @@
                 {#if $dataClient.tournament_set.is_group}
                 <td class="numeric-cell">{set.group_id}</td>
                 {/if}
-                <td><Button fill raised color="blue" animate={false} on:click={(e) => delFromList(set.id)}>delete</Button></td>
+                <td>
+                  <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
+                    <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:minus_circle" />
+                  </Link>
+                </td>
               </tr>
             {/each}
           </tbody>
@@ -180,9 +184,11 @@
     f7,
     theme,
     Card, CardContent,
+    Chip,
     Col,
     Page,
     Navbar,
+    Link,
     List,
     ListInput,
     ListItem,
@@ -213,9 +219,11 @@
 
   async function delFromList(id) {
 
-    await dataClient.deleteTournamentSetGameRule(id);
-    set_game_rules = set_game_rules.filter(set => set.id != id);
-
+    f7.dialog.confirm("Are you sure want to delete?", async function () {
+      await dataClient.deleteTournamentSetGameRule(id);
+      set_game_rules = set_game_rules.filter(set => set.id != id);
+    });
+    
   }
 
   async function addToList() {
