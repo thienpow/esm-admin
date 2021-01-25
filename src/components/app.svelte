@@ -18,6 +18,7 @@
           <ListItem link="/users/" view=".view-main" panelClose title="Users"/>
           <ListItem divider title="" />
           <ListItem link="/tournaments/" view=".view-main" panelClose title="Tournaments"/>
+          <ListItem link="/formatsets/" view=".view-main" panelClose title="Format Sets"/>
           <ListItem link="/winners/" view=".view-main" panelClose title="Winners"/>
           <ListItem divider title="" />
 

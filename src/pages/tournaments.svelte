@@ -20,10 +20,10 @@
         </Link>
       </Col>
       <Col tag="span" width={100} medium={80}>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total} prizes" color="blue" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft} prizes" color="red" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published} prizes" color="green" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived} prizes" color="gray" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total}" color="blue" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft}" color="red" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published}" color="green" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived}" color="gray" /></Link>
       </Col>
       <Col tag="span">
       </Col>
@@ -174,7 +174,7 @@
 
 
   async function resetRows() {
-    await dataClient.getGameList($row_count);
+    await dataClient.getTournamentList($row_count);
     searchString = null;
   }
 

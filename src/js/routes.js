@@ -10,6 +10,7 @@ import NewPrizePage from '../pages/new_prize.svelte';
 import NewItemPage from '../pages/new_item.svelte';
 import NewSubscriptionPage from '../pages/new_subscription.svelte';
 import NewTournamentPage from '../pages/new_tournament.svelte';
+import NewTournamentFormatSetPage from '../pages/new_tournament_format_set.svelte';
 
 import NewUserPage from '../pages/new_user.svelte';
 
@@ -24,6 +25,8 @@ import ConfigsPage from '../pages/configs.svelte';
 import GameLeaderRulePage from '../pages/game_leader_rule.svelte';
 
 import TournamentsPage from '../pages/tournaments.svelte';
+import TournamentFormatSetsPage from '../pages/tournament_format_sets.svelte';
+
 import WinnersPage from '../pages/winners.svelte';
 import LogPlayPage from '../pages/log_play.svelte';
 import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
@@ -141,7 +144,6 @@ var routes = [
       //transition: 'f7-fade',
     }
   },
-  //Raffle
   {
     path: '/newtournament/:id/',
     component: NewTournamentPage,
@@ -152,6 +154,20 @@ var routes = [
   {
     path: '/tournaments/',
     component: TournamentsPage,
+    options: {
+      //transition: 'f7-fade',
+    }
+  },
+  {
+    path: '/newformatset/:id/',
+    component: NewTournamentFormatSetPage,
+    options: {
+      animate: false,
+    },
+  },
+  {
+    path: '/formatsets/',
+    component: TournamentFormatSetsPage,
     options: {
       //transition: 'f7-fade',
     }

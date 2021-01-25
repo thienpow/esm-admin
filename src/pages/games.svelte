@@ -21,10 +21,10 @@
         </Link>
       </Col>
       <Col tag="span" width={100} medium={70}>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.gameCount.total} games" color="blue" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.gameCount.draft} games" color="red" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.gameCount.published} games" color="green" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.gameCount.archived} games" color="gray" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.gameCount.total}" color="blue" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.gameCount.draft}" color="red" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.gameCount.published}" color="green" /></Link>
+        <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.gameCount.archived}" color="gray" /></Link>
       </Col>
       <Col tag="span" width={100} medium={15}>
         

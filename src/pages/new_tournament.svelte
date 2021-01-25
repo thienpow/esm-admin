@@ -1,43 +1,66 @@
 <Page>
   <Navbar title={title}></Navbar>
 
-  <BlockTitle></BlockTitle>
+  
   <List noHairlinesMd form id="tournamentForm">
-    <ListInput
-      class="item-content-input"
-      label="Title"
-      type="text"
-      value={$dataClient.tournament.title}
-      onInput={(e) => $dataClient.tournament.title = e.target.value}
-      required
-      validate
+    <BlockTitle>Basic Details</BlockTitle>
+    <Card>
+      <CardContent>
+        <Row>
+          <Col>
+            <ListInput
+                class="item-content-input"
+                label="Status"
+                type="select"
+                value={$dataClient.tournament.status}
+                onInput={(e) => $dataClient.tournament.status = e.target.value}
+                placeholder="Please choose...">
 
-    ></ListInput>
+                {#each $dataClient.statusTypes as sT}
+                <option value={sT.id}>{sT.title}</option>
+                {/each}
 
-    <ListInput
-      class="item-content-input"
-      label="Format Set IDs"
-      type="text"
-      value={$dataClient.tournament.tour_set_ids}
-      onInput={(e) => $dataClient.tournament.tour_set_ids = e.target.value}
-      required
-      validate
+            </ListInput>
 
-    ></ListInput>
+          </Col>
+          <Col>
 
-    <ListInput
-      class="item-content-input"
-      label="Status"
-      type="select"
-      value={$dataClient.tournament.status}
-      onInput={(e) => $dataClient.tournament.status = e.target.value}
-      placeholder="Please choose..."
-    >
-      {#each $dataClient.statusTypes as sT}
-      <option value={sT.id}>{sT.title}</option>
-      {/each}
-    </ListInput>
-
+            <ListInput
+              class="item-content-input"
+              label="Title"
+              type="text"
+              value={$dataClient.tournament.title}
+              onInput={(e) => $dataClient.tournament.title = e.target.value}
+              required
+              validate />
+            
+          </Col>
+        </Row>
+        
+      </CardContent>
+      
+    </Card>
+    <BlockTitle>Format Sets</BlockTitle>
+    <Card>
+      <CardContent>
+        <Row>
+          <Col>
+  
+            <ListInput
+              class="item-content-input"
+              label="Format Set IDs"
+              type="text"
+              value={$dataClient.tournament.tour_set_ids}
+              onInput={(e) => $dataClient.tournament.tour_set_ids = e.target.value}
+              required
+              validate />
+        
+      
+          </Col>
+          <Col></Col>
+        </Row>
+      </CardContent>
+    </Card>
   </List>
 
   <BlockTitle></BlockTitle>
@@ -53,6 +76,7 @@
   import {
     f7,
     theme,
+    Card, CardContent,
     Col,
     Page,
     Navbar,
@@ -107,4 +131,5 @@
 
   onMount(async () => {
   });
+  
 </script>

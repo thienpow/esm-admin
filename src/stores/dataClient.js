@@ -1382,6 +1382,7 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addTournamentSet(request, {'authorization': state.jwtToken});
+          //console.log(response);
           return response.getResult() > 0
         } catch (err) {
           //console.log(err);
@@ -1441,6 +1442,7 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.updateTournamentSet(request, {'authorization': state.jwtToken});
+          console.log(response);
           return response.getResult() > 0
         } catch (err) {
           //console.log(err);
@@ -1598,7 +1600,7 @@ const dataClient = () => {
       },
 
 
-      async getTournamentSetList() {
+      async getTournamentSetGameRuleList() {
           
         let request = state.listTournamentSetGameRuleRequest;
         request.setLimit(1000);
