@@ -2,16 +2,21 @@
   <Navbar title={title}></Navbar>
 
   <List noHairlinesMd form id="setForm">
-    <ListInput
-      class="item-content-input"
-      label="Title"
-      type="text"
-      value={$dataClient.tournament_set.title}
-      onInput={(e) => $dataClient.tournament_set.title = e.target.value}
-      required
-      validate
+    <BlockTitle>Set Info</BlockTitle>
+    <Card>
+      <CardContent>
+        <ListInput
+          class="item-content-input"
+          label="Title"
+          type="text"
+          value={$dataClient.tournament_set.title}
+          onInput={(e) => $dataClient.tournament_set.title = e.target.value}
+          required
+          validate />
 
-    ></ListInput>
+      </CardContent>
+    </Card>
+
     <BlockTitle>Durations</BlockTitle>
     <Card>
       <CardContent>

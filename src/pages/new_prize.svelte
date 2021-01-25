@@ -187,20 +187,29 @@
           </Col>
         </Row>
         <BlockTitle>Linked Tournament</BlockTitle>
-        <Row>
-          <Col>
-            <ListInput
-              label="Tournament Formats"
-              floatingLabel
-              type="text"
-              placeholder="example: 1,2,3"
-              errorMessage="Only numbers please!"
-              clearButton
-              value={$dataClient.prize.tournament_ids}
-              onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
-            />
-          </Col>
-        </Row>
+        <Card>
+          <CardContent>
+            <Row>
+              <Col width="30">
+                <Button fill raised color="blue" animate={false}>Find & Select Tournaments</Button>
+              </Col>
+              <Col width="70">
+                <ListInput
+                  label="Tournament Formats"
+                  floatingLabel
+                  type="text"
+                  placeholder="example: 1,2,3"
+                  errorMessage="Only numbers please!"
+                  clearButton
+                  value={$dataClient.prize.tournament_ids}
+                  onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
+                />
+              </Col>
+              
+            </Row>
+          </CardContent>
+        </Card>
+        
         {/if}
       </CardContent>
     </Card>
