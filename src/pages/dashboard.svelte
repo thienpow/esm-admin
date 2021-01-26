@@ -14,31 +14,32 @@
   </Navbar>
   <br/><br/>
   <Row tag="p">
-    <Col>
+    <Col width="100" medium="50">
       <BlockTitle strong><Chip text="Today Prizes Running" color="green" /></BlockTitle>
-        <div class="data-table">
-          <table>
-            <thead>
-              <tr>
-                <td class="numeric-cell">ID</td>
-                <td class="label-cell">Title</td>
-                <td class="numeric-cell">Amount</td>
-                <td class="numeric-cell">GameID</td>
-                <td class="numeric-cell">Tickets in Pool</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="numeric-cell">1</td>
-                <td class="label-cell">iPhone 12</td>
-                <td class="numeric-cell">1</td>
-                <td class="numeric-cell">101</td>
-                <td class="numeric-cell">887788</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </Col><Col>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <td class="numeric-cell">ID</td>
+              <td class="label-cell">Title</td>
+              <td class="numeric-cell">Amount</td>
+              <td class="numeric-cell">GameID</td>
+              <td class="numeric-cell">Tickets in Pool</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="numeric-cell">1</td>
+              <td class="label-cell">iPhone 12</td>
+              <td class="numeric-cell">1</td>
+              <td class="numeric-cell">101</td>
+              <td class="numeric-cell">887788</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Col>
+    <Col width="100" medium="50">
 
       <BlockTitle strong><Chip text="Last 20 Prizes Awarded" color="gray" /></BlockTitle>
       <div class="data-table">
@@ -78,7 +79,8 @@
         </table>
       </div>
 
-    </Col></Row>
+    </Col>
+  </Row>
   
   <!--
 

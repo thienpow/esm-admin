@@ -169,7 +169,7 @@
                     {/if}
                     <td>
                       <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
-                        <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:minus_circle" />
+                        <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
                       </Link>
                     </td>
                   </tr>

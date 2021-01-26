@@ -9,12 +9,14 @@
   content: '';
   z-index: 6000;
 }
+
 .item-content-input {
   border-radius: 4px;
   background: #f8f9fa;
   padding: 3px 4px 3px;
   margin: 3px 5px 3px;
 }
+
 .code {
   border-radius: 3px;
   background: #293233;
@@ -33,7 +35,8 @@
 .chip:hover {
   background-color: rgba(187, 136, 136, 0.5);
 }
-/* Hide navbar link which opens left panel when it is visible by breakpoint */
+
+/* Hide navbar link which opens left panel when it is visible by breakpoint  */
 .panel-left.panel-in-breakpoint ~ .view .navbar .panel-open[data-panel="left"] {
   display: none;
 }

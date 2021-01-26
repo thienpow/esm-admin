@@ -6,24 +6,53 @@
     <View>
       <Page>
         <Navbar title="ESM Admin"/>
-        <List>
-          <ListItem link="/" view=".view-main" panelClose title="Dashboard"/>
-          <ListItem divider title="" />
-          <ListItem link="/games/" view=".view-main" panelClose title="Games"/>
-          <ListItem link="/prizes/" view=".view-main" panelClose title="Prizes"/>
-          <ListItem link="/ranks/" view=".view-main" panelClose title="Ranks"/>
-          <ListItem link="/items/" view=".view-main" panelClose title="IAP-Items"/>
-          <ListItem link="/subscriptions/" view=".view-main" panelClose title="IAP-Subscriptions"/>
-          <ListItem link="/configs/" view=".view-main" panelClose title="Configs"/>
-          <ListItem link="/users/" view=".view-main" panelClose title="Users"/>
-          <ListItem divider title="" />
-          <ListItem link="/tournaments/" view=".view-main" panelClose title="Tournaments"/>
-          <ListItem link="/formatsets/" view=".view-main" panelClose title="Format Sets"/>
-          <ListItem link="/winners/" view=".view-main" panelClose title="Winners"/>
-          <ListItem divider title="" />
+        <List menuList>
+          <ListItem link="/" view=".view-main" panelClose title="Dashboard" selected={selected === 'home'} onClick={() => (selected = 'home')}>
+            <span slot="media">
+              <Icon md="material:home" aurora="f7:house_fill" ios="f7:house_fill" />
+            </span>
+          </ListItem>
+          <ListItem title="Configurations" >
+            <span slot="media">
+              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+            </span>
+          </ListItem>
+          <li>
+            <ul>
+              
+              <ListItem link="/prizes/" view=".view-main" panelClose title="Prizes"/>
+              <ListItem link="/tournaments/" view=".view-main" panelClose title="Tournaments"/>
+              <ListItem link="/formatsets/" view=".view-main" panelClose title="Format Sets"/>
+              <ListItem link="/games/" view=".view-main" panelClose title="Games"/>
+              
+              <ListItem link="/items/" view=".view-main" panelClose title="IAP-Items"/>
+              <ListItem link="/subscriptions/" view=".view-main" panelClose title="IAP-Subscriptions"/>
 
-          <ListItem link="/sales/" view=".view-main" panelClose title="Sales"/>
-          <ListItem link="/claims/" view=".view-main" panelClose title="Claims"/>
+              <ListItem link="/ranks/" view=".view-main" panelClose title="Ranks"/>
+              <ListItem link="/configs/" view=".view-main" panelClose title="Other Configs" />
+            
+            </ul>
+          </li>
+          
+          <ListItem link="/users/" view=".view-main" panelClose title="Users">
+            <span slot="media">
+              <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
+            </span>
+          </ListItem>
+          <ListItem title="Reports">
+            <span slot="media">
+              <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+            </span>
+          </ListItem>
+          <ListItem>
+            <li>
+              <ul>
+                <ListItem link="/winners/" view=".view-main" panelClose title="Winners"/>
+                <ListItem link="/sales/" view=".view-main" panelClose title="Sales"/>
+                <ListItem link="/claims/" view=".view-main" panelClose title="Claims"/>
+              </ul>
+            </li>
+          </ListItem>
           <ListItem divider title="" />
           <ListItem link="/profile/" view=".view-main" panelClose title="Security"/>
         </List>
@@ -74,6 +103,7 @@
   import {
     f7,
     f7ready,
+    Icon,
     App,
     Panel,
     Views,
@@ -105,6 +135,8 @@
     // App routes
     routes: routes,
   };
+
+  let selected = 'home';
 
   dataClient.init();
     
