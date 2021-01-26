@@ -77,13 +77,22 @@
           </tbody>
         </table>
       </div>
-      
-
     </Col>
     <Col class="toolpanel" width="100" xlarge="30">
 
       <!-- right section here -->
-
+      <div class="data-table-footer">
+        <div class="data-table-pagination">
+          <span class="data-table-pagination-label">Showing record: {currentFirstNum}-{currentLastNum} of total {total}</span>
+          <Link on:click={(e) => {currentPage = currentPage - 1; if (currentPage < 1) currentPage = 1; resetRows();}}>
+            <i class="icon icon-prev color-gray"></i>
+          </Link>
+          <Link on:click={(e) => {currentPage = currentPage + 1; if (currentPage > maxPage) currentPage = maxPage; resetRows();}}>
+            <i class="icon icon-next color-gray"></i>
+          </Link>
+        </div>
+      </div>
+    
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
@@ -196,8 +205,15 @@
                    }) : $dataClient.games;
 
 
+  $: total = $dataClient.gameCount.total;
+  $: currentPage = 1;
+  $: currentFirstNum = currentPage > 1 ? ((currentPage-1) * $row_count) + 1 : 1;
+  $: currentLastNum = currentPage * $row_count >= total ? total : currentPage * $row_count;
+  $: maxPage = Math.ceil(total / $row_count);
+
   async function resetRows() {
-    await dataClient.getGameList($row_count);
+    currentFirstNum = ((currentPage-1) * $row_count) + 1;
+    await dataClient.getGameList($row_count, currentFirstNum - 1);
     searchString = null;
   }
 
@@ -224,7 +240,7 @@
 
   onMount(async () => {
     await dataClient.getGameCount();
-    await dataClient.getGameList($row_count);
+    await dataClient.getGameList($row_count, 0);
   });
   
 </script>

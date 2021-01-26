@@ -471,11 +471,11 @@ const dataClient = () => {
         
       },
 
-      async getUserList(row_count) {
+      async getUserList(row_count, offset) {
           
         let request = state.listUserRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listUser(request, {'authorization': state.jwtToken});
@@ -861,11 +861,11 @@ const dataClient = () => {
         
       },
 
-      async getGameList(row_count) {
+      async getGameList(row_count, offset) {
           
         let request = state.listGameRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listGame(request, {'authorization': state.jwtToken});
@@ -984,11 +984,11 @@ const dataClient = () => {
         
       },
 
-      async getItemList(row_count) {
+      async getItemList(row_count, offset) {
           
         let request = state.listItemRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listItem(request, {'authorization': state.jwtToken});
@@ -1122,11 +1122,11 @@ const dataClient = () => {
         
       },
 
-      async getSubscriptionList(row_count) {
+      async getSubscriptionList(row_count, offset) {
           
         let request = state.listSubscriptionRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listSubscription(request, {'authorization': state.jwtToken});
@@ -1288,11 +1288,11 @@ const dataClient = () => {
         
       },
 
-      async getPrizeList(row_count) {
+      async getPrizeList(row_count, offset) {
           
         let request = state.listPrizeRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listPrize(request, {'authorization': state.jwtToken});
@@ -1543,11 +1543,11 @@ const dataClient = () => {
       },
 
 
-      async getTournamentList(row_count) {
+      async getTournamentList(row_count, offset) {
           
         let request = state.listTournamentRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listTournament(request, {'authorization': state.jwtToken});
