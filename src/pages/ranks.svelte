@@ -5,41 +5,11 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Ranks</NavTitle>
-    
     <NavRight>
-      
+      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Rank" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
     </NavRight>
   </Navbar>
   <!-- Body -->
-  <BlockTitle>Summary</BlockTitle>
-  <Block strong>
-    <Row tag="p">
-      <Col tag="span" width={100} medium={15}>
-        <Link ignoreCache={true} on:click={onNewClick}>
-          <Chip text="New rank" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" />
-        </Link>
-      </Col>
-      <Col tag="span" width={100} medium={80}>
-        
-      </Col>
-      <Col tag="span">
-      </Col>
-    </Row>
-  </Block>
-  
-
-  <!-- Search -->
-  <Row>
-    <Col width="0" medium="25">
-    </Col>
-    <Col width="75" medium="50">
-      
-    </Col>
-    <Col width="25">
-      
-    </Col>
-  </Row>
-  
   <div class="data-table">
     <table>
       <thead>

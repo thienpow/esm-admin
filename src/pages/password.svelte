@@ -1,14 +1,11 @@
 <Page>
   <!-- Top Navbar -->
-  <Navbar sliding={false}>
+  <Navbar>
     <NavLeft>
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
-    <NavTitle sliding>Profile</NavTitle>
+    <NavTitle sliding>Change Password</NavTitle>
     
-    <NavRight>
-      
-    </NavRight>
   </Navbar>
   <!-- Body -->
   <BlockTitle>Change Password</BlockTitle>

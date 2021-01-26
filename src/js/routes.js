@@ -1,7 +1,7 @@
 
 import DashboardPage from '../pages/dashboard.svelte';
 
-import ProfilePage from '../pages/profile.svelte';
+import PasswordPage from '../pages/password.svelte';
 import UsersPage from '../pages/users.svelte';
 
 
@@ -36,7 +36,6 @@ import UserSettingsPage from '../pages/user_settings.svelte';
 import SalesPage from '../pages/sales.svelte';
 import ClaimsPage from '../pages/claims.svelte';
 
-import RequestAndLoad from '../pages/request-and-load.svelte';
 import NotFoundPage from '../pages/404.svelte';
 
 var routes = [
@@ -45,19 +44,10 @@ var routes = [
     component: DashboardPage,
   },
   {
-    path: '/profile/',
-    component: ProfilePage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-
-  //Basic Data
-  {
     path: '/users/',
     component: UsersPage,
     options: {
-      //transition: 'f7-fade',
+      animate: false,
     }
   },
   {
@@ -67,118 +57,7 @@ var routes = [
       animate: false,
     },
   },
-  {
-    path: '/newrank/:id/',
-    component: NewRankPage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/newgame/:id/',
-    component: NewGamePage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/games/',
-    component: GamesPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/newprize/:id/',
-    component: NewPrizePage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/prizes/',
-    component: PrizesPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/newitem/:id/',
-    component: NewItemPage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/items/',
-    component: ItemsPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/newsub/:id/',
-    component: NewSubscriptionPage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/subscriptions/',
-    component: SubscriptionsPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/ranks/',
-    component: RanksPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/configs/',
-    component: ConfigsPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/newtournament/:id/',
-    component: NewTournamentPage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/tournaments/',
-    component: TournamentsPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/newformatset/:id/',
-    component: NewTournamentFormatSetPage,
-    options: {
-      animate: false,
-    },
-  },
-  {
-    path: '/formatsets/',
-    component: TournamentFormatSetsPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
-  {
-    path: '/winners/',
-    component: WinnersPage,
-    options: {
-      //transition: 'f7-fade',
-    }
-  },
+  
   {
     path: '/log_play/',
     component: LogPlayPage,
@@ -207,78 +86,182 @@ var routes = [
       animate: false,
     }
   },
-  //Transactions
+
+
+
+
+
+  // ***** Prizes & Tournaments */
   {
-    path: '/sales/',
-    component: SalesPage,
+    path: '/newprize/:id/',
+    component: NewPrizePage,
     options: {
-      //transition: 'f7-fade',
+      animate: false,
+    },
+  },
+  {
+    path: '/prizes/',
+    component: PrizesPage,
+    options: {
+      animate: false,
     }
   },
   {
-    path: '/claims/',
-    component: ClaimsPage,
+    path: '/newtournament/:id/',
+    component: NewTournamentPage,
     options: {
-      //transition: 'f7-fade',
+      animate: false,
+    },
+  },
+  {
+    path: '/tournaments/',
+    component: TournamentsPage,
+    options: {
+      animate: false,
+    }
+  },
+  {
+    path: '/newformatset/:id/',
+    component: NewTournamentFormatSetPage,
+    options: {
+      animate: false,
+    },
+  },
+  {
+    path: '/formatsets/',
+    component: TournamentFormatSetsPage,
+    options: {
+      animate: false,
+    }
+  },
+
+  {
+    path: '/newgame/:id/',
+    component: NewGamePage,
+    options: {
+      animate: false,
+    },
+  },
+  {
+    path: '/games/',
+    component: GamesPage,
+    options: {
+      animate: false,
     }
   },
   {
     path: '/game_leader_rule/:id/',
     component: GameLeaderRulePage,
     options: {
-      //transition: 'f7-fade',
+      animate: false,
+    }
+  },
+
+
+
+  // ***** Shop *****
+  {
+    path: '/newitem/:id/',
+    component: NewItemPage,
+    options: {
+      animate: false,
+    },
+  },
+  {
+    path: '/items/',
+    component: ItemsPage,
+    options: {
+      animate: false,
     }
   },
   {
-    path: '/request-and-load/user/:userId/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
-
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-
-      // User ID from request
-      var userId = routeTo.params.userId;
-
-      // Simulate Ajax Request
-      setTimeout(function () {
-        // We got user data from request
-        var user = {
-          firstName: 'Vladimir',
-          lastName: 'Kharlampidi',
-          about: 'Hello, i am creator of Framework7! Hope you like it!',
-          links: [
-            {
-              title: 'Framework7 Website',
-              url: 'http://framework7.io',
-            },
-            {
-              title: 'Framework7 Forum',
-              url: 'http://forum.framework7.io',
-            },
-          ]
-        };
-        // Hide Preloader
-        app.preloader.hide();
-
-        // Resolve route to load page
-        resolve(
-          {
-            component: RequestAndLoad,
-          },
-          {
-            context: {
-              user: user,
-            }
-          }
-        );
-      }, 1000);
+    path: '/newsub/:id/',
+    component: NewSubscriptionPage,
+    options: {
+      animate: false,
     },
   },
+  {
+    path: '/subscriptions/',
+    component: SubscriptionsPage,
+    options: {
+      animate: false,
+    }
+  },
+
+
+
+
+  
+  // ***** Configurations *****
+  {
+    path: '/ranks/',
+    component: RanksPage,
+    options: {
+      animate: false,
+    }
+  },
+  {
+    path: '/newrank/:id/',
+    component: NewRankPage,
+    options: {
+      animate: false,
+    },
+  },
+  {
+    path: '/configs/',
+    component: ConfigsPage,
+    options: {
+      animate: false,
+    }
+  },
+  
+
+
+
+
+
+  // ***** Reports *****
+  {
+    path: '/winners/',
+    component: WinnersPage,
+    options: {
+      animate: false,
+    }
+  },
+  {
+    path: '/sales/',
+    component: SalesPage,
+    options: {
+      animate: false,
+    }
+  },
+  {
+    path: '/claims/',
+    component: ClaimsPage,
+    options: {
+      animate: false,
+    }
+  },
+  
+
+
+
+
+  // ***** Admin *****
+  {
+    path: '/password/',
+    component: PasswordPage,
+    options: {
+      animate: false,
+    }
+  },
+
+
+
+
+
+  // ***** 404 *****
   {
     path: '(.*)',
     component: NotFoundPage,

@@ -1,5 +1,5 @@
 <Page>
-  <Navbar title={title}></Navbar>
+  <Navbar backLink title={title}></Navbar>
 
   
   <List noHairlinesMd form id="tournamentForm">

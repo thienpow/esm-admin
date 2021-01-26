@@ -5,46 +5,97 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Games</NavTitle>
-    
+    {#if innerWidth < 1024}
+      <Searchbar class="searchbar-top" expandable value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+    {:else}
+        <div class="nav-container">
+          <div class="nav-searchbar-container">
+            <Searchbar class="searchbar-top" value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+          </div>
+        </div>
+    {/if}
+    <NavRight>
+      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Game" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
+      {#if innerWidth < 1024}
+      <Link searchbarEnable=".searchbar-top" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
+      {/if}
+    </NavRight>
   </Navbar>
   <!-- Body -->
-  <BlockTitle>Summary</BlockTitle>
-  <Block strong>
-    <Row tag="p">
-      <Col tag="span" width={100} medium={15}>
-        <Link ignoreCache={true} on:click={onNewClick}>
-          <Chip text="New Game" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" />
-        </Link>
-      </Col>
-      <Col tag="span" width={100} medium={70}>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.gameCount.total}" color="blue" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.gameCount.draft}" color="red" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.gameCount.published}" color="green" /></Link>
-        <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.gameCount.archived}" color="gray" /></Link>
-      </Col>
-      <Col tag="span" width={100} medium={15}>
-        
-      </Col>
-    </Row>
+  <Row class="no-gap">
     
-  </Block>
+    <Col width="100" xlarge="70">
 
-  <!-- Search -->
-  <Row>
-    <Col width="0" medium="25">
+      <!-- data-table here -->
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">ID</th>
+              <th class="label-cell">Title</th>
+              {#if innerWidth >= 1024 }
+              {#if $show_sub_title}
+              <th class="label-cell">Subtitle</th>
+              {/if}
+                {#if $show_img_url}
+              <th class="numeric-cell">Image URL</th>
+                {/if}
+              {/if}
+              {#if $show_status}
+              <th>Status</th>
+              {/if}
+              {#if $show_image}
+              <th></th>
+              {/if}
+            </tr>
+          </thead>
+          <tbody>
+        
+            {#each filteredRows as game}
+            <tr on:click={onRowClick(game)}>
+              <td class="numeric-cell">{game.id}</td>
+              <td class="label-cell">{game.title}</td>
+              {#if innerWidth >= 1024 }
+    
+                {#if $show_sub_title}
+              <td class="label-cell">{game.subtitle}</td>
+                {/if}
+                {#if $show_img_url}
+              <td class="label-cell">{game.img_url}</td>
+                {/if}
+              {/if}
+              {#if $show_status}
+              <td class="label-cell">{dataClient.displayStatusTitle(game.status)}</td>
+              {/if}
+              {#if $show_image}
+              <td ><img alt="" src={game.img_url} height="100%" /></td>
+              {/if}
+            </tr>
+            {/each}
+            
+          </tbody>
+        </table>
+      </div>
+      
+
     </Col>
-    <Col width="75" medium="50">
-      <Searchbar
-        value={searchString}
-        onChange={(e) => searchString = e.target.value}
-        disableButton={!theme.aurora}
-      />
-    </Col>
-    <Col width="25">
-      <Menu class="menu-left">
-        <MenuItem iconF7="table" dropdown>
-          <MenuDropdown right>
-            <List class="theme-dark">
+    <Col class="toolpanel" width="100" xlarge="30">
+
+      <!-- right section here -->
+
+      <List accordionList>
+        <ListItem accordionItem accordionItemOpened title="Summary">
+          <AccordionContent>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.gameCount.total}" color="blue" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.gameCount.draft}" color="red" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.gameCount.published}" color="green" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.gameCount.archived}" color="gray" /></Link>
+          </AccordionContent>
+        </ListItem>
+        <ListItem accordionItem title="Show/Hide fields">
+          <AccordionContent>
+            <List>
               <ListItem
                 checkbox
                 title="sub_title"
@@ -74,11 +125,11 @@
                 onChange={(e) => $show_status = e.target.checked}
               ></ListItem>
             </List>
-          </MenuDropdown>
-        </MenuItem>
-        <MenuItem iconF7="square_list" dropdown>
-          <MenuDropdown right>
-            <List class="theme-dark">
+          </AccordionContent>
+        </ListItem>
+        <ListItem accordionItem title="Show rows">
+          <AccordionContent>
+            <List>
               <ListItem
                 radio
                 radioIcon="end"
@@ -116,69 +167,20 @@
                 onChange={(e) => {$row_count = e.target.value; resetRows();}}
               ></ListItem>
             </List>
-          </MenuDropdown>
-        </MenuItem>
-      </Menu>
+          </AccordionContent>
+        </ListItem>
+      </List>
+
     </Col>
   </Row>
-  
-  <div class="data-table">
-    <table>
-      <thead>
-        <tr>
-          <th class="numeric-cell">ID</th>
-          <th class="label-cell">Title</th>
-          {#if innerWidth >= 1024 }
-          {#if $show_sub_title}
-          <th class="label-cell">Subtitle</th>
-          {/if}
-            {#if $show_img_url}
-          <th class="numeric-cell">Image URL</th>
-            {/if}
-          {/if}
-          {#if $show_status}
-          <th>Status</th>
-          {/if}
-          {#if $show_image}
-          <th></th>
-          {/if}
-        </tr>
-      </thead>
-      <tbody>
-    
-        {#each filteredRows as game}
-        <tr on:click={onRowClick(game)}>
-          <td class="numeric-cell">{game.id}</td>
-          <td class="label-cell">{game.title}</td>
-          {#if innerWidth >= 1024 }
 
-            {#if $show_sub_title}
-          <td class="label-cell">{game.subtitle}</td>
-            {/if}
-            {#if $show_img_url}
-          <td class="label-cell">{game.img_url}</td>
-            {/if}
-          {/if}
-          {#if $show_status}
-          <td class="label-cell">{dataClient.displayStatusTitle(game.status)}</td>
-          {/if}
-          {#if $show_image}
-          <td ><img alt="" src={game.img_url} height="100%" /></td>
-          {/if}
-        </tr>
-        {/each}
-        
-      </tbody>
-    </table>
-  </div>
-  
 </Page>
 
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <script>
   import { onMount } from 'svelte';
-  import { theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient.js';
   import {show_sub_title, show_img_url, show_image, show_status, row_count} from '../stores/ui.js';
   

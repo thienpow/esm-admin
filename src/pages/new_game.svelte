@@ -1,5 +1,6 @@
 <Page>
-  <Navbar title={title}></Navbar>
+  <Navbar backLink title={title}>
+  </Navbar>
 
   <List noHairlinesMd form id="gameForm">
 
@@ -62,7 +63,8 @@
           type="textarea"
           label="Detailed Content"
           value={$dataClient.game.content}
-          onInput={(e) => $dataClient.game.content = e.target.value} />
+          onInput={(e) => $dataClient.game.content = e.target.value} 
+          resizable />
         
       
       </CardContent>

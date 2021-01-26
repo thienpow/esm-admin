@@ -14,9 +14,14 @@ export const show_reward_amount = writable('show_reward_amount', true);
 
 export const show_scheduled_on = writable('show_scheduled_on', true);
 export const show_scheduled_off = writable('show_scheduled_off', false);
-export const show_last_login = writable('show_last_login', true);
 export const show_tickets_collected = writable('show_tickets_collected', true);
+
+export const show_fbid = writable('show_fbid', false);
+export const show_gid = writable('show_gid', false);
+export const show_last_login = writable('show_last_login', true);
 export const show_gems = writable('show_gems', false);
+export const show_exp = writable('show_exp', false);
+export const show_avatar_url = writable('show_avatar_url', false);
 
 export const tour_set_ids = writable('tour_set_ids', true);
 
