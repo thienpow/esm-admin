@@ -1,16 +1,11 @@
 <Page>
   <!-- Top Navbar -->
-  <Navbar large sliding={false}>
+  <Navbar>
     <NavLeft>
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Dashboard</NavTitle>
     
-    <NavRight>
-      
-    </NavRight>
-    
-    <NavTitleLarge>ESM Admin</NavTitleLarge>
   </Navbar>
   <br/><br/>
   <Row tag="p">
@@ -82,24 +77,6 @@
     </Col>
   </Row>
   
-  <!--
-
-  <Block strong>
-    {#if $dataClient.isLoggedIn}
-      <p>esm-datastore is <Chip text="connected" color="green" /></p>
-      
-    {:else}
-      <p>esm-datastore is <Chip text="disconnected" color="red" /></p>
-    {/if}
-  </Block>
-
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large raised color="red" on:click={resetCache}>Reset serviceWorker Cache</Button></Col>
-    </Row>
-  </Block>
-
-  -->
 </Page>
 <script>
   import { Row, Col, Button, Chip, Link, NavLeft, NavRight, NavTitle, NavTitleLarge, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';

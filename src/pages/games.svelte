@@ -6,10 +6,6 @@
     </NavLeft>
     <NavTitle sliding>Games</NavTitle>
     
-    <NavRight>
-      
-    </NavRight>
-    
   </Navbar>
   <!-- Body -->
   <BlockTitle>Summary</BlockTitle>

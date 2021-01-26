@@ -6,9 +6,6 @@
     </NavLeft>
     <NavTitle sliding>Items</NavTitle>
     
-    <NavRight>
-      
-    </NavRight>
   </Navbar>
   <!-- Body -->
   <BlockTitle>Summary</BlockTitle>

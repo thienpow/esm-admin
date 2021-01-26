@@ -157,65 +157,81 @@
           </Col>
         </Row>
         <Row>
-          <Col width="100" medium="20">
+          <Col width="100" medium="30">
             <BlockTitle>Repeat</BlockTitle>
-            <List>
-              <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
-              <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
-            </List>
-              
+            <Card>
+              <CardContent>
+
+                <List>
+                  <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
+                  <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
+                </List>
+                  
+              </CardContent>
+            </Card>
+            
           </Col>
-          <Col width="100" medium="80">
+          <Col width="100" medium="70">
             <BlockTitle>Repeated On</BlockTitle>
-            <Row>
-              <Col>M</Col>
-              <Col>T</Col>
-              <Col>W</Col>
-              <Col>T</Col>
-              <Col>F</Col>
-              <Col>S</Col>
-              <Col>S</Col>
-            </Row>
-            <Row>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
-              <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
-            </Row>
+            <Card>
+              <CardContent>
+
+                <Row>
+                  <Col>M</Col>
+                  <Col>T</Col>
+                  <Col>W</Col>
+                  <Col>T</Col>
+                  <Col>F</Col>
+                  <Col>S</Col>
+                  <Col>S</Col>
+                </Row>
+                <Row>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
+                </Row>
+              </CardContent>
+            </Card>
+
           </Col>
         </Row>
         <BlockTitle>Linked Tournament</BlockTitle>
         <Card>
           <CardContent>
             <Row>
-              <Col width="70">
-                <ListItem 
-                  title="Find & Select Tournaments" 
-                  smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
-                >
-                  <select multiple bind:value={$dataClient.prize.tournament_ids}>
-                    <option value={1}>test game 1</option>
-                      <option value={2}>test game 2</option>
-                      <option value={3}>test game 3</option>
-                      <option value={4}>test game 4</option>
-                      <option value={5}>test game 5</option>
-                  </select>
-                </ListItem>
+              <Col width="100" medium="70">
+
+                    <ListItem 
+                      title="Find & Select Tournaments" 
+                      smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
+                    >
+                      <select multiple bind:value={$dataClient.prize.tournament_ids}>
+                        <option value={1}>test game 1</option>
+                          <option value={2}>test game 2</option>
+                          <option value={3}>test game 3</option>
+                          <option value={4}>test game 4</option>
+                          <option value={5}>test game 5</option>
+                      </select>
+                    </ListItem>
+
               </Col>
-              <Col width="30">
-                <ListInput
-                  label="Tournament Formats"
-                  floatingLabel
-                  type="text"
-                  placeholder="example: 1,2,3"
-                  errorMessage="Only numbers please!"
-                  clearButton
-                  value={$dataClient.prize.tournament_ids}
-                  onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
-                />
+              <Col width="100" medium="30">
+
+                    <ListInput
+                      label="Tournament Formats"
+                      floatingLabel
+                      type="text"
+                      placeholder="example: 1,2,3"
+                      errorMessage="Only numbers please!"
+                      clearButton
+                      value={$dataClient.prize.tournament_ids}
+                      onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
+                    />
+
               </Col>
               
             </Row>

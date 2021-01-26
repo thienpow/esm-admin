@@ -1,65 +1,91 @@
-<App params={ f7params } >
+<App { ...f7params } >
   
   {#if $dataClient.isLoggedIn}
   <!-- Left panel with cover effect when hidden -->
-  <Panel themeDark left visibleBreakpoint={960}>
-    <View>
-      <Page>
-        <Navbar title="ESM Admin"/>
-        <List menuList>
-          <ListItem link="/" view=".view-main" panelClose title="Dashboard" selected={selected === 'home'} onClick={() => (selected = 'home')}>
-            <span slot="media">
-              <Icon md="material:home" aurora="f7:house_fill" ios="f7:house_fill" />
-            </span>
-          </ListItem>
-          <ListItem title="Configurations" >
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <li>
-            <ul>
-              
-              <ListItem link="/prizes/" view=".view-main" panelClose title="Prizes"/>
-              <ListItem link="/tournaments/" view=".view-main" panelClose title="Tournaments"/>
-              <ListItem link="/formatsets/" view=".view-main" panelClose title="Format Sets"/>
-              <ListItem link="/games/" view=".view-main" panelClose title="Games"/>
-              
-              <ListItem link="/items/" view=".view-main" panelClose title="IAP-Items"/>
-              <ListItem link="/subscriptions/" view=".view-main" panelClose title="IAP-Subscriptions"/>
+  <Panel left>
+    <Navbar title="ESM Admin"/>
+    <List menuList>
+      <ListItem link="/" view=".view-main" title="Dashboard" selected={selected === 'home'} onClick={() => (selected = 'home')} >
+        <span slot="media">
+          <Icon md="material:home" aurora="f7:house_fill" ios="f7:house_fill" />
+        </span>
+      </ListItem>
+      
+  
+      <ListItem link="/prizes/" view=".view-main" title="Prizes" selected={selected === 'prizes'} onClick={() => (selected = 'prizes')}> 
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      <ListItem link="/tournaments/" view=".view-main" title="Tournaments" selected={selected === 'tournaments'} onClick={() => (selected = 'tournaments')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      <ListItem link="/formatsets/" view=".view-main" title="Format Sets" selected={selected === 'formatsets'} onClick={() => (selected = 'formatsets')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      <ListItem link="/games/" view=".view-main" title="Games" selected={selected === 'games'} onClick={() => (selected = 'games')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      
+      <ListItem link="/items/" view=".view-main" title="IAP-Items" selected={selected === 'iap-items'} onClick={() => (selected = 'iap-items')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      <ListItem link="/subscriptions/" view=".view-main" title="IAP-Subscriptions" selected={selected === 'iap-sub'} onClick={() => (selected = 'iap-sub')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
 
-              <ListItem link="/ranks/" view=".view-main" panelClose title="Ranks"/>
-              <ListItem link="/configs/" view=".view-main" panelClose title="Other Configs" />
-            
-            </ul>
-          </li>
-          
-          <ListItem link="/users/" view=".view-main" panelClose title="Users">
-            <span slot="media">
-              <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
-            </span>
-          </ListItem>
-          <ListItem title="Reports">
-            <span slot="media">
-              <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
-            </span>
-          </ListItem>
-          <ListItem>
-            <li>
-              <ul>
-                <ListItem link="/winners/" view=".view-main" panelClose title="Winners"/>
-                <ListItem link="/sales/" view=".view-main" panelClose title="Sales"/>
-                <ListItem link="/claims/" view=".view-main" panelClose title="Claims"/>
-              </ul>
-            </li>
-          </ListItem>
-          <ListItem divider title="" />
-          <ListItem link="/profile/" view=".view-main" panelClose title="Security"/>
-        </List>
-      </Page>
-    </View>
+      <ListItem link="/ranks/" view=".view-main" title="Ranks" selected={selected === 'ranks'} onClick={() => (selected = 'ranks')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+      <ListItem link="/configs/" view=".view-main" title="Other Configs"  selected={selected === 'other-configs'} onClick={() => (selected = 'other-configs')}>
+        <span slot="media">
+          <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+        </span>
+      </ListItem>
+    
+      <ListItem link="/users/" view=".view-main" title="Users" selected={selected === 'users'} onClick={() => (selected = 'users')} >
+        <span slot="media">
+          <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
+        </span>
+      </ListItem>
+      
+      <ListItem link="/winners/" view=".view-main" title="Winners" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
+        <span slot="media">
+          <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+        </span>
+      </ListItem>
+      <ListItem link="/sales/" view=".view-main" title="Sales" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
+        <span slot="media">
+          <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+        </span>
+      </ListItem>
+      <ListItem link="/claims/" view=".view-main" title="Claims" selected={selected === 'claims'} onClick={() => (selected = 'claims')}>
+        <span slot="media">
+          <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+        </span>
+      </ListItem>
+      <ListItem link="/profile/" view=".view-main" title="Security" selected={selected === 'security'} onClick={() => (selected = 'security')}>
+        <span slot="media">
+          <Icon md="material:lock" aurora="f7:lock" ios="f7:lock" />
+        </span>
+      </ListItem>
+    </List>
+  
   </Panel>
-  <!-- Your main view, should have "view-main" class -->
+  
+    <!-- Your main view, should have "view-main" class -->
   
   <View main class="safe-areas" url="/" />
   {/if}
@@ -103,19 +129,12 @@
   import {
     f7,
     f7ready,
-    Icon,
     App,
+    Icon,
     Panel,
-    Views,
     View,
-    Popup,
     Page,
     Navbar,
-    Toolbar,
-    NavRight,
-    Link,
-    Block,
-    BlockTitle,
     LoginScreen,
     LoginScreenTitle,
     List,
@@ -134,6 +153,9 @@
     theme: 'auto', // Automatic theme detection
     // App routes
     routes: routes,
+    serviceWorker: {
+      path: '/service-worker.js',
+    },
   };
 
   let selected = 'home';
@@ -159,5 +181,3 @@
     });
   })
 </script>
-<style>
-</style>
