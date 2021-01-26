@@ -65,8 +65,7 @@
     Range,
     Block
   } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-
+  import dataClient from '../stores/dataClient';
 
   export let f7router;
 

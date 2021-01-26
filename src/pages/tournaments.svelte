@@ -168,10 +168,9 @@
 <script>
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-  import {tour_set_ids, show_status, row_count} from '../stores/ui.js';
+  import dataClient from '../stores/dataClient';
+  import {tour_set_ids, show_status, row_count} from '../stores/ui';
   
-
   export let f7router;
 
   let innerWidth = 0;

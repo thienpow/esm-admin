@@ -190,8 +190,8 @@
 <script>
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-  import {show_sub_title, show_img_url, show_image, show_status, row_count} from '../stores/ui.js';
+  import dataClient from '../stores/dataClient';
+  import {show_sub_title, show_img_url, show_image, show_status, row_count} from '../stores/ui';
   
 
   export let f7router;

@@ -2,120 +2,122 @@
   
   {#if $dataClient.isLoggedIn}
   <!-- Left panel with cover effect when hidden -->
+  
   <Panel left>
-    <Navbar title="ESM Admin"/>
-    <List menuList>
-      <ListItem link="/" view=".view-main" title="Dashboard" selected={selected === 'home'} onClick={() => (selected = 'home')} >
-        <span slot="media">
-          <Icon md="material:home" aurora="f7:house_fill" ios="f7:house_fill" />
-        </span>
-      </ListItem>
-      
-      <ListItem link="/users/" view=".view-main" title="Users" selected={selected === 'users'} onClick={() => (selected = 'users')} >
-        <span slot="media">
-          <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
-        </span>
-      </ListItem>
-      
+      <Navbar title="ESM Admin">
+        
+      </Navbar>
+      <List menuList>
+        <ListItem link="/" view=".view-main" title="Dashboard" selected={selected === 'home'} onClick={() => (selected = 'home')} >
+          <span slot="media">
+            <Icon md="material:home" aurora="f7:house_fill" ios="f7:house_fill" />
+          </span>
+        </ListItem>
+        
+        <ListItem link="/users/" view=".view-main" title="Users" selected={selected === 'users'} onClick={() => (selected = 'users')} >
+          <span slot="media">
+            <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
+          </span>
+        </ListItem>
+        
+    
+        <ListItem accordionItem title="Prize & Tournament">
+          <AccordionContent>
   
-      <ListItem accordionItem title="Prize & Tournament">
-        <AccordionContent>
-
-          <ListItem link="/prizes/" view=".view-main" title="Prizes" selected={selected === 'prizes'} onClick={() => (selected = 'prizes')}> 
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <ListItem link="/tournaments/" view=".view-main" title="Tournaments" selected={selected === 'tournaments'} onClick={() => (selected = 'tournaments')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <ListItem link="/formatsets/" view=".view-main" title="Format Sets" selected={selected === 'formatsets'} onClick={() => (selected = 'formatsets')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <ListItem link="/games/" view=".view-main" title="Games" selected={selected === 'games'} onClick={() => (selected = 'games')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          
-        </AccordionContent>
-      </ListItem>
-
-      
-      <ListItem accordionItem title="Shop">
-        <AccordionContent>
-
-          <ListItem link="/items/" view=".view-main" title="IAP-Items" selected={selected === 'iap-items'} onClick={() => (selected = 'iap-items')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <ListItem link="/subscriptions/" view=".view-main" title="IAP-Subscriptions" selected={selected === 'iap-sub'} onClick={() => (selected = 'iap-sub')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-
-        </AccordionContent>
-      </ListItem>
-
-      <ListItem accordionItem title="Configs">
-        <AccordionContent>
-
-          <ListItem link="/ranks/" view=".view-main" title="Ranks" selected={selected === 'ranks'} onClick={() => (selected = 'ranks')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
-          <ListItem link="/configs/" view=".view-main" title="Other Configs"  selected={selected === 'other-configs'} onClick={() => (selected = 'other-configs')}>
-            <span slot="media">
-              <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
-            </span>
-          </ListItem>
+            <ListItem link="/prizes/" view=".view-main" title="Prizes" selected={selected === 'prizes'} onClick={() => (selected = 'prizes')}> 
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+            <ListItem link="/tournaments/" view=".view-main" title="Tournaments" selected={selected === 'tournaments'} onClick={() => (selected = 'tournaments')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+            <ListItem link="/formatsets/" view=".view-main" title="Format Sets" selected={selected === 'formatsets'} onClick={() => (selected = 'formatsets')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+            <ListItem link="/games/" view=".view-main" title="Games" selected={selected === 'games'} onClick={() => (selected = 'games')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
             
-        </AccordionContent>
-      </ListItem>
-
-      <ListItem accordionItem title="Reports">
-        <AccordionContent>
-
-          <ListItem link="/winners/" view=".view-main" title="Winners" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
-            <span slot="media">
-              <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
-            </span>
-          </ListItem>
-          <ListItem link="/sales/" view=".view-main" title="Sales" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
-            <span slot="media">
-              <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
-            </span>
-          </ListItem>
-          <ListItem link="/claims/" view=".view-main" title="Claims" selected={selected === 'claims'} onClick={() => (selected = 'claims')}>
-            <span slot="media">
-              <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
-            </span>
-          </ListItem>
-
-        </AccordionContent>
-      </ListItem>
-
-      <ListItem accordionItem title="Admin">
-        <AccordionContent>
-
-          <ListItem link="/password/" view=".view-main" title="Password" selected={selected === 'security'} onClick={() => (selected = 'security')}>
-            <span slot="media">
-              <Icon md="material:lock" aurora="f7:lock" ios="f7:lock" />
-            </span>
-          </ListItem>
-
-        </AccordionContent>
-      </ListItem>
-
-    </List>
+          </AccordionContent>
+        </ListItem>
   
+        
+        <ListItem accordionItem title="Shop">
+          <AccordionContent>
+  
+            <ListItem link="/items/" view=".view-main" title="IAP-Items" selected={selected === 'iap-items'} onClick={() => (selected = 'iap-items')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+            <ListItem link="/subscriptions/" view=".view-main" title="IAP-Subscriptions" selected={selected === 'iap-sub'} onClick={() => (selected = 'iap-sub')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+  
+          </AccordionContent>
+        </ListItem>
+  
+        <ListItem accordionItem title="Configs">
+          <AccordionContent>
+  
+            <ListItem link="/ranks/" view=".view-main" title="Ranks" selected={selected === 'ranks'} onClick={() => (selected = 'ranks')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+            <ListItem link="/configs/" view=".view-main" title="Other Configs"  selected={selected === 'other-configs'} onClick={() => (selected = 'other-configs')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
+              
+          </AccordionContent>
+        </ListItem>
+  
+        <ListItem accordionItem title="Reports">
+          <AccordionContent>
+  
+            <ListItem link="/winners/" view=".view-main" title="Winners" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
+              <span slot="media">
+                <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+              </span>
+            </ListItem>
+            <ListItem link="/sales/" view=".view-main" title="Sales" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
+              <span slot="media">
+                <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+              </span>
+            </ListItem>
+            <ListItem link="/claims/" view=".view-main" title="Claims" selected={selected === 'claims'} onClick={() => (selected = 'claims')}>
+              <span slot="media">
+                <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+              </span>
+            </ListItem>
+  
+          </AccordionContent>
+        </ListItem>
+  
+        <ListItem accordionItem title="Admin">
+          <AccordionContent>
+  
+            <ListItem link="/password/" view=".view-main" title="Password" selected={selected === 'security'} onClick={() => (selected = 'security')}>
+              <span slot="media">
+                <Icon md="material:lock" aurora="f7:lock" ios="f7:lock" />
+              </span>
+            </ListItem>
+  
+          </AccordionContent>
+        </ListItem>
+  
+      </List>
   </Panel>
   
     <!-- Your main view, should have "view-main" class -->
@@ -169,6 +171,8 @@
     View,
     Page,
     Navbar,
+    NavRight,
+    Link,
     LoginScreen,
     LoginScreenTitle,
     List,
@@ -179,7 +183,7 @@
   } from 'framework7-svelte';
 
   import routes from '../js/routes';
-  import dataClient from '../stores/dataClient.js';
+  import dataClient from '../stores/dataClient';
 
   let leftVisibleBreakPoint = 960;
   // Framework7 Parameters
@@ -211,7 +215,6 @@
   onMount(() => {
     f7ready(() => {
       // Call F7 APIs here
-      leftVisibleBreakPoint = 960;
       
     });
   })

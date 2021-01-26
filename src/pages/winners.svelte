@@ -53,8 +53,8 @@
 <script>
   import { NavLeft, NavTitle, NavRight, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
-  import dataClient from '../stores/dataClient.js';
-  import { row_count } from '../stores/ui.js';
+  import dataClient from '../stores/dataClient';
+  import { row_count } from '../stores/ui';
 
 
   async function resetRows() {

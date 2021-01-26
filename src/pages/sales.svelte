@@ -64,4 +64,5 @@
 </Page>
 <script>
   import { NavLeft, NavTitle, NavRight, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  
 </script>

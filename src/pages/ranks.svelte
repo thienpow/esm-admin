@@ -44,8 +44,7 @@
 <script>
   import { onMount } from 'svelte';
   import { theme, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-  
+  import dataClient from '../stores/dataClient';
 
   export let f7router;
 

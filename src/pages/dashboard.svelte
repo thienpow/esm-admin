@@ -81,7 +81,7 @@
 <script>
   import { Row, Col, Button, Chip, Link, NavLeft, NavRight, NavTitle, NavTitleLarge, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
-  import dataClient from '../stores/dataClient.js';
+  import dataClient from '../stores/dataClient';
   
   function resetCache() {
     

@@ -89,7 +89,7 @@
   import { onMount } from 'svelte';
   import { f7, theme, ListInput, Button, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient.js';
-
+  
   //export let f7router;
 
   let innerWidth = 0;

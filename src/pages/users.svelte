@@ -213,8 +213,8 @@
 <script>
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
-  import dataClient from '../stores/dataClient.js';
-  import { show_fbid, show_gid, show_last_login, show_gems, show_exp, show_avatar_url, show_status, row_count } from '../stores/ui.js';
+  import dataClient from '../stores/dataClient';
+  import { show_fbid, show_gid, show_last_login, show_gems, show_exp, show_avatar_url, show_status, row_count } from '../stores/ui';
   
   export let f7router;
 

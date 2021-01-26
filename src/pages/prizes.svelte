@@ -226,8 +226,8 @@
 <script>
   import { onMount } from 'svelte';
   import { Panel, AccordionContent,theme, Card, CardHeader, CardContent, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar, BlockTitle } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_reward_amount, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui.js';
+  import dataClient from '../stores/dataClient';
+  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_reward_amount, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
   
 
   export let f7router;

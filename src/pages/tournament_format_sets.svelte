@@ -95,9 +95,8 @@
 <script>
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
-  import dataClient from '../stores/dataClient.js';
-  import {show_status} from '../stores/ui.js';
-  
+  import dataClient from '../stores/dataClient';
+  import {show_status} from '../stores/ui';
 
   export let f7router;
 
