@@ -81,17 +81,8 @@
     <Col class="toolpanel" width="100" xlarge="30">
 
       <!-- right section here -->
-      <div class="data-table-footer">
-        <div class="data-table-pagination">
-          <span class="data-table-pagination-label">Showing record: {currentFirstNum}-{currentLastNum} of total {total}</span>
-          <Link on:click={(e) => {currentPage = currentPage - 1; if (currentPage < 1) currentPage = 1; resetRows();}}>
-            <i class="icon icon-prev color-gray"></i>
-          </Link>
-          <Link on:click={(e) => {currentPage = currentPage + 1; if (currentPage > maxPage) currentPage = maxPage; resetRows();}}>
-            <i class="icon icon-next color-gray"></i>
-          </Link>
-        </div>
-      </div>
+
+      <Paginator total={$dataClient.gameCount.total} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
     
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
@@ -136,48 +127,7 @@
             </List>
           </AccordionContent>
         </ListItem>
-        <ListItem accordionItem title="Show rows">
-          <AccordionContent>
-            <List>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="20 Rows"
-                value="20"
-                name="row-count"
-                checked={$row_count == 20}
-                onChange={(e) => {$row_count = e.target.value; resetRows();}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="50 Rows"
-                value="50"
-                name="row-count"
-                checked={$row_count == 50}
-                onChange={(e) => {$row_count = e.target.value; resetRows();}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="100 Rows"
-                value="100"
-                name="row-count"
-                checked={$row_count == 100}
-                onChange={(e) => {$row_count = e.target.value; resetRows();}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="200 Rows"
-                value="200"
-                name="row-count"
-                checked={$row_count == 200}
-                onChange={(e) => {$row_count = e.target.value; resetRows();}}
-              ></ListItem>
-            </List>
-          </AccordionContent>
-        </ListItem>
+        <ShowRows on:resetRows={(e) => resetRows(e.detail.offset)} />
       </List>
 
     </Col>
@@ -188,6 +138,8 @@
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <script>
+  import Paginator from '../components/Paginator.svelte';
+  import ShowRows from '../components/ShowRows.svelte';
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
@@ -205,15 +157,11 @@
                    }) : $dataClient.games;
 
 
-  $: total = $dataClient.gameCount.total;
   $: currentPage = 1;
-  $: currentFirstNum = currentPage > 1 ? ((currentPage-1) * $row_count) + 1 : 1;
-  $: currentLastNum = currentPage * $row_count >= total ? total : currentPage * $row_count;
-  $: maxPage = Math.ceil(total / $row_count);
-
-  async function resetRows() {
-    currentFirstNum = ((currentPage-1) * $row_count) + 1;
-    await dataClient.getGameList($row_count, currentFirstNum - 1);
+  async function resetRows(offset) {
+    if (offset === 0)
+      currentPage = 1;
+    await dataClient.getGameList($row_count, offset);
     searchString = null;
   }
 

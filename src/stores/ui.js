@@ -1,6 +1,7 @@
 
 import {writable as internal, get} from 'svelte/store';
 
+export const is_dark_theme = writable('is_dark_theme', false);
 export const show_sub_title = writable('show_sub_title', false);
 export const show_img_url = writable('show_img_url', false);
 export const show_image = writable('show_image', false);

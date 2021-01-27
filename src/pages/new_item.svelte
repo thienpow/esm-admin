@@ -3,7 +3,6 @@
 
   <List noHairlinesMd form id="itemForm">
 
-
     <BlockTitle>Basic Details</BlockTitle>
     <Card>
       <CardContent>

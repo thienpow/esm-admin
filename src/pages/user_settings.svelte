@@ -2,9 +2,7 @@
   <!-- Top Navbar -->
   <Navbar sliding={false}>
     <NavLeft>
-      {#if !$reveal_left_panel}
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
-      {/if}
     </NavLeft>
     <NavTitle sliding>User Settings</NavTitle>
     
@@ -65,13 +63,7 @@
   import { Button, NavLeft, NavTitle, NavRight, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
-  import { reveal_left_panel, row_count } from '../stores/ui';
-
-  async function resetRows() {
-    await dataClient.getGameList($row_count);
-    searchString = null;
-  }
-
+  
   onMount(async () => {
     //dataClient.getWinnerList($row_count);
   });

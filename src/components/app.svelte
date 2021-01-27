@@ -1,9 +1,9 @@
-<App { ...f7params } >
+<App { ...f7params } themeDark={$is_dark_theme} on:darkThemeChange={(isDark) => $is_dark_theme = isDark}>
   
   {#if $dataClient.isLoggedIn}
   <!-- Left panel with cover effect when hidden -->
   
-  <Panel left>
+  <Panel left >
       <Navbar title="ESM Admin">
         
       </Navbar>
@@ -113,6 +113,15 @@
                 <Icon md="material:lock" aurora="f7:lock" ios="f7:lock" />
               </span>
             </ListItem>
+            <ListItem link title="Darkmode = {$is_dark_theme ? 'ON' : 'OFF'}" onClick={() => $is_dark_theme = !$is_dark_theme }>
+              <span slot="media">
+                {#if $is_dark_theme}
+                  <Icon md="material:brightness_3" aurora="f7:lightbulb_slash" ios="f7:lightbulb_slash" />
+                {:else}
+                  <Icon md="material:brightness_5" aurora="f7:lightbulb" ios="f7:lightbulb" />
+                {/if}
+              </span>
+            </ListItem>
   
           </AccordionContent>
         </ListItem>
@@ -165,6 +174,7 @@
     f7,
     f7ready,
     App,
+    theme,
     AccordionContent,
     Icon,
     Panel,
@@ -184,6 +194,7 @@
 
   import routes from '../js/routes';
   import dataClient from '../stores/dataClient';
+  import {is_dark_theme} from '../stores/ui';
 
   let leftVisibleBreakPoint = 960;
   // Framework7 Parameters
@@ -200,7 +211,6 @@
   let selected = 'home';
 
   dataClient.init();
-    
 
   async function doLogin() {
 
