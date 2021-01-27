@@ -15,7 +15,7 @@
         </div>
     {/if}
     <NavRight>
-      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Game" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
+      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Prize" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
       {#if innerWidth < 1024}
       <Link searchbarEnable=".searchbar-prize" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
       {/if}
