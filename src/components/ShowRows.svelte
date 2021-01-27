@@ -17,6 +17,15 @@
       <ListItem
         radio
         radioIcon="end"
+        title="10 Rows"
+        value="10"
+        name="row-count"
+        checked={$row_count == 10}
+        onChange={(e) => {$row_count = e.target.value; resetRows(0);}}
+      ></ListItem>
+      <ListItem
+        radio
+        radioIcon="end"
         title="20 Rows"
         value="20"
         name="row-count"

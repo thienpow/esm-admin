@@ -471,15 +471,16 @@ const dataClient = () => {
         
       },
 
-      async getUserList(row_count, offset) {
+      async getUserList(row_count, offset, search_username) {
           
         let request = state.listUserRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchUsername(search_username);
 
         try {
           const response = await state.apiClient.listUser(request, {'authorization': state.jwtToken});
-
+          console.log(response);
           state.users = [];
           for (let u of response.getResultList()) {
             state.users = [...state.users,  {
@@ -861,15 +862,15 @@ const dataClient = () => {
         
       },
 
-      async getGameList(row_count, offset) {
-          
+      async getGameList(row_count, offset, search_title) {
         let request = state.listGameRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listGame(request, {'authorization': state.jwtToken});
-
+          //console.log(response);
           state.games = [];
           for (let g of response.getResultList()) {
             state.games = [...state.games,  {
@@ -984,11 +985,12 @@ const dataClient = () => {
         
       },
 
-      async getItemList(row_count, offset) {
+      async getItemList(row_count, offset, search_title) {
           
         let request = state.listItemRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listItem(request, {'authorization': state.jwtToken});
@@ -1122,11 +1124,12 @@ const dataClient = () => {
         
       },
 
-      async getSubscriptionList(row_count, offset) {
+      async getSubscriptionList(row_count, offset, search_title) {
           
         let request = state.listSubscriptionRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listSubscription(request, {'authorization': state.jwtToken});
@@ -1288,11 +1291,12 @@ const dataClient = () => {
         
       },
 
-      async getPrizeList(row_count, offset) {
+      async getPrizeList(row_count, offset, search_title) {
           
         let request = state.listPrizeRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listPrize(request, {'authorization': state.jwtToken});
@@ -1543,11 +1547,12 @@ const dataClient = () => {
       },
 
 
-      async getTournamentList(row_count, offset) {
+      async getTournamentList(row_count, offset, search_title) {
           
         let request = state.listTournamentRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listTournament(request, {'authorization': state.jwtToken});
@@ -1571,11 +1576,12 @@ const dataClient = () => {
       },
 
 
-      async getTournamentSetList() {
+      async getTournamentSetList(search_title) {
           
         let request = state.listTournamentSetRequest;
         request.setLimit(1000);
         request.setOffset(0);
+        request.setSearchTitle(search_title);
 
         try {
           const response = await state.apiClient.listTournamentSet(request, {'authorization': state.jwtToken});

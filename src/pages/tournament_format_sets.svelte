@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Tournament Format Sets</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-formatset" expandable value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-formatset" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-formatset" value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-formatset" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -60,7 +60,8 @@
     <Col class="toolpanel" width="100" xlarge="30">
   
       <!-- right section here -->
-  
+      <Paginator total={0} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
+
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent></AccordionContent>
@@ -93,10 +94,11 @@
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <script>
+  import Paginator from '../components/Paginator.svelte';
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
-  import {show_status} from '../stores/ui';
+  import {show_status, row_count} from '../stores/ui';
 
   export let f7router;
 
@@ -108,6 +110,24 @@
                       return set.title.toLowerCase().includes(searchString.toLowerCase()) || set.id == Number(searchString);
                    }) : $dataClient.tournament_sets;
 
+
+  async function doSearch(value) {
+    resetRows(0, value);
+  }
+
+  $: currentPage = 1;
+  async function resetRows(offset, search) {
+    if (!search) {
+      return;
+    } else {
+      offset = 0;
+    }
+
+    if (offset === 0)
+      currentPage = 1;
+    await dataClient.getTournamentList($row_count, offset, search);
+    searchString = null;
+  }
 
   function onNewClick() {
     $dataClient.tournament_set = {

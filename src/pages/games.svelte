@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Games</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-game" expandable value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-game" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-game" value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-game" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -157,12 +157,24 @@
                    }) : $dataClient.games;
 
 
+
+  async function doSearch(value) {
+    resetRows(0, value);
+  }
+
   $: currentPage = 1;
-  async function resetRows(offset) {
+  async function resetRows(offset, search) {
+    if (!search) {
+      return;
+    } else {
+      offset = 0;
+    }
+
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getGameList($row_count, offset);
+    await dataClient.getGameList($row_count, offset, search);
     searchString = null;
+    
   }
 
   function onNewClick() {
