@@ -6,18 +6,18 @@
     </NavLeft>
     <NavTitle sliding>Items</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-top" expandable value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-item" expandable value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-top" value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-item" value={searchString} onChange={(e) => searchString = e.target.value} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
     <NavRight>
       <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Item" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
       {#if innerWidth < 1024}
-      <Link searchbarEnable=".searchbar-top" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
+      <Link searchbarEnable=".searchbar-item" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
       {/if}
     </NavRight>
   </Navbar>

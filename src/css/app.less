@@ -36,9 +36,11 @@
   padding: 15px;
 }
 .nav-container {
+  background: transparent;
   position: absolute;width:100%;padding: 0px;left: 10%; z-index: 6000;
 }
 .nav-searchbar-container {
+  background: transparent;
   width:50%;min-width: 380px;max-width: 500px;position: absolute;left: 40%;top: 50%;transform: translate(-50%, -50%);padding: 10px;
 }
 :root {
@@ -47,9 +49,12 @@
   --f7-panel-bg-color: var(--f7-bars-bg-color);
 
   // ***** Searchbar *****
+  --f7-searchbar-bg-color: transparent;
   --f7-searchbar-height: 42px;
   --f7-searchbar-input-font-size: 16px;
-  --f7-searchbar-input-border-width: 0px;
+  --f7-searchbar-input-border-width: 1px;
+  --f7-searchbar-input-border-color: rgba(147, 173, 207, 0.3);
+  --f7-searchbar-input-border-radius: 8px;
 
   // ***** data-table *****
   --f7-table-head-cell-height: 56px;
@@ -64,6 +69,7 @@
 
   --f7-searchbar-input-border-width: 1px;
   --f7-searchbar-input-border-color: rgba(25, 48, 78, 0.8);
+  --f7-searchbar-input-border-radius: 8px;
 
   --f7-list-bg-color: transparent;
 }
