@@ -60,7 +60,7 @@
     <Col class="toolpanel" width="100" xlarge="30">
   
       <!-- right section here -->
-      <Paginator total={10} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
+      <Paginator total={$dataClient.tournamentSetCount.total} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
 
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
@@ -141,8 +141,8 @@
   };
 
   onMount(async () => {
-    //await dataClient.getTournamentCount();
-    await dataClient.getTournamentSetList();
+    await dataClient.getTournamentSetCount();
+    await dataClient.getTournamentSetList($row_count);
   });
   
 </script>

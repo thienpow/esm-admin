@@ -65,6 +65,7 @@ import {
   DeleteTournamentSetRequest,
   DeleteTournamentSetGameRuleRequest,
   GetTournamentCountRequest,
+  GetTournamentSetCountRequest,
   ListTournamentRequest,
   ListTournamentSetRequest,
   ListTournamentSetGameRuleRequest,
@@ -167,6 +168,7 @@ const dataClient = () => {
     deleteTournamentSetRequest: new DeleteTournamentSetRequest(),
     deleteTournamentSetGameRuleRequest: new DeleteTournamentSetGameRuleRequest(),
     getTournamentCountRequest: new GetTournamentCountRequest(),
+    getTournamentSetCountRequest: new GetTournamentSetCountRequest(),
     listTournamentRequest: new ListTournamentRequest(),
     listTournamentSetRequest: new ListTournamentSetRequest(),
     listTournamentSetGameRuleRequest: new ListTournamentSetGameRuleRequest(),
@@ -343,6 +345,9 @@ const dataClient = () => {
       is_group: false,
     },
     tournament_sets: [],
+    tournamentSetCount: {
+      total: 0,
+    },
     tournament_set_game_rule: {
       id: 0, 
       set_id: 0, 
@@ -1576,11 +1581,28 @@ const dataClient = () => {
       },
 
 
-      async getTournamentSetList(search_title) {
+      async getTournamentSetCount() {
+
+        let request = state.getTournamentSetCountRequest;
+    
+        try {
+          const response = await state.apiClient.getTournamentSetCount(request, {'authorization': state.jwtToken});
+
+          let count = await response.getResult();
+          state.tournamentSetCount.total = count.getTotal();
+          
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+        
+      },
+
+      async getTournamentSetList(row_count, offset, search_title) {
           
         let request = state.listTournamentSetRequest;
-        request.setLimit(1000);
-        request.setOffset(0);
+        request.setLimit(row_count);
+        request.setOffset(offset);
         request.setSearchTitle(search_title);
 
         try {
