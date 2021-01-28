@@ -4,7 +4,7 @@
   
   <List noHairlinesMd form id="tournamentForm">
     <BlockTitle>Basic Details</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col>
@@ -41,7 +41,7 @@
       
     </Card>
     <BlockTitle>Format Sets</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col width="70">

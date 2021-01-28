@@ -8,7 +8,7 @@
 
 
         <BlockTitle>Basic Details</BlockTitle>
-        <Card>
+        <Card noShadow>
           <CardContent>
             <Row>
               <Col width="100" medium="50">
@@ -76,7 +76,7 @@
 
 
         <BlockTitle>Conditions</BlockTitle>
-        <Card>
+        <Card noShadow>
           <CardContent>
             <Row>
               <Col width="100" medium="50">
@@ -168,7 +168,7 @@
             <Row>
               <Col width="100" medium="30">
                 <BlockTitle>Repeat</BlockTitle>
-                <Card>
+                 <Card noShadow>
                   <CardContent>
     
                     <List>
@@ -182,7 +182,7 @@
               </Col>
               <Col width="100" medium="70">
                 <BlockTitle>Repeated On</BlockTitle>
-                <Card>
+                 <Card noShadow>
                   <CardContent>
     
                     <Row>
@@ -220,7 +220,7 @@
     <Row class="no-gap">
       <Col width="100">
         <BlockTitle>Linked Tournament</BlockTitle>
-            <Card>
+            <Card noShadow>
               <CardContent>
                 <Row>
                   <Col width="100" medium="70">

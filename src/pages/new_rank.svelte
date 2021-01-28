@@ -6,7 +6,7 @@
   <List noHairlinesMd form id="rankForm">
 
     <BlockTitle>Basic Details</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col width="100" medium="50">

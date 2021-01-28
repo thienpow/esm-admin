@@ -4,7 +4,7 @@
   <List noHairlinesMd form id="setForm">
     
     <BlockTitle>Set Info</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <ListInput
           class="item-content-input"
@@ -56,7 +56,7 @@
 
     {#if f7route.params.id > 0}
     <BlockTitle>Linked Games</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col width="20">
@@ -149,7 +149,7 @@
 
 
     <BlockTitle>List  of Linked Games</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
 
         <div class="data-table">

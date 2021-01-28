@@ -6,7 +6,7 @@
     <Col width="100" large="60" xlarge="70">
 
       <BlockTitle>Status</BlockTitle>
-      <Card>
+      <Card noShadow>
         <CardContent>
           
           <Row>
@@ -34,7 +34,7 @@
 
 
       <BlockTitle>Basic Details</BlockTitle>
-      <Card>
+      <Card noShadow>
         <CardContent>
           <List>
             <Row>

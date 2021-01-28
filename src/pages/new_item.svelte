@@ -8,7 +8,7 @@
       <Col width="100" large="55" xlarge="60">
 
         <BlockTitle>Basic Details</BlockTitle>
-        <Card>
+        <Card noShadow>
           <CardContent>
 
             <Row>
@@ -79,7 +79,7 @@
       <Col width="100" large="45" xlarge="40">
 
         <BlockTitle>Product Details</BlockTitle>
-        <Card>
+        <Card noShadow>
           <CardContent>
             <Row>
               <Col width="100" medium="50">

@@ -12,37 +12,43 @@
     <Col width=100 medium=25></Col>
     <Col width=100 medium=50>
       <BlockTitle>Change Password</BlockTitle>
-      <List noHairlinesMd form id="passForm">
-        <ListInput
-          label="Old Password"
-          type="password"
-          placeholder="existing password here"
-          value="{old_password}"
-          onInput={(e) => old_password = e.target.value}
-          required
-          validate
-        ></ListInput>
-        <ListInput
-          label="New Password"
-          type="password"
-          placeholder="new password here"
-          value="{new_password}"
-          onInput={(e) => new_password = e.target.value}
-          required
-          validate
-          pattern={pattern}
-        ></ListInput>
-        <ListInput
-          label="Again, New Password"
-          type="password"
-          placeholder="new password here"
-          value="{confirm_password}"
-          onInput={(e) => confirm_password = e.target.value}
-          validate
-          pattern="{new_password}"
-          info={confirm_password != "" && confirm_password == new_password ? "Ready to go!" : "Password must be same as new password above."}
-        ></ListInput>
-      </List>
+      <Card noShadow>
+        <CardContent>
+
+          <List noHairlinesMd form id="passForm">
+            <ListInput
+              label="Old Password"
+              type="password"
+              placeholder="existing password here"
+              value="{old_password}"
+              onInput={(e) => old_password = e.target.value}
+              required
+              validate
+            ></ListInput>
+            <ListInput
+              label="New Password"
+              type="password"
+              placeholder="new password here"
+              value="{new_password}"
+              onInput={(e) => new_password = e.target.value}
+              required
+              validate
+              pattern={pattern}
+            ></ListInput>
+            <ListInput
+              label="Again, New Password"
+              type="password"
+              placeholder="new password here"
+              value="{confirm_password}"
+              onInput={(e) => confirm_password = e.target.value}
+              validate
+              pattern="{new_password}"
+              info={confirm_password != "" && confirm_password == new_password ? "Ready to go!" : "Password must be same as new password above."}
+            ></ListInput>
+          </List>
+        </CardContent>
+      </Card>
+      
     
       <Block>
         <Row>
@@ -59,6 +65,7 @@
 <script>
   import {
     f7,
+    Card, CardContent,
     NavLeft, NavTitle, NavRight, Link,
     Col,
     Page,

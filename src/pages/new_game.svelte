@@ -5,7 +5,7 @@
   <List noHairlinesMd form id="gameForm">
 
     <BlockTitle>Basic Details</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col width="100" medium="50">
@@ -70,21 +70,14 @@
       </CardContent>
     </Card>
   
-      
-    <Block strong>
-      <Row>
-        <Col width="10" />
-        <Col width="35"><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-        <Col width="10" />
-        <Col width="35"><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-        <Col width="10" />
-      </Row>
-    </Block>
+
+    
+    <SaveCancel on:doSave={doSave} />
 
 
 
     <BlockTitle>Rules</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
 
         <Row>
@@ -151,7 +144,7 @@
     </Card>
 
     <BlockTitle>Code Details</BlockTitle>
-    <Card>
+    <Card noShadow>
       <CardContent>
         <Row>
           <Col width="100" medium="50">
