@@ -5,20 +5,10 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Subscriptions</NavTitle>
-    {#if innerWidth < 960}
-      <Searchbar class="searchbar-subscription" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-    {:else}
-        <div class="nav-container">
-          <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-subscription" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-          </div>
-        </div>
-    {/if}
+    <SearchBar name="searchbar-subscription" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
     <NavRight>
       <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Subscription" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
-      {#if innerWidth < 960}
-      <Link searchbarEnable=".searchbar-subscription" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
-      {/if}
+      <SearchBarIcon name="searchbar-subscription" />
     </NavRight>
   </Navbar>
   <!-- Body -->
@@ -166,8 +156,10 @@
 <script>
   import Paginator from '../components/Paginator.svelte';
   import ShowRows from '../components/ShowRows.svelte';
+  import SearchBar from '../components/SearchBar.svelte';
+  import SearchBarIcon from '../components/SearchBarIcon.svelte';
   import { onMount } from 'svelte';
-  import { AccordionContent, theme, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  import { AccordionContent, List, ListItem, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
   import {show_sub_title, show_img_url, show_image, show_status, show_type, show_price, row_count} from '../stores/ui';
   

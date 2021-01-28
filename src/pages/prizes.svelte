@@ -5,20 +5,10 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle>Prizes</NavTitle>
-    {#if innerWidth < 960}
-      <Searchbar class="searchbar-prize" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-    {:else}
-        <div class="nav-container">
-          <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-prize" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-          </div>
-        </div>
-    {/if}
+    <SearchBar name="searchbar-prize" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
     <NavRight>
       <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Prize" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
-      {#if innerWidth < 960}
-      <Link searchbarEnable=".searchbar-prize" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
-      {/if}
+      <SearchBarIcon name="searchbar-prize" />
     </NavRight>
   </Navbar>
   <!-- Body -->
@@ -176,10 +166,12 @@
 <script>
   import Paginator from '../components/Paginator.svelte';
   import ShowRows from '../components/ShowRows.svelte';
+  import SearchBar from '../components/SearchBar.svelte';
+  import SearchBarIcon from '../components/SearchBarIcon.svelte';
   import { onMount } from 'svelte';
-  import { Panel, AccordionContent,theme, Card, CardHeader, CardContent, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar, BlockTitle } from 'framework7-svelte';
+  import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
-  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_reward_amount, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
+  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
   
 
   export let f7router;

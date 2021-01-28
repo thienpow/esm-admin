@@ -5,19 +5,9 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Users</NavTitle>
-    {#if innerWidth < 960}
-      <Searchbar class="searchbar-user" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-    {:else}
-        <div class="nav-container">
-          <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-user" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
-          </div>
-        </div>
-    {/if}
+    <SearchBar name="searchbar-user" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
     <NavRight>
-      {#if innerWidth < 960}
-      <Link searchbarEnable=".searchbar-user" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
-      {/if}
+      <SearchBarIcon name="searchbar-user" />
     </NavRight>
   </Navbar>
   <!-- Body -->
@@ -163,7 +153,9 @@
 <script>
   import Paginator from '../components/Paginator.svelte';
   import ShowRows from '../components/ShowRows.svelte';
-  import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  import SearchBar from '../components/SearchBar.svelte';
+  import SearchBarIcon from '../components/SearchBarIcon.svelte';
+  import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Page, Navbar } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
   import { show_fbid, show_gid, show_last_login, show_gems, show_exp, show_avatar_url, show_status, row_count } from '../stores/ui';
