@@ -233,11 +233,9 @@
                             <Icon md="material:search" aurora="f7:search" ios="f7:search" />
                           </span>
                           <select multiple bind:value={$dataClient.prize.tournament_ids}>
-                            <option value={1}>test tournament 1</option>
-                              <option value={2}>test tournament 2</option>
-                              <option value={3}>test tournament 3</option>
-                              <option value={4}>test tournament 4</option>
-                              <option value={5}>test tournament 5</option>
+                            {#each $dataClient.tournaments as tour}
+                            <option value={tour.id}>{tour.title}</option>
+                            {/each}
                           </select>
                         </ListItem>
     
@@ -350,7 +348,8 @@
   };
 
   onMount(async () => {
-    
+    await dataClient.getTournamentList(1000, 0, "", 2);
+
     for (let x of $dataClient.prize.repeated_on.entries()) {
       if (x[1] == 1)
         $dataClient.prize.repeated_on_mon = true;

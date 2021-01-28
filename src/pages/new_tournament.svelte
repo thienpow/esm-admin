@@ -53,11 +53,9 @@
                 <Icon md="material:search" aurora="f7:search" ios="f7:search" />
               </span>
               <select name="car" multiple bind:value={$dataClient.tournament.tour_set_ids}>
-                <option value={1}>test format 1</option>
-                  <option value={2}>test format 2</option>
-                  <option value={3}>test format 3</option>
-                  <option value={4}>test format 4</option>
-                  <option value={5}>test format 5</option>
+                {#each $dataClient.tournament_sets as set}
+                <option value={set.id}>{set.title}</option>
+                {/each}
               </select>
             </ListItem>
           </Col>
@@ -142,6 +140,7 @@
   }
 
   onMount(async () => {
+    await dataClient.getTournamentSetList(1000, 0, "", 2);
   });
   
 </script>

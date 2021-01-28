@@ -84,12 +84,9 @@
                 <Icon md="material:search" aurora="f7:search" ios="f7:search" />
               </span>
               <select name="car" bind:value={game_id} oninput={(e) => alert(e)}>
-                <option value={0}>Not Selected</option>
-                <option value={1}>test game 1</option>
-                <option value={2}>test game 2</option>
-                <option value={3}>test game 3</option>
-                <option value={4}>test game 4</option>
-                <option value={5}>test game 5</option>
+                {#each $dataClient.games as game}
+                <option value={game.id}>{game.title}</option>
+                {/each}
               </select>
             </ListItem>
           </Col>
@@ -310,6 +307,7 @@
 
   onMount(async () => {
     if (f7route.params.id > 0) {
+      await dataClient.getGameList(1000, 0, "", 2);
       await dataClient.getTournamentSetGameRuleList(f7route.params.id);
       set_game_rules = $dataClient.tournament_set_game_rules;
     }
