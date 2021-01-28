@@ -3,274 +3,294 @@
 
   <List noHairlinesMd form id="prizeForm">
 
-    <BlockTitle>Basic Details</BlockTitle>
-    <Card>
-      <CardContent>
-        <Row>
-          <Col width="100" medium="50">
+    <Row class="no-gap">
+      <Col width="100" large="45" xlarge="40">
 
-            <ListInput
-              class="item-content-input"
-              label="Status"
-              type="select"
-              value={$dataClient.prize.status}
-              onInput={(e) => $dataClient.prize.status = e.target.value}
-              placeholder="Please choose...">
 
-              {#each $dataClient.statusTypes as sT}
-                <option value={sT.id}>{sT.title}</option>
-              {/each}
-
-            </ListInput>
-
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Image URL"
-              type="url"
-              placeholder="upload the file by using DigitalOcean 'Space'."
-              value={$dataClient.prize.img_url}
-              onInput={(e) => $dataClient.prize.img_url = e.target.value}
-              required
-              validate />
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Title"
-              type="text"
-              value={$dataClient.prize.title}
-              onInput={(e) => $dataClient.prize.title = e.target.value}
-              required
-              validate />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Sub-title"
-              type="text"
-              value={$dataClient.prize.subtitle}
-              onInput={(e) => $dataClient.prize.subtitle = e.target.value} />
-          </Col>
-        </Row>
-        <ListInput
-          class="item-content-input"
-          type="textarea"
-          label="Detailed Content"
-          value={$dataClient.prize.content}
-          onInput={(e) => $dataClient.prize.content = e.target.value}
-          resizable />
-      </CardContent>
-    </Card>
-    
-    <BlockTitle>Conditions</BlockTitle>
-    <Card>
-      <CardContent>
-        <Row>
-          <Col width="100" medium="50">
-
-            <ListInput
-                class="item-content-input"
-                label="Type"
-                type="select"
-                value={$dataClient.prize.type_id}
-                onInput={(e) => $dataClient.prize.type_id = e.target.value}
-                required validate
-                placeholder="Please choose...">
-
-              {#each $dataClient.prizeTypes as pT}
-              <option value={pT.id}>{pT.title}</option>
-              {/each}
-
-            </ListInput>
-            
-          </Col>
-          <Col width="100" medium="50">
-
-            {#if $dataClient.prize.type_id == 1 || $dataClient.prize.type_id == 2}
-            
-            <ListInput
-              class="item-content-input"
-              label="Tickets Required"
-              type="number"
-              step="1"
-              value={$dataClient.prize.tickets_required}
-              onInput={(e) => $dataClient.prize.tickets_required = parseInt(e.target.value)} required validate />
-
-            {/if}
-            {#if $dataClient.prize.type_id == 3 || $dataClient.prize.type_id == 4}
-              <Row>
-                <Col width="100" medium="50">
-
-                  <ListInput
-                    class="item-content-input"
-                    label="Days"
-                    type="number"
-                    step="1"
-                    value={$dataClient.prize.duration_days}
-                    onInput={(e) => $dataClient.prize.duration_days = parseInt(e.target.value)} required validate />
-
-                </Col>
-                <Col width="100" medium="50">
-
-                  <ListInput
-                  class="item-content-input"
-                  label="Hours"
-                  type="number"
-                  step="1"
-                  value={$dataClient.prize.duration_hours}
-                  onInput={(e) => $dataClient.prize.duration_hours = parseInt(e.target.value)} required validate />
-
-                </Col>
-              </Row>
-            {/if}
-          </Col>
-        </Row>
-        {#if $dataClient.prize.type_id > 0 }
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Time Zone"
-              type="select"
-              value={$dataClient.prize.timezone}
-              onInput={(e) => $dataClient.prize.timezone = e.target.value}
-              placeholder="Please choose...">
-              <option value={0}>Malaysia (GMT +8)</option>
-            </ListInput>
-          </Col>
-          <Col width="100" medium="50">
-
-            <ListInput
-              class="item-content-input"
-              label="Scheduled On"
-              calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
-              type="datepicker"
-              value={$dataClient.prize.scheduled_on}
-              on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0]}
-              required
-              validate />
-
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="30">
-            <BlockTitle>Repeat</BlockTitle>
-            <Card>
-              <CardContent>
-
-                <List>
-                  <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
-                  <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
-                </List>
-                  
-              </CardContent>
-            </Card>
-            
-          </Col>
-          <Col width="100" medium="70">
-            <BlockTitle>Repeated On</BlockTitle>
-            <Card>
-              <CardContent>
-
-                <Row>
-                  <Col>M</Col>
-                  <Col>T</Col>
-                  <Col>W</Col>
-                  <Col>T</Col>
-                  <Col>F</Col>
-                  <Col>S</Col>
-                  <Col>S</Col>
-                </Row>
-                <Row>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
-                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
-                </Row>
-              </CardContent>
-            </Card>
-
-          </Col>
-        </Row>
-        <BlockTitle>Linked Tournament</BlockTitle>
+        <BlockTitle>Basic Details</BlockTitle>
         <Card>
           <CardContent>
             <Row>
-              <Col width="100" medium="70">
+              <Col width="100" medium="50">
 
-                    <ListItem 
-                      title="Find & Select Tournaments" 
-                      smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
-                    >
-                      <select multiple bind:value={$dataClient.prize.tournament_ids}>
-                        <option value={1}>test game 1</option>
-                          <option value={2}>test game 2</option>
-                          <option value={3}>test game 3</option>
-                          <option value={4}>test game 4</option>
-                          <option value={5}>test game 5</option>
-                      </select>
-                    </ListItem>
+                <ListInput
+                  class="item-content-input"
+                  label="Status"
+                  type="select"
+                  value={$dataClient.prize.status}
+                  onInput={(e) => $dataClient.prize.status = e.target.value}
+                  placeholder="Please choose...">
 
-              </Col>
-              <Col width="100" medium="30">
+                  {#each $dataClient.statusTypes as sT}
+                    <option value={sT.id}>{sT.title}</option>
+                  {/each}
 
-                    <ListInput
-                      label="Tournament Formats"
-                      floatingLabel
-                      type="text"
-                      placeholder="example: 1,2,3"
-                      errorMessage="Only numbers please!"
-                      clearButton
-                      value={$dataClient.prize.tournament_ids}
-                      onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
-                    />
+                </ListInput>
 
               </Col>
-              
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Image URL"
+                  type="url"
+                  placeholder="upload the file by using DigitalOcean 'Space'."
+                  value={$dataClient.prize.img_url}
+                  onInput={(e) => $dataClient.prize.img_url = e.target.value}
+                  required
+                  validate />
+              </Col>
             </Row>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Title"
+                  type="text"
+                  value={$dataClient.prize.title}
+                  onInput={(e) => $dataClient.prize.title = e.target.value}
+                  required
+                  validate />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Sub-title"
+                  type="text"
+                  value={$dataClient.prize.subtitle}
+                  onInput={(e) => $dataClient.prize.subtitle = e.target.value} />
+              </Col>
+            </Row>
+            <ListInput
+              class="item-content-input"
+              type="textarea"
+              label="Detailed Content"
+              value={$dataClient.prize.content}
+              onInput={(e) => $dataClient.prize.content = e.target.value}
+              resizable />
           </CardContent>
         </Card>
         
-        {/if}
-      </CardContent>
-    </Card>
+
+      </Col>
+      <Col width="100" large="55" xlarge="60">
+
+
+        <BlockTitle>Conditions</BlockTitle>
+        <Card>
+          <CardContent>
+            <Row>
+              <Col width="100" medium="50">
+    
+                <ListInput
+                    class="item-content-input"
+                    label="Type"
+                    type="select"
+                    value={$dataClient.prize.type_id}
+                    onInput={(e) => $dataClient.prize.type_id = e.target.value}
+                    required validate
+                    placeholder="Please choose...">
+    
+                  {#each $dataClient.prizeTypes as pT}
+                  <option value={pT.id}>{pT.title}</option>
+                  {/each}
+    
+                </ListInput>
+                
+              </Col>
+              <Col width="100" medium="50">
+    
+                {#if $dataClient.prize.type_id == 1 || $dataClient.prize.type_id == 2}
+                
+                <ListInput
+                  class="item-content-input"
+                  label="Tickets Required"
+                  type="number"
+                  step="1"
+                  value={$dataClient.prize.tickets_required}
+                  onInput={(e) => $dataClient.prize.tickets_required = parseInt(e.target.value)} required validate />
+    
+                {/if}
+                {#if $dataClient.prize.type_id == 3 || $dataClient.prize.type_id == 4}
+                  <Row>
+                    <Col width="100" medium="50">
+    
+                      <ListInput
+                        class="item-content-input"
+                        label="Days"
+                        type="number"
+                        step="1"
+                        value={$dataClient.prize.duration_days}
+                        onInput={(e) => $dataClient.prize.duration_days = parseInt(e.target.value)} required validate />
+    
+                    </Col>
+                    <Col width="100" medium="50">
+    
+                      <ListInput
+                      class="item-content-input"
+                      label="Hours"
+                      type="number"
+                      step="1"
+                      value={$dataClient.prize.duration_hours}
+                      onInput={(e) => $dataClient.prize.duration_hours = parseInt(e.target.value)} required validate />
+    
+                    </Col>
+                  </Row>
+                {/if}
+              </Col>
+            </Row>
+            {#if $dataClient.prize.type_id > 0 }
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Time Zone"
+                  type="select"
+                  value={$dataClient.prize.timezone}
+                  onInput={(e) => $dataClient.prize.timezone = e.target.value}
+                  placeholder="Please choose...">
+                  <option value={0}>Malaysia (GMT +8)</option>
+                </ListInput>
+              </Col>
+              <Col width="100" medium="50">
+    
+                <ListInput
+                  class="item-content-input"
+                  label="Scheduled On"
+                  calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
+                  type="datepicker"
+                  value={$dataClient.prize.scheduled_on}
+                  on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0]}
+                  required
+                  validate />
+    
+              </Col>
+            </Row>
+            <Row>
+              <Col width="100" medium="30">
+                <BlockTitle>Repeat</BlockTitle>
+                <Card>
+                  <CardContent>
+    
+                    <List>
+                      <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
+                      <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
+                    </List>
+                      
+                  </CardContent>
+                </Card>
+                
+              </Col>
+              <Col width="100" medium="70">
+                <BlockTitle>Repeated On</BlockTitle>
+                <Card>
+                  <CardContent>
+    
+                    <Row>
+                      <Col>M</Col>
+                      <Col>T</Col>
+                      <Col>W</Col>
+                      <Col>T</Col>
+                      <Col>F</Col>
+                      <Col>S</Col>
+                      <Col>S</Col>
+                    </Row>
+                    <Row>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
+                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
+                    </Row>
+                  </CardContent>
+                </Card>
+    
+              </Col>
+            </Row>
+            
+            {/if}
+          </CardContent>
+        </Card>
+
+
+      </Col>
+
+    </Row>
+    <Row class="no-gap">
+      <Col width="100">
+        <BlockTitle>Linked Tournament</BlockTitle>
+            <Card>
+              <CardContent>
+                <Row>
+                  <Col width="100" medium="70">
+    
+                        <ListItem 
+                          title="Find & Select Tournaments" 
+                          smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
+                        >
+                          <span slot="media">
+                            <Icon md="material:search" aurora="f7:search" ios="f7:search" />
+                          </span>
+                          <select multiple bind:value={$dataClient.prize.tournament_ids}>
+                            <option value={1}>test game 1</option>
+                              <option value={2}>test game 2</option>
+                              <option value={3}>test game 3</option>
+                              <option value={4}>test game 4</option>
+                              <option value={5}>test game 5</option>
+                          </select>
+                        </ListItem>
+    
+                  </Col>
+                  <Col width="100" medium="30">
+    
+                        <ListInput
+                          label="Tournament Formats"
+                          floatingLabel
+                          type="text"
+                          placeholder="example: 1,2,3"
+                          errorMessage="Only numbers please!"
+                          clearButton
+                          value={$dataClient.prize.tournament_ids}
+                          onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
+                        />
+    
+                  </Col>
+                  
+                </Row>
+              </CardContent>
+            </Card>
+            
+      </Col>
+    </Row>
+    
   </List>
 
-  <BlockTitle></BlockTitle>
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-      <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-    </Row>
-  </Block>
+  
+  <SaveCancel on:doSave={doSave} />
+
 
 </Page>
 <script>
-import {
-    f7,
-    theme,
-    Card, CardContent,
-    Col,
-    Page,
-    Navbar,
-    List,
-    ListInput,
-    ListItem,
-    Toggle,
-    BlockTitle,
-    Row,
-    Button,
-    Range,
-    Radio,
-    Block
-  } from 'framework7-svelte';
+  import SaveCancel from '../components/SaveCancel.svelte';
+  import {
+      f7,
+      theme,
+      Card, CardContent,
+      Col,
+      Page,
+      Navbar,
+      List,
+      ListInput,
+      ListItem,
+      Toggle,
+      BlockTitle,
+      Row,
+      Icon,
+      Range,
+      Radio,
+      Block
+    } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
 

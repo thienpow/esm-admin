@@ -44,8 +44,8 @@
         ></ListInput>
       </List>
     
-      <Block strong>
-        <Row tag="p">
+      <Block>
+        <Row>
           <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Change NOW!</Button></Col>
           <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
         </Row>

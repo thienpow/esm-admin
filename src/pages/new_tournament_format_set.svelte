@@ -80,6 +80,9 @@
               title="Find a Game" 
               smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Game'}}
             >
+              <span slot="media">
+                <Icon md="material:search" aurora="f7:search" ios="f7:search" />
+              </span>
               <select name="car" bind:value={game_id} oninput={(e) => alert(e)}>
                 <option value={0}>Not Selected</option>
                 <option value={1}>test game 1</option>
@@ -139,66 +142,66 @@
           </Col>
         </Row>
               
-        <BlockTitle>List  of Linked Games</BlockTitle>
-        <Card>
-          <CardContent>
-
-            <div class="data-table">
-              <table>
-              <thead>
-                <tr>
-                  <th class="numeric-cell">GameID</th>
-                  <th class="numeric-cell">Days</th>
-                  <th class="numeric-cell">Hours</th>
-                  <th class="numeric-cell">Minutes</th>
-                  {#if $dataClient.tournament_set.is_group}
-                  <th class="numeric-cell">GroupID</th>
-                  {/if}
-                  <th class="numeric-cell"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {#each set_game_rules as set, i}
-                  <tr>
-                    <td class="numeric-cell">{set.game_id}</td>
-                    <td class="numeric-cell">{set.duration_days}</td>
-                    <td class="numeric-cell">{set.duration_hours}</td>
-                    <td class="numeric-cell">{set.duration_minutes}</td>
-                    {#if $dataClient.tournament_set.is_group}
-                    <td class="numeric-cell">{set.group_id}</td>
-                    {/if}
-                    <td>
-                      <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
-                        <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
-                      </Link>
-                    </td>
-                  </tr>
-                {/each}
-              </tbody>
-              </table>
-            </div>
-    
-          </CardContent>
-        </Card>
-
 
       </CardContent>
     </Card>
+
+
+
+    <BlockTitle>List  of Linked Games</BlockTitle>
+    <Card>
+      <CardContent>
+
+        <div class="data-table">
+          <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">GameID</th>
+              <th class="numeric-cell">Days</th>
+              <th class="numeric-cell">Hours</th>
+              <th class="numeric-cell">Minutes</th>
+              {#if $dataClient.tournament_set.is_group}
+              <th class="numeric-cell">GroupID</th>
+              {/if}
+              <th class="numeric-cell"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each set_game_rules as set, i}
+              <tr>
+                <td class="numeric-cell">{set.game_id}</td>
+                <td class="numeric-cell">{set.duration_days}</td>
+                <td class="numeric-cell">{set.duration_hours}</td>
+                <td class="numeric-cell">{set.duration_minutes}</td>
+                {#if $dataClient.tournament_set.is_group}
+                <td class="numeric-cell">{set.group_id}</td>
+                {/if}
+                <td>
+                  <Link ignoreCache={true} on:click={(e) => delFromList(set.id)}>
+                    <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
+                  </Link>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+          </table>
+        </div>
+
+      </CardContent>
+    </Card>
+
     {/if}
 
 
   </List>
 
-  <BlockTitle></BlockTitle>
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-      <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-    </Row>
-  </Block>
+  
+  <SaveCancel on:doSave={doSave} />
+
 
 </Page>
 <script>
+  import SaveCancel from '../components/SaveCancel.svelte';
   import {
     f7,
     theme,
@@ -211,7 +214,7 @@
     List,
     ListInput,
     ListItem,
-    Toggle,
+    Icon,
     BlockTitle,
     Row,
     Button,
@@ -295,7 +298,12 @@
       });
       successToast.open();
 
-      f7router.navigate('/formatsets/');
+      if (f7route.params.id > 0) {
+        f7router.navigate('/formatsets/');
+      } else {
+        $dataClient.tournament_set.id = result;
+        f7router.navigate("/newformatset/" + result + "/");
+      }
     }
     
   }

@@ -54,15 +54,13 @@
     
   </List>
 
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-      <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-    </Row>
-  </Block>
+  
+  <SaveCancel on:doSave={doSave} />
+
 
 </Page>
 <script>
+  import SaveCancel from '../components/SaveCancel.svelte';
   import {
     f7,
     theme,

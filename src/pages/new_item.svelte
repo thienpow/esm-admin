@@ -3,121 +3,127 @@
 
   <List noHairlinesMd form id="itemForm">
 
-    <BlockTitle>Basic Details</BlockTitle>
-    <Card>
-      <CardContent>
 
-        <Row>
-          <Col width="100" medium="50">
+    <Row class="no-gap">
+      <Col width="100" large="55" xlarge="60">
 
+        <BlockTitle>Basic Details</BlockTitle>
+        <Card>
+          <CardContent>
+
+            <Row>
+              <Col width="100" medium="50">
+
+                <ListInput
+                  class="item-content-input"
+                  label="Status"
+                  type="select"
+                  value={$dataClient.item.status}
+                  onInput={(e) => $dataClient.item.status = e.target.value}
+                  placeholder="Please choose...">
+
+                  {#each $dataClient.statusTypes as sT}
+                    <option value={sT.id}>{sT.title}</option>
+                  {/each}
+                </ListInput>
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Image URL"
+                  type="url"
+                  placeholder="upload the file by using DigitalOcean 'Space'."
+                  value={$dataClient.item.img_url}
+                  onInput={(e) => $dataClient.item.img_url = e.target.value}
+                  required
+                  validate />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col width="100" medium="50">
+
+                <ListInput
+                class="item-content-input"
+                label="Title"
+                type="text"
+                value={$dataClient.item.title}
+                onInput={(e) => $dataClient.item.title = e.target.value}
+                required
+                validate />
+
+              </Col>
+              <Col width="100" medium="50">
+
+                <ListInput
+                class="item-content-input"
+                label="Sub-title"
+                type="text"
+                value={$dataClient.item.subtitle}
+                onInput={(e) => $dataClient.item.subtitle = e.target.value} />
+                
+              </Col>
+            </Row>
             <ListInput
               class="item-content-input"
-              label="Status"
-              type="select"
-              value={$dataClient.item.status}
-              onInput={(e) => $dataClient.item.status = e.target.value}
-              placeholder="Please choose...">
-
-              {#each $dataClient.statusTypes as sT}
-                <option value={sT.id}>{sT.title}</option>
-              {/each}
-            </ListInput>
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Image URL"
-              type="url"
-              placeholder="upload the file by using DigitalOcean 'Space'."
-              value={$dataClient.item.img_url}
-              onInput={(e) => $dataClient.item.img_url = e.target.value}
-              required
-              validate />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col width="100" medium="50">
-
-            <ListInput
-            class="item-content-input"
-            label="Title"
-            type="text"
-            value={$dataClient.item.title}
-            onInput={(e) => $dataClient.item.title = e.target.value}
-            required
-            validate />
-
-          </Col>
-          <Col width="100" medium="50">
-
-            <ListInput
-            class="item-content-input"
-            label="Sub-title"
-            type="text"
-            value={$dataClient.item.subtitle}
-            onInput={(e) => $dataClient.item.subtitle = e.target.value} />
+              type="textarea"
+              label="Detailed Content"
+              value={$dataClient.item.content}
+              onInput={(e) => $dataClient.item.content = e.target.value}
+              resizable />
             
-          </Col>
-        </Row>
-        <ListInput
-          class="item-content-input"
-          type="textarea"
-          label="Detailed Content"
-          value={$dataClient.item.content}
-          onInput={(e) => $dataClient.item.content = e.target.value}
-          resizable />
-        
-      </CardContent>
-    </Card>
+          </CardContent>
+        </Card>
 
-    <BlockTitle>Product Details</BlockTitle>
-    <Card>
-      <CardContent>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Type"
-              type="select"
-              value={$dataClient.item.type_id}
-              onInput={(e) => $dataClient.item.type_id = e.target.value}
-              placeholder="Please choose...">
+      </Col>
+      <Col width="100" large="45" xlarge="40">
 
-              {#each $dataClient.itemTypes as iT}
-                <option value={iT.id}>{iT.title}</option>
-              {/each}
+        <BlockTitle>Product Details</BlockTitle>
+        <Card>
+          <CardContent>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Type"
+                  type="select"
+                  value={$dataClient.item.type_id}
+                  onInput={(e) => $dataClient.item.type_id = e.target.value}
+                  placeholder="Please choose...">
 
-            </ListInput>
+                  {#each $dataClient.itemTypes as iT}
+                    <option value={iT.id}>{iT.title}</option>
+                  {/each}
 
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Price"
-              type="text"
-              value={$dataClient.item.amount}
-              onInput={(e) => $dataClient.item.amount = e.target.value}
-              pattern="[0-9]*"
-              required
-              validate />
+                </ListInput>
 
-          </Col>
-        </Row>
-      </CardContent>
-    </Card>
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Price"
+                  type="text"
+                  value={$dataClient.item.amount}
+                  onInput={(e) => $dataClient.item.amount = e.target.value}
+                  pattern="[0-9]*"
+                  required
+                  validate />
 
+              </Col>
+            </Row>
+          </CardContent>
+        </Card>
+
+      </Col>
+    </Row>
+    
   </List>
 
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-      <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-    </Row>
-  </Block>
+  <SaveCancel on:doSave={doSave} />
 
 </Page>
 <script>
+  import SaveCancel from '../components/SaveCancel.svelte';
   import {
     f7,
     theme,

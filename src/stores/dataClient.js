@@ -193,7 +193,19 @@ const dataClient = () => {
       social_link_fb: "",
       social_link_google: "",
       avatar_url:  "",
-      exp: 0
+      exp: 0,
+      full_name: "",
+      address: "",
+      city: "",
+      state: "",
+      zip_code: "",
+      country: "",
+      country_code: "",
+      is_notify_allowed: "",
+      is_notify_new_reward: "",
+      is_notify_new_tournament: "",
+      is_notify_tour_ending: "",
+      nick_name: "",
     },
     users: [],
     userCount: {
@@ -503,7 +515,19 @@ const dataClient = () => {
               social_link_fb: u.getSocialLinkFb(),
               social_link_google: u.getSocialLinkGoogle(),
               avatar_url: u.getAvatarUrl(),
-              exp: u.getExp()
+              exp: u.getExp(),
+              full_name: u.getFullName(),
+              address: u.getAddress(),
+              city: u.getCity(),
+              state: u.getState(),
+              zip_code: u.getZipCode(),
+              country: u.getCountry(),
+              country_code: u.getCountryCode(),
+              is_notify_allowed: u.getIsNotifyAllowed(),
+              is_notify_new_reward: u.getIsNotifyNewReward(),
+              is_notify_new_tournament: u.getIsNotifyNewTournament(),
+              is_notify_tour_ending: u.getIsNotifyTourEnding(),
+              nick_name: u.getNickName()
             }];
           }
             
@@ -1392,7 +1416,7 @@ const dataClient = () => {
         try {
           const response = await state.apiClient.addTournamentSet(request, {'authorization': state.jwtToken});
           //console.log(response);
-          return response.getResult() > 0
+          return response.getResult();
         } catch (err) {
           //console.log(err);
           state.isLoggedIn = false;

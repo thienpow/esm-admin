@@ -73,7 +73,7 @@
         </Row>
       </Block>
           
-      <Block strong>
+      <Block>
         <Row tag="p">
           <Col width="0" medium="25" />
           <Col width="100" medium="50"><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save</Button></Col>

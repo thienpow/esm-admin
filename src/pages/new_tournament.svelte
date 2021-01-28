@@ -49,6 +49,9 @@
               title="Find & Select Format Sets" 
               smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Format Set'}}
             >
+              <span slot="media">
+                <Icon md="material:search" aurora="f7:search" ios="f7:search" />
+              </span>
               <select name="car" multiple bind:value={$dataClient.tournament.tour_set_ids}>
                 <option value={1}>test format 1</option>
                   <option value={2}>test format 2</option>
@@ -76,16 +79,12 @@
     </Card>
   </List>
 
-  <BlockTitle></BlockTitle>
-  <Block strong>
-    <Row tag="p">
-      <Col><Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSave}>Save & Back</Button></Col>
-      <Col><Button class="col" large fill raised color="green" back animate={false}>Cancel</Button></Col>
-    </Row>
-  </Block>
+  
+  <SaveCancel on:doSave={doSave} />
 
 </Page>
 <script>
+  import SaveCancel from '../components/SaveCancel.svelte';
   import {
     f7,
     theme,
@@ -96,7 +95,7 @@
     List,
     ListInput,
     ListItem,
-    Toggle,
+    Icon,
     BlockTitle,
     Row,
     Button,

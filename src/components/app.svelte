@@ -141,28 +141,29 @@
     <View>
       <Page loginScreen>
         <LoginScreenTitle>ESM Admin</LoginScreenTitle>
-        <List form id="loginForm">
-          <ListInput
-            type="text"
-            name="username"
-            placeholder="Your username"
-            value={$dataClient.username}
-            onInput={(e) => $dataClient.username = e.target.value}
-            required
-          />
-          <ListInput
-            type="password"
-            name="password"
-            placeholder="Your password"
-            value={$dataClient.password}
-            onInput={(e) => $dataClient.password = e.target.value}
-            required
-          />
-        </List>
-        
-        <BlockFooter>
-          <Button onClick={doLogin} color="blue" fill >Sign In</Button>
-        </BlockFooter>
+        <Block>
+          <List form id="loginForm">
+            <ListInput
+              type="text"
+              name="username"
+              placeholder="Your username"
+              value={$dataClient.username}
+              onInput={(e) => $dataClient.username = e.target.value}
+              required
+            />
+            <ListInput
+              type="password"
+              name="password"
+              placeholder="Your password"
+              value={$dataClient.password}
+              onInput={(e) => $dataClient.password = e.target.value}
+              required
+            />
+          </List>
+        </Block>
+        <Block>
+          <Button large fill raised color="blue" onClick={doLogin} >Sign In</Button>
+        </Block>
       </Page>
     </View>
   </LoginScreen>
@@ -174,15 +175,13 @@
     f7,
     f7ready,
     App,
-    theme,
     AccordionContent,
     Icon,
     Panel,
     View,
     Page,
     Navbar,
-    NavRight,
-    Link,
+    Block,
     LoginScreen,
     LoginScreenTitle,
     List,

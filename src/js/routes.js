@@ -30,8 +30,6 @@ import TournamentFormatSetsPage from '../pages/tournament_format_sets.svelte';
 import WinnersPage from '../pages/winners.svelte';
 import LogPlayPage from '../pages/log_play.svelte';
 import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
-import UserAddressPage from '../pages/user_address.svelte';
-import UserSettingsPage from '../pages/user_settings.svelte';
 
 import SalesPage from '../pages/sales.svelte';
 import ClaimsPage from '../pages/claims.svelte';
@@ -68,20 +66,6 @@ var routes = [
   {
     path: '/log_prize_pool/',
     component: LogPrizePoolPage,
-    options: {
-      animate: false,
-    }
-  },
-  {
-    path: '/user_address/',
-    component: UserAddressPage,
-    options: {
-      animate: false,
-    }
-  },
-  {
-    path: '/user_settings/',
-    component: UserSettingsPage,
     options: {
       animate: false,
     }
