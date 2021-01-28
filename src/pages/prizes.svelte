@@ -5,7 +5,7 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle>Prizes</NavTitle>
-    {#if innerWidth < 1024}
+    {#if innerWidth < 960}
       <Searchbar class="searchbar-prize" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
@@ -16,7 +16,7 @@
     {/if}
     <NavRight>
       <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Prize" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
-      {#if innerWidth < 1024}
+      {#if innerWidth < 960}
       <Link searchbarEnable=".searchbar-prize" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
       {/if}
     </NavRight>
@@ -24,7 +24,7 @@
   <!-- Body -->
   <Row class="no-gap">
     
-    <Col width="100" xlarge="70">
+    <Col width="100" large="60" xlarge="70">
       
       <!-- data-table here -->
 
@@ -98,7 +98,7 @@
       
 
     </Col>
-    <Col class="toolpanel" width="100" xlarge="30">
+    <Col class="toolpanel" width="100" large="40" xlarge="30">
 
       <!-- right section here -->
       
@@ -161,48 +161,7 @@
             </List>
           </AccordionContent>
         </ListItem>
-        <ListItem accordionItem title="Show rows">
-          <AccordionContent>
-            <List>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="20 Rows"
-                value="20"
-                name="row-count"
-                checked={$row_count == 20}
-                onChange={(e) => {$row_count = e.target.value; resetRows(0);}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="50 Rows"
-                value="50"
-                name="row-count"
-                checked={$row_count == 50}
-                onChange={(e) => {$row_count = e.target.value; resetRows(0);}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="100 Rows"
-                value="100"
-                name="row-count"
-                checked={$row_count == 100}
-                onChange={(e) => {$row_count = e.target.value; resetRows(0);}}
-              ></ListItem>
-              <ListItem
-                radio
-                radioIcon="end"
-                title="200 Rows"
-                value="200"
-                name="row-count"
-                checked={$row_count == 200}
-                onChange={(e) => {$row_count = e.target.value; resetRows(0);}}
-              ></ListItem>
-            </List>
-          </AccordionContent>
-        </ListItem>
+        <ShowRows on:resetRows={(e) => resetRows(e.detail.offset)} />
       </List>
       
     </Col>
@@ -216,6 +175,7 @@
 
 <script>
   import Paginator from '../components/Paginator.svelte';
+  import ShowRows from '../components/ShowRows.svelte';
   import { onMount } from 'svelte';
   import { Panel, AccordionContent,theme, Card, CardHeader, CardContent, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';

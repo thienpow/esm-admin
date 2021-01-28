@@ -5,7 +5,7 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle sliding>Games</NavTitle>
-    {#if innerWidth < 1024}
+    {#if innerWidth < 960}
       <Searchbar class="searchbar-game" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
@@ -16,7 +16,7 @@
     {/if}
     <NavRight>
       <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Game" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
-      {#if innerWidth < 1024}
+      {#if innerWidth < 960}
       <Link searchbarEnable=".searchbar-game" iconIos="f7:search" iconMd="material:search" iconAurora="f7:search" />
       {/if}
     </NavRight>
@@ -24,7 +24,7 @@
   <!-- Body -->
   <Row class="no-gap">
     
-    <Col width="100" xlarge="70">
+    <Col width="100" large="60" xlarge="70">
 
       <!-- data-table here -->
 
@@ -78,7 +78,7 @@
         </table>
       </div>
     </Col>
-    <Col class="toolpanel" width="100" xlarge="30">
+    <Col class="toolpanel" width="100" large="40" xlarge="30">
 
       <!-- right section here -->
 
