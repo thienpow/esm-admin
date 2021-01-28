@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Tournaments</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-tournament" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-tournament" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-tournament" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-tournament" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -46,7 +46,7 @@
           </thead>
           <tbody>
         
-            {#each filteredRows as tournament}
+            {#each $dataClient.tournaments as tournament}
             <tr on:click={onRowClick(tournament)}>
               <td class="numeric-cell">{tournament.id}</td>
               <td class="label-cell">{tournament.title}</td>
@@ -167,12 +167,7 @@
 
   let innerWidth = 0;
 
-  $: searchString = null;
-
-  $: filteredRows = searchString ? filteredRows = $dataClient.tournaments.filter(tournament => {
-                      return tournament.title.toLowerCase().includes(searchString.toLowerCase()) || tournament.id == Number(searchString);
-                   }) : $dataClient.tournaments;
-
+  $: searchString = "";
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -181,7 +176,8 @@
   $: currentPage = 1;
   async function resetRows(offset, search) {
     if (!search) {
-      return;
+      searchString = "";
+      search = "";
     } else {
       offset = 0;
     }
@@ -189,7 +185,6 @@
     if (offset === 0)
       currentPage = 1;
     await dataClient.getTournamentList($row_count, offset, search);
-    searchString = null;
   }
 
   function onNewClick() {

@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Subscriptions</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-subscription" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-subscription" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-subscription" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-subscription" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -58,7 +58,7 @@
           </thead>
           <tbody>
         
-            {#each filteredRows as subscription}
+            {#each $dataClient.subscriptions as subscription}
             <tr on:click={onRowClick(subscription)}>
               <td class="numeric-cell">{subscription.id}</td>
               <td class="label-cell">{subscription.title}</td>
@@ -216,12 +216,7 @@
 
   let innerWidth = 0;
 
-  $: searchString = null;
-
-  $: filteredRows = searchString ? filteredRows = $dataClient.subscriptions.filter(subscription => {
-                      return subscription.title.toLowerCase().includes(searchString.toLowerCase()) || subscription.id == Number(searchString);
-                   }) : $dataClient.subscriptions;
-
+  $: searchString = "";
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -230,7 +225,8 @@
   $: currentPage = 1;
   async function resetRows(offset, search) {
     if (!search) {
-      return;
+      searchString = "";
+      search = "";
     } else {
       offset = 0;
     }
@@ -238,7 +234,6 @@
     if (offset === 0)
       currentPage = 1;
     await dataClient.getSubscriptionList($row_count, offset, search);
-    searchString = null;
   }
 
 

@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Games</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-game" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-game" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-game" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-game" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -52,7 +52,7 @@
           </thead>
           <tbody>
         
-            {#each filteredRows as game}
+            {#each $dataClient.games as game}
             <tr on:click={onRowClick(game)}>
               <td class="numeric-cell">{game.id}</td>
               <td class="label-cell">{game.title}</td>
@@ -150,13 +150,7 @@
 
   let innerWidth = 0;
 
-  $: searchString = null;
-
-  $: filteredRows = searchString ? filteredRows = $dataClient.games.filter(game => {
-                      return game.title.toLowerCase().includes(searchString.toLowerCase()) || game.id == Number(searchString);
-                   }) : $dataClient.games;
-
-
+  $: searchString = "";
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -165,7 +159,8 @@
   $: currentPage = 1;
   async function resetRows(offset, search) {
     if (!search) {
-      return;
+      searchString = "";
+      search = "";
     } else {
       offset = 0;
     }
@@ -173,7 +168,6 @@
     if (offset === 0)
       currentPage = 1;
     await dataClient.getGameList($row_count, offset, search);
-    searchString = null;
     
   }
 

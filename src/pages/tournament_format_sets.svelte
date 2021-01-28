@@ -6,11 +6,11 @@
     </NavLeft>
     <NavTitle sliding>Tournament Format Sets</NavTitle>
     {#if innerWidth < 1024}
-      <Searchbar class="searchbar-formatset" expandable value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+      <Searchbar class="searchbar-formatset" expandable bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
     {:else}
         <div class="nav-container">
           <div class="nav-searchbar-container">
-            <Searchbar class="searchbar-formatset" value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
+            <Searchbar class="searchbar-formatset" bind:value={searchString} onChange={(e) => doSearch(e.target.value)} disableButton={!theme.aurora} />
           </div>
         </div>
     {/if}
@@ -41,7 +41,7 @@
           </thead>
           <tbody>
         
-            {#each filteredRows as set}
+            {#each $dataClient.tournament_sets as set}
             <tr on:click={onRowClick(set)}>
               <td class="numeric-cell">{set.id}</td>
               <td class="label-cell">{set.title}</td>
@@ -60,7 +60,7 @@
     <Col class="toolpanel" width="100" xlarge="30">
   
       <!-- right section here -->
-      <Paginator total={0} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
+      <Paginator total={10} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
 
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
@@ -104,12 +104,7 @@
 
   let innerWidth = 0;
 
-  $: searchString = null;
-
-  $: filteredRows = searchString ? filteredRows = $dataClient.tournament_sets.filter(set => {
-                      return set.title.toLowerCase().includes(searchString.toLowerCase()) || set.id == Number(searchString);
-                   }) : $dataClient.tournament_sets;
-
+  $: searchString = "";
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -118,15 +113,15 @@
   $: currentPage = 1;
   async function resetRows(offset, search) {
     if (!search) {
-      return;
+      searchString = "";
+      search = "";
     } else {
       offset = 0;
     }
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getTournamentList($row_count, offset, search);
-    searchString = null;
+    await dataClient.getTournamentSetList($row_count, offset, search);
   }
 
   function onNewClick() {
