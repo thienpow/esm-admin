@@ -185,7 +185,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getSubscriptionList($row_count, offset, search);
+    await dataClient.getSubscriptionList($row_count, offset, search, 0);
   }
 
 
@@ -210,7 +210,7 @@
 
   onMount(async () => {
     await dataClient.getSubscriptionCount();
-    await dataClient.getSubscriptionList($row_count);
+    await dataClient.getSubscriptionList($row_count, 0, "", 0);
   });
   
   

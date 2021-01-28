@@ -112,7 +112,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getTournamentSetList($row_count, offset, search);
+    await dataClient.getTournamentSetList($row_count, offset, search, 0);
   }
 
   function onNewClick() {
@@ -133,7 +133,7 @@
 
   onMount(async () => {
     await dataClient.getTournamentSetCount();
-    await dataClient.getTournamentSetList($row_count);
+    await dataClient.getTournamentSetList($row_count, 0, "", 0);
   });
   
 </script>

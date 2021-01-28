@@ -233,11 +233,11 @@
                             <Icon md="material:search" aurora="f7:search" ios="f7:search" />
                           </span>
                           <select multiple bind:value={$dataClient.prize.tournament_ids}>
-                            <option value={1}>test game 1</option>
-                              <option value={2}>test game 2</option>
-                              <option value={3}>test game 3</option>
-                              <option value={4}>test game 4</option>
-                              <option value={5}>test game 5</option>
+                            <option value={1}>test tournament 1</option>
+                              <option value={2}>test tournament 2</option>
+                              <option value={3}>test tournament 3</option>
+                              <option value={4}>test tournament 4</option>
+                              <option value={5}>test tournament 5</option>
                           </select>
                         </ListItem>
     

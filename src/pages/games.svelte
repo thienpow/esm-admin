@@ -159,7 +159,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getGameList($row_count, offset, search);
+    await dataClient.getGameList($row_count, offset, search, 0);
     
   }
 
@@ -186,7 +186,7 @@
 
   onMount(async () => {
     await dataClient.getGameCount();
-    await dataClient.getGameList($row_count, 0);
+    await dataClient.getGameList($row_count, 0, "", 0);
   });
   
 </script>

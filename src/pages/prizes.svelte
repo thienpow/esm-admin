@@ -195,7 +195,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getPrizeList($row_count, offset, search);
+    await dataClient.getPrizeList($row_count, offset, search, 0);
   }
 
   function onNewClick() {
@@ -235,7 +235,7 @@
 
   onMount(async () => {
     await dataClient.getPrizeCount();
-    await dataClient.getPrizeList($row_count);
+    await dataClient.getPrizeList($row_count, 0, "", 0);
   });
   
 </script>

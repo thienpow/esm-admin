@@ -185,7 +185,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getItemList($row_count, offset, search);
+    await dataClient.getItemList($row_count, offset, search, 0);
   }
 
   function onNewClick() {
@@ -209,7 +209,7 @@
 
   onMount(async () => {
     await dataClient.getItemCount();
-    await dataClient.getItemList($row_count);
+    await dataClient.getItemList($row_count, 0, "", 0);
   });
   
   
