@@ -5,122 +5,126 @@
     
     <Col width="100" large="60" xlarge="70">
 
-      <BlockTitle>Status</BlockTitle>
-      <Card noShadow>
-        <CardContent>
-          
-          <Row>
-            <Col width="100" medium="50">
-              <List noHairlinesMd form id="userForm">
-                <ListInput
-                  class="item-content-input"
-                  label="Status"
-                  type="select"
-                  value={$dataClient.user.status}
-                  onInput={(e) => $dataClient.user.status = e.target.value}
-                  placeholder="Please choose...">
-                  <option value={0}>Not Selected</option>
-                  <option value={1}>Active</option>
-                  <option value={2}>Blocked</option>
-                </ListInput>
-              </List>
-            </Col>
-          </Row>
-        </CardContent>
-      </Card>
+      <List noHairlinesMd form id="userForm">
+
+        <BlockTitle>Status</BlockTitle>
+        <Card noShadow>
+          <CardContent>
+            
+            <Row>
+              <Col width="100" medium="50">
+                
+                  <ListInput
+                    class="item-content-input"
+                    label="Status"
+                    type="select"
+                    value={$dataClient.user.status}
+                    onInput={(e) => $dataClient.user.status = e.target.value}
+                    placeholder="Please choose...">
+                    <option value={0}>Not Selected</option>
+                    <option value={1}>Active</option>
+                    <option value={2}>Blocked</option>
+                  </ListInput>
+                
+              </Col>
+            </Row>
+          </CardContent>
+        </Card>
+        
+  
+        <SaveCancel on:doSave={doSave} />
+  
+  
+        <BlockTitle>Basic Details</BlockTitle>
+        <Card noShadow>
+          <CardContent>
+            <List>
+              <Row>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Email"
+                    type="text"
+                    value={$dataClient.user.email}
+                    readonly />
+                </Col>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Username"
+                    type="text"
+                    value={$dataClient.user.username}
+                    readonly />
+                </Col>
+              </Row>
+              <Row>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Phone"
+                    type="text"
+                    value={$dataClient.user.phone}
+                    readonly />
+                </Col>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Avatar Url"
+                    type="text"
+                    value={$dataClient.user.avatar_url}
+                    readonly />
+                </Col>
+              </Row>
+              <Row>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="First Name"
+                    type="text"
+                    value={$dataClient.user.firstname}
+                    readonly />
+                </Col>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Last Name"
+                    type="text"
+                    value={$dataClient.user.lastname}
+                    readonly />
+                </Col>
+              </Row>
+              <Row>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="FB ID"
+                    type="text"
+                    value={$dataClient.user.social_link_fb}
+                    readonly />
+                </Col>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Google ID"
+                    type="text"
+                    value={$dataClient.user.social_link_google}
+                    readonly />
+                </Col>
+              </Row>
+              <Row>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Exp"
+                    type="text"
+                    value={$dataClient.user.exp}
+                    readonly />
+                </Col>
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Gem Balance"
+                    type="text"
+                    value={$dataClient.user.gem_balance}
+                    readonly />
+                </Col>
+              </Row>
+            </List>
+          </CardContent>
+        </Card>
       
-
-      <SaveCancel on:doSave={doSave} />
-
-
-      <BlockTitle>Basic Details</BlockTitle>
-      <Card noShadow>
-        <CardContent>
-          <List>
-            <Row>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Email"
-                  type="text"
-                  value={$dataClient.user.email}
-                  readonly />
-              </Col>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Username"
-                  type="text"
-                  value={$dataClient.user.username}
-                  readonly />
-              </Col>
-            </Row>
-            <Row>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Phone"
-                  type="text"
-                  value={$dataClient.user.phone}
-                  readonly />
-              </Col>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Avatar Url"
-                  type="text"
-                  value={$dataClient.user.avatar_url}
-                  readonly />
-              </Col>
-            </Row>
-            <Row>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="First Name"
-                  type="text"
-                  value={$dataClient.user.firstname}
-                  readonly />
-              </Col>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Last Name"
-                  type="text"
-                  value={$dataClient.user.lastname}
-                  readonly />
-              </Col>
-            </Row>
-            <Row>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="FB ID"
-                  type="text"
-                  value={$dataClient.user.social_link_fb}
-                  readonly />
-              </Col>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Google ID"
-                  type="text"
-                  value={$dataClient.user.social_link_google}
-                  readonly />
-              </Col>
-            </Row>
-            <Row>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Exp"
-                  type="text"
-                  value={$dataClient.user.exp}
-                  readonly />
-              </Col>
-              <Col width="100" medium="50">
-                <ListInput
-                  label="Gem Balance"
-                  type="text"
-                  value={$dataClient.user.gem_balance}
-                  readonly />
-              </Col>
-            </Row>
-          </List>
-        </CardContent>
-      </Card>
-    
+      </List>
+      
     </Col>
     <Col class="toolpanel" width="100" large="40" xlarge="30">
 
