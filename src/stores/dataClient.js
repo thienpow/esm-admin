@@ -1627,13 +1627,12 @@ const dataClient = () => {
         
       },
 
-      async getTournamentSetList(row_count, offset, search_title, status) {
+      async getTournamentSetList(row_count, offset, search_title) {
           
         let request = state.listTournamentSetRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
         request.setSearchTitle(search_title);
-        request.setStatus(status);
 
         try {
           const response = await state.apiClient.listTournamentSet(request, {'authorization': state.jwtToken});

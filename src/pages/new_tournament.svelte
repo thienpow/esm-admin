@@ -140,7 +140,7 @@
   }
 
   onMount(async () => {
-    await dataClient.getTournamentSetList(1000, 0, "", 2);
+    await dataClient.getTournamentSetList(1000, 0, "");
   });
   
 </script>
