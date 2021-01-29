@@ -9,6 +9,7 @@ export const show_status = writable('show_status', true);
 
 export const show_type = writable('show_type', true);
 export const show_price = writable('show_price', true);
+export const show_quantity = writable('show_quantity', true);
 
 export const show_game_id = writable('show_game_id', true);
 export const show_reward_amount = writable('show_reward_amount', true);

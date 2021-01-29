@@ -4,7 +4,7 @@
   <List noHairlinesMd form id="prizeForm">
 
     <Row class="no-gap">
-      <Col width="100" large="45" xlarge="40">
+      <Col width="100" large="50">
 
 
         <BlockTitle>Basic Details</BlockTitle>
@@ -72,7 +72,7 @@
         
 
       </Col>
-      <Col width="100" large="55" xlarge="60">
+      <Col width="100" large="50">
 
 
         <BlockTitle>Conditions</BlockTitle>

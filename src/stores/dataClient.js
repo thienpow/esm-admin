@@ -270,7 +270,8 @@ const dataClient = () => {
       img_url: "", 
       content: "", 
       type_id: 0, 
-      amount: 0, 
+      price: 0,
+      quantity: 0, 
       status: 1
     },
     items: [],
@@ -289,7 +290,8 @@ const dataClient = () => {
       img_url: "", 
       content: "", 
       type_id: 0, 
-      amount: 0, 
+      price: 0,
+      quantity: 0, 
       status: 1
     },
     subscriptions: [],
@@ -941,7 +943,8 @@ const dataClient = () => {
         request.setImgUrl(state.item.img_url);
         request.setContent(state.item.content);
         request.setTypeId(state.item.type_id);
-        request.setAmount(state.item.amount);
+        request.setPrice(state.item.price);
+        request.setQuantity(state.item.quantity);
         request.setStatus(state.item.status);
         
         try {
@@ -963,7 +966,8 @@ const dataClient = () => {
         request.setImgUrl(state.item.img_url);
         request.setContent(state.item.content);
         request.setTypeId(state.item.type_id);
-        request.setAmount(state.item.amount);
+        request.setPrice(state.item.price);
+        request.setQuantity(state.item.quantity);
         request.setStatus(state.item.status);
         
         try {
@@ -1035,7 +1039,8 @@ const dataClient = () => {
               img_url: item.getImgUrl(), 
               content: item.getContent(), 
               type_id: item.getTypeId(), 
-              amount: item.getAmount(), 
+              price: item.getPrice(),
+              quantity: item.getQuantity(), 
               status: item.getStatus()
             }];
           }
@@ -1081,7 +1086,8 @@ const dataClient = () => {
         request.setImgUrl(state.subscription.img_url);
         request.setContent(state.subscription.content);
         request.setTypeId(state.subscription.type_id);
-        request.setAmount(state.subscription.amount);
+        request.setPrice(state.subscription.price);
+        request.setQuantity(state.subscription.quantity);
         request.setStatus(state.subscription.status);
         
         try {
@@ -1103,7 +1109,8 @@ const dataClient = () => {
         request.setImgUrl(state.subscription.img_url);
         request.setContent(state.subscription.content);
         request.setTypeId(state.subscription.type_id);
-        request.setAmount(state.subscription.amount);
+        request.setPrice(state.subscription.price);
+        request.setQuantity(state.subscription.quantity);
         request.setStatus(state.subscription.status);
         
         try {
@@ -1175,7 +1182,8 @@ const dataClient = () => {
               img_url: sub.getImgUrl(), 
               content: sub.getContent(), 
               type_id: sub.getTypeId(), 
-              amount: sub.getAmount(), 
+              price: sub.getPrice(),
+              quantity: sub.getQuantity(),
               status: sub.getStatus()
             }];
           }

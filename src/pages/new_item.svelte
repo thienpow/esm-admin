@@ -82,7 +82,7 @@
         <Card noShadow>
           <CardContent>
             <Row>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Type"
@@ -98,13 +98,25 @@
                 </ListInput>
 
               </Col>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Price"
-                  type="text"
-                  value={$dataClient.item.amount}
-                  onInput={(e) => $dataClient.item.amount = e.target.value}
+                  type="number"
+                  value={$dataClient.item.price}
+                  onInput={(e) => $dataClient.item.price = e.target.value}
+                  pattern="[0-9]*"
+                  required
+                  validate />
+
+              </Col>
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="Quantity"
+                  type="number"
+                  value={$dataClient.item.quantity}
+                  onInput={(e) => $dataClient.item.quantity = e.target.value}
                   pattern="[0-9]*"
                   required
                   validate />

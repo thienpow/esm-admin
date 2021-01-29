@@ -41,6 +41,9 @@
               {#if $show_price}
               <th class="numeric-cell">Price</th>
               {/if}
+              {#if $show_quantity}
+              <th class="numeric-cell">Quantity</th>
+              {/if}
               {#if $show_image}
               <th></th>
               {/if}
@@ -67,7 +70,10 @@
               <td class="labbel-cell">{dataClient.displaySubscriptionTypeTitle(subscription.type_id)}</td>
               {/if}
               {#if $show_price}
-              <td class="numeric-cell">{subscription.amount}</td>
+              <td class="numeric-cell">{subscription.price}</td>
+              {/if}
+              {#if $show_quantity}
+              <td class="numeric-cell">{subscription.quantity}</td>
               {/if}
               {#if $show_image}
               <td ><img alt="" src={subscription.img_url} height="100%" /></td>
@@ -141,6 +147,13 @@
                 checked={$show_price}
                 onChange={(e) => $show_price = e.target.checked}
               ></ListItem>
+              <ListItem
+                checkbox
+                title="quantity"
+                value={$show_quantity}
+                checked={$show_quantity}
+                onChange={(e) => $show_quantity = e.target.checked}
+              ></ListItem>
             </List>
           </AccordionContent>
         </ListItem>
@@ -161,7 +174,7 @@
   import { onMount } from 'svelte';
   import { AccordionContent, List, ListItem, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
-  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_price, row_count} from '../stores/ui';
+  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_price, show_quantity, row_count} from '../stores/ui';
   
 
   export let f7router;
@@ -197,7 +210,8 @@
         img_url: "", 
         content: "", 
         type_id: 0, 
-        amount: 0, 
+        price: 0,
+        quantity: 0, 
         status: 1
       };
     f7router.navigate("/newsub/0/");
