@@ -167,45 +167,34 @@
             </Row>
             <Row>
               <Col width="100" medium="30">
-                <BlockTitle>Repeat</BlockTitle>
-                 <Card noShadow>
-                  <CardContent>
-    
-                    <List>
-                      <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
-                      <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
-                    </List>
-                      
-                  </CardContent>
-                </Card>
-                
+                  <BlockTitle>Repeat</BlockTitle>
+                  <List>
+                    <ListItem radio value={true} checked={$dataClient.prize.is_repeat == true} on:change={(e) => $dataClient.prize.is_repeat = true} name="radio-repeat" title="Yes" />
+                    <ListItem radio value={false} checked={$dataClient.prize.is_repeat == false} on:change={(e) => $dataClient.prize.is_repeat = false} name="radio-repeat" title="No" />
+                  </List>
               </Col>
               <Col width="100" medium="70">
                 <BlockTitle>Repeated On</BlockTitle>
-                 <Card noShadow>
-                  <CardContent>
-    
-                    <Row>
-                      <Col>M</Col>
-                      <Col>T</Col>
-                      <Col>W</Col>
-                      <Col>T</Col>
-                      <Col>F</Col>
-                      <Col>S</Col>
-                      <Col>S</Col>
-                    </Row>
-                    <Row>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon}>Mon</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue}>Tue</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed}>Wed</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu}>Thu</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri}>Fri</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat}>Sat</ListItem></Col>
-                      <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun}>Sun</ListItem></Col>
-                    </Row>
-                  </CardContent>
-                </Card>
-    
+                
+                <Row>
+                  <Col><ListItem title="Mon" /></Col>
+                  <Col><ListItem title="Tue" /></Col>
+                  <Col><ListItem title="Wed" /></Col>
+                  <Col><ListItem title="Thu" /></Col>
+                  <Col><ListItem title="Fri" /></Col>
+                  <Col><ListItem title="Sat" /></Col>
+                  <Col><ListItem title="Sun" /></Col>
+                </Row>
+                <Row>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_mon == true} on:change={(e) => $dataClient.prize.repeated_on_mon = !$dataClient.prize.repeated_on_mon} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_tue == true} on:change={(e) => $dataClient.prize.repeated_on_tue = !$dataClient.prize.repeated_on_tue} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_wed == true} on:change={(e) => $dataClient.prize.repeated_on_wed = !$dataClient.prize.repeated_on_wed} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_thu == true} on:change={(e) => $dataClient.prize.repeated_on_thu = !$dataClient.prize.repeated_on_thu} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_fri == true} on:change={(e) => $dataClient.prize.repeated_on_fri = !$dataClient.prize.repeated_on_fri} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sat == true} on:change={(e) => $dataClient.prize.repeated_on_sat = !$dataClient.prize.repeated_on_sat} /></Col>
+                  <Col><ListItem checkbox checked={$dataClient.prize.repeated_on_sun == true} on:change={(e) => $dataClient.prize.repeated_on_sun = !$dataClient.prize.repeated_on_sun} /></Col>
+                </Row>
+
               </Col>
             </Row>
             
