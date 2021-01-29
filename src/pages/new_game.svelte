@@ -85,7 +85,7 @@
               <Col width="100" medium="50">
     
                 {#if id > 0}
-                <ListItem link="/game_leader_rule/{id}/" view=".view-main" panelClose title="** Click here to Modify Game Leaderboard Rules"/>
+                <ListItem link="/game_leader_rule/{id}/" view=".view-main" panelClose title="Leaderboard Rules"/>
                 {/if}
               </Col>
               <Col width="100" medium="50">
