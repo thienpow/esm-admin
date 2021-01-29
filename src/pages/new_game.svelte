@@ -4,144 +4,148 @@
 
   <List noHairlinesMd form id="gameForm">
 
-    <BlockTitle>Basic Details</BlockTitle>
-    <Card noShadow>
-      <CardContent>
-        <Row>
-          <Col width="100" medium="50">
+    <Row class="no-gap">
+      <Col width="100" large="55" xlarge="60">
 
-            <ListInput
-              class="item-content-input"
-              label="Status"
-              type="select"
-              value={$dataClient.game.status}
-              onInput={(e) => $dataClient.game.status = e.target.value}
-              placeholder="Please choose...">
-
-              {#each $dataClient.statusTypes as sT}
-                <option value={sT.id}>{sT.title}</option>
-              {/each}
-
-            </ListInput>
-
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Image URL"
-              type="url"
-              placeholder="upload the file by using DigitalOcean 'Space'."
-              value={$dataClient.game.img_url}
-              onInput={(e) => $dataClient.game.img_url = e.target.value}
-              required
-              validate />
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Title"
-              type="text"
-              value={$dataClient.game.title}
-              onInput={(e) => $dataClient.game.title = e.target.value}
-              required
-              validate />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Sub-title"
-              type="text"
-              value={$dataClient.game.subtitle}
-              onInput={(e) => $dataClient.game.subtitle = e.target.value} />
-          </Col>
-        </Row>
-        
-        <ListInput
-          class="item-content-input"
-          type="textarea"
-          label="Detailed Content"
-          value={$dataClient.game.content}
-          onInput={(e) => $dataClient.game.content = e.target.value} 
-          resizable />
-        
-      
-      </CardContent>
-    </Card>
-  
-
+        <BlockTitle>Basic Details</BlockTitle>
+        <Card noShadow>
+          <CardContent>
+            <Row>
+              <Col width="100" medium="50">
     
-    <SaveCancel on:doSave={doSave} />
-
-
-
-    <BlockTitle>Rules</BlockTitle>
-    <Card noShadow>
-      <CardContent>
-
-        <Row>
+                <ListInput
+                  class="item-content-input"
+                  label="Status"
+                  type="select"
+                  value={$dataClient.game.status}
+                  onInput={(e) => $dataClient.game.status = e.target.value}
+                  placeholder="Please choose...">
+    
+                  {#each $dataClient.statusTypes as sT}
+                    <option value={sT.id}>{sT.title}</option>
+                  {/each}
+    
+                </ListInput>
+    
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Image URL"
+                  type="url"
+                  placeholder="upload the file by using DigitalOcean 'Space'."
+                  value={$dataClient.game.img_url}
+                  onInput={(e) => $dataClient.game.img_url = e.target.value}
+                  required
+                  validate />
+              </Col>
+            </Row>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Title"
+                  type="text"
+                  value={$dataClient.game.title}
+                  onInput={(e) => $dataClient.game.title = e.target.value}
+                  required
+                  validate />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Sub-title"
+                  type="text"
+                  value={$dataClient.game.subtitle}
+                  onInput={(e) => $dataClient.game.subtitle = e.target.value} />
+              </Col>
+            </Row>
+            
+            <ListInput
+              class="item-content-input"
+              type="textarea"
+              label="Detailed Content"
+              value={$dataClient.game.content}
+              onInput={(e) => $dataClient.game.content = e.target.value} 
+              resizable />
+            
           
-          <Col width="100" medium="50">
+          </CardContent>
+        </Card>
+      
+      </Col>
+      <Col width="100" large="45" xlarge="40">
 
-            {#if id > 0}
-            <ListItem link="/game_leader_rule/{id}/" view=".view-main" panelClose title="** Click here to Modify Game Leaderboard Rules"/>
-            {/if}
-          </Col>
-          <Col width="100" medium="50">
+        <BlockTitle>Rules</BlockTitle>
+        <Card noShadow>
+          <CardContent>
+    
+            <Row>
+              
+              <Col width="100" medium="50">
+    
+                {#if id > 0}
+                <ListItem link="/game_leader_rule/{id}/" view=".view-main" panelClose title="** Click here to Modify Game Leaderboard Rules"/>
+                {/if}
+              </Col>
+              <Col width="100" medium="50">
+    
+                <ListInput
+                  class="item-content-input"
+                  label="Score Rule"
+                  type="number"
+                  value={$dataClient.game.score_rule}
+                  onInput={(e) => $dataClient.game.score_rule = e.target.value}
+                  pattern="[0-9]*" />
+    
+              </Col>
+            </Row>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Watch AD get Tickets"
+                  type="number"
+                  value={$dataClient.game.watch_ad_get_tickets}
+                  onInput={(e) => $dataClient.game.watch_ad_get_tickets = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Watch AD get Exp"
+                  type="number"
+                  value={$dataClient.game.watch_ad_get_exp}
+                  onInput={(e) => $dataClient.game.watch_ad_get_exp = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+            </Row>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Use Gem Get Tickets"
+                  type="number"
+                  value={$dataClient.game.use_gem_get_tickets}
+                  onInput={(e) => $dataClient.game.use_gem_get_tickets = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Use Gem Get Exp"
+                  type="number"
+                  value={$dataClient.game.use_gem_get_exp}
+                  onInput={(e) => $dataClient.game.use_gem_get_exp = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+            </Row>
+          </CardContent>
+        </Card>
+      </Col>
+    </Row>
 
-            <ListInput
-              class="item-content-input"
-              label="Score Rule"
-              type="number"
-              value={$dataClient.game.score_rule}
-              onInput={(e) => $dataClient.game.score_rule = e.target.value}
-              pattern="[0-9]*" />
 
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Watch AD get Tickets"
-              type="number"
-              value={$dataClient.game.watch_ad_get_tickets}
-              onInput={(e) => $dataClient.game.watch_ad_get_tickets = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Watch AD get Exp"
-              type="number"
-              value={$dataClient.game.watch_ad_get_exp}
-              onInput={(e) => $dataClient.game.watch_ad_get_exp = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Use Gem Get Tickets"
-              type="number"
-              value={$dataClient.game.use_gem_get_tickets}
-              onInput={(e) => $dataClient.game.use_gem_get_tickets = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Use Gem Get Exp"
-              type="number"
-              value={$dataClient.game.use_gem_get_exp}
-              onInput={(e) => $dataClient.game.use_gem_get_exp = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-        </Row>
-      </CardContent>
-    </Card>
 
     <BlockTitle>Code Details</BlockTitle>
     <Card noShadow>
