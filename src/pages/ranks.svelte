@@ -10,33 +10,38 @@
     </NavRight>
   </Navbar>
   <!-- Body -->
-  <div class="data-table">
-    <table>
-      <thead>
-        <tr>
-          <th class="numeric-cell">ID</th>
-          <th class="label-cell">Level</th>
-          <th class="numeric-cell">Exp</th>
-          <th class="numeric-cell">Gem</th>
-          <th class="numeric-cell">Multiplier</th>
-        </tr>
-      </thead>
-      <tbody>
-    
-        {#each filteredRows as rank}
-        <tr on:click={onRowClick(rank)}>
-          <td class="numeric-cell">{rank.id}</td>
-          <td class="label-cell">{rank.title}</td>
-          <td class="numeric-cell">{rank.exp}</td>
-          <td class="numeric-cell">{rank.gem}</td>
-          <td class="numeric-cell">{rank.multiplier}</td>
-        </tr>
-        {/each}
+  <Row>
+    <Col width="0" small="10" medium="20"></Col>
+    <Col width="100" small="80" medium="60">
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">ID</th>
+              <th class="label-cell">Level</th>
+              <th class="numeric-cell">Exp</th>
+              <th class="numeric-cell">Gem</th>
+              <th class="numeric-cell">Multiplier</th>
+            </tr>
+          </thead>
+          <tbody>
         
-      </tbody>
-    </table>
-  </div>
-  
+            {#each filteredRows as rank}
+            <tr on:click={onRowClick(rank)}>
+              <td class="numeric-cell">{rank.id}</td>
+              <td class="label-cell">{rank.title}</td>
+              <td class="numeric-cell">{rank.exp}</td>
+              <td class="numeric-cell">{rank.gem}</td>
+              <td class="numeric-cell">{rank.multiplier}</td>
+            </tr>
+            {/each}
+            
+          </tbody>
+        </table>
+      </div>
+    </Col>
+    <Col width="0" small="10" medium="20"></Col>
+  </Row>
 </Page>
 
 <svelte:window bind:innerWidth={innerWidth}/>

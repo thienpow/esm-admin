@@ -2,61 +2,67 @@
   <Navbar backLink title={title}></Navbar>
 
   <BlockTitle></BlockTitle>
-  
-  <List noHairlinesMd form id="rankForm">
+  <Row>
+    <Col width="0" small="10" medium="20"></Col>
+    <Col width="100" small="80" medium="60">
+      <List noHairlinesMd form id="rankForm">
 
-    <BlockTitle>Basic Details</BlockTitle>
-    <Card noShadow>
-      <CardContent>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Title"
-              type="text"
-              value={$dataClient.rank.title}
-              onInput={(e) => $dataClient.rank.title = e.target.value}
-              required
-              validate />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Exp"
-              type="number"
-              value={$dataClient.rank.exp}
-              onInput={(e) => $dataClient.rank.exp = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-        </Row>
-        <Row>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Gem"
-              type="number"
-              value={$dataClient.rank.gem}
-              onInput={(e) => $dataClient.rank.gem = e.target.value}
-              pattern="[0-9]*" />
-          </Col>
-          <Col width="100" medium="50">
-            <ListInput
-              class="item-content-input"
-              label="Multiplier"
-              type="number"
-              step="0.1"
-              value={$dataClient.rank.multiplier}
-              onInput={(e) => $dataClient.rank.multiplier = e.target.value} />
-          </Col>
-        </Row>
-      </CardContent>
-    </Card>
+        <BlockTitle>Basic Details</BlockTitle>
+        <Card noShadow>
+          <CardContent>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Title"
+                  type="text"
+                  value={$dataClient.rank.title}
+                  onInput={(e) => $dataClient.rank.title = e.target.value}
+                  required
+                  validate />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Exp"
+                  type="number"
+                  value={$dataClient.rank.exp}
+                  onInput={(e) => $dataClient.rank.exp = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+            </Row>
+            <Row>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Gem"
+                  type="number"
+                  value={$dataClient.rank.gem}
+                  onInput={(e) => $dataClient.rank.gem = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  class="item-content-input"
+                  label="Multiplier"
+                  type="number"
+                  step="0.1"
+                  value={$dataClient.rank.multiplier}
+                  onInput={(e) => $dataClient.rank.multiplier = e.target.value} />
+              </Col>
+            </Row>
+          </CardContent>
+        </Card>
+        
+      </List>
     
-  </List>
-
+      
+      <SaveCancel on:doSave={doSave} />
+    
+    </Col>
+    <Col width="0" small="10" medium="20"></Col>
+  </Row>
   
-  <SaveCancel on:doSave={doSave} />
-
 
 </Page>
 <script>
