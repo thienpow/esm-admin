@@ -203,7 +203,7 @@
 
 
   function onNewClick() {
-    $dataClient.item = {
+    $dataClient.subscription = {
         id: 0, 
         title: "", 
         subtitle: "", 
