@@ -148,7 +148,9 @@
                   value={$dataClient.prize.timezone}
                   onInput={(e) => $dataClient.prize.timezone = e.target.value}
                   placeholder="Please choose...">
-                  <option value={0}>Malaysia (GMT +8)</option>
+                  {#each timezones as tz}
+                  <option value={tz.value}>{tz.text}</option>
+                  {/each}
                 </ListInput>
               </Col>
               <Col width="100" medium="50">
@@ -158,8 +160,8 @@
                   label="Scheduled On"
                   calendarParams={{timePicker: true, dateFormat: { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric'}}}
                   type="datepicker"
-                  value={$dataClient.prize.scheduled_on}
-                  on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0]}
+                  value={[$dataClient.prize.scheduled_on]}
+                  on:calendarChange={(e) => $dataClient.prize.scheduled_on = e.detail[0][0]}
                   required
                   validate />
     
@@ -259,6 +261,7 @@
 
 </Page>
 <script>
+  import timezones from '../js/timezones';
   import SaveCancel from '../components/SaveCancel.svelte';
   import {
       f7,

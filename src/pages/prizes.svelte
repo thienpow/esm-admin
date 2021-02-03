@@ -73,7 +73,7 @@
               <td class="numeric-cell">{prize.tickets_collected}</td>
               {/if}
               {#if $show_scheduled_on}
-              <td class="numeric-cell">{prize.scheduled_on}</td>
+              <td class="numeric-cell">{formatDT(prize.scheduled_on)}</td>
               {/if}
               {#if $show_image}
               <td ><img alt="" src={prize.img_url} height="100%" /></td>
@@ -179,6 +179,12 @@
   let innerWidth = 0;
 
   $: searchString = "";
+
+
+  const zeroPad = (num, places) => String(num).padStart(places, '0');
+  function formatDT(dt) {
+    return ( zeroPad(dt.getDate(), 2) + "-" + zeroPad((dt.getMonth() + 1), 2) + "-" + dt.getFullYear() + " " + zeroPad(dt.getHours(), 2) + ":" + zeroPad(dt.getMinutes(), 2) );
+  }
 
   async function doSearch(value) {
     resetRows(0, value);

@@ -1239,7 +1239,7 @@ const dataClient = () => {
         request.setDurationHours(state.prize.duration_hours);
 
         request.setTimezone(state.prize.timezone);
-        request.setScheduledOn([scheduled_on.valueOf() / 1000]);
+        request.setScheduledOn(scheduled_on.valueOf() / 1000);
 
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
@@ -1276,7 +1276,7 @@ const dataClient = () => {
         request.setDurationHours(state.prize.duration_hours);
 
         request.setTimezone(state.prize.timezone);
-        request.setScheduledOn([scheduled_on.valueOf() / 1000]);
+        request.setScheduledOn(scheduled_on.valueOf() / 1000);
 
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
@@ -1287,7 +1287,7 @@ const dataClient = () => {
           const response = await state.apiClient.updatePrize(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
+          console.log(err);
           state.isLoggedIn = false;
         }
       
@@ -1355,7 +1355,7 @@ const dataClient = () => {
               duration_days: item.getDurationDays(),
               duration_hours: item.getDurationHours(),
               timezone: item.getTimezone(),
-              scheduled_on: [timeConverter(item.getScheduledOn())],
+              scheduled_on: timeConverter(item.getScheduledOn()),
               is_repeat: item.getIsRepeat(),
               repeated_on: item.getRepeatedOnList(),
               status: item.getStatus(),
