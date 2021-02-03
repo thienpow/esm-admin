@@ -105,7 +105,8 @@
                   type="number"
                   value={$dataClient.item.price}
                   onInput={(e) => $dataClient.item.price = e.target.value}
-                  pattern="[0-9]*"
+                  step="0.01"
+                  error-message="Only numbers please!"
                   required
                   validate />
 

@@ -99,7 +99,8 @@
                   type="number"
                   value={$dataClient.subscription.price}
                   onInput={(e) => $dataClient.subscription.price = e.target.value}
-                  pattern="[0-9]*"
+                  step="0.01"
+                  error-message="Only numbers please!"
                   required
                   validate />
 
