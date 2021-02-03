@@ -41,6 +41,9 @@
               {#if $show_tickets_collected}
               <th class="numeric-cell">TicketsCollected</th>
               {/if}
+              {#if $show_timezone}
+              <th class="numeric-cell">TimeZone</th>
+              {/if}
               {#if $show_scheduled_on}
               <th class="numeric-cell">ScheduledOn</th>
               {/if}
@@ -71,6 +74,9 @@
               {/if}
               {#if $show_tickets_collected}
               <td class="numeric-cell">{prize.tickets_collected}</td>
+              {/if}
+              {#if $show_timezone}
+              <td class="numeric-cell">{getTimezone(prize.timezone)}</td>
               {/if}
               {#if $show_scheduled_on}
               <td class="numeric-cell">{formatDT(prize.scheduled_on)}</td>
@@ -136,6 +142,13 @@
               ></ListItem>
               <ListItem
                 checkbox
+                title="show_timezone"
+                value={$show_timezone}
+                checked={$show_timezone}
+                onChange={(e) => $show_timezone = e.target.checked}
+              ></ListItem>
+              <ListItem
+                checkbox
                 title="scheduled_on"
                 value={$show_scheduled_on}
                 checked={$show_scheduled_on}
@@ -164,6 +177,7 @@
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <script>
+  import timezones from '../js/timezones';
   import Paginator from '../components/Paginator.svelte';
   import ShowRows from '../components/ShowRows.svelte';
   import SearchBar from '../components/SearchBar.svelte';
@@ -171,7 +185,7 @@
   import { onMount } from 'svelte';
   import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
-  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
+  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_timezone, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
   
 
   export let f7router;
@@ -184,6 +198,14 @@
   const zeroPad = (num, places) => String(num).padStart(places, '0');
   function formatDT(dt) {
     return ( zeroPad(dt.getDate(), 2) + "-" + zeroPad((dt.getMonth() + 1), 2) + "-" + dt.getFullYear() + " " + zeroPad(dt.getHours(), 2) + ":" + zeroPad(dt.getMinutes(), 2) );
+  }
+
+  function getTimezone(tz) {
+
+    let foundTimezone = timezones.filter(zone => {
+      return zone.value == tz;
+    });
+    return foundTimezone[0].text;
   }
 
   async function doSearch(value) {

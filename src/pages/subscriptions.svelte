@@ -210,7 +210,7 @@
         img_url: "", 
         content: "", 
         type_id: 0, 
-        price: 0,
+        price: 0.0,
         quantity: 0, 
         status: 1
       };

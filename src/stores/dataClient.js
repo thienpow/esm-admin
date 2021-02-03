@@ -270,7 +270,7 @@ const dataClient = () => {
       img_url: "", 
       content: "", 
       type_id: 0, 
-      price: 0,
+      price: 0.0,
       quantity: 0, 
       status: 1
     },
@@ -290,7 +290,7 @@ const dataClient = () => {
       img_url: "", 
       content: "", 
       type_id: 0, 
-      price: 0,
+      price: 0.0,
       quantity: 0, 
       status: 1
     },
@@ -313,7 +313,7 @@ const dataClient = () => {
       tickets_required: 0,
       duration_days: 0,
       duration_hours: 0,
-      timezone: 0,
+      timezone: 0.0,
       scheduled_on: 0,
       is_repeat: false,
       repeated_on: [], 
@@ -1344,7 +1344,8 @@ const dataClient = () => {
           //console.log(response);
           state.prizes = [];
           for (let item of response.getResultList()) {
-            state.prizes = [...state.prizes,  {
+            //alert(item.getTimezone());
+            state.prizes = [...state.prizes, {
               id: item.getId(), 
               title: item.getTitle(), 
               subtitle: item.getSubtitle(), 

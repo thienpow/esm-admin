@@ -14,7 +14,8 @@ export const show_quantity = writable('show_quantity', true);
 export const show_game_id = writable('show_game_id', true);
 export const show_reward_amount = writable('show_reward_amount', true);
 
-export const show_scheduled_on = writable('show_scheduled_on', true);
+export const show_timezone = writable('show_timezone', false);
+export const show_scheduled_on = writable('show_scheduled_on', false);
 export const show_scheduled_off = writable('show_scheduled_off', false);
 export const show_tickets_collected = writable('show_tickets_collected', true);
 
