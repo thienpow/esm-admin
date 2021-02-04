@@ -238,7 +238,7 @@
         duration_days: 0,
         duration_hours: 0,
         timezone: 0,
-        scheduled_on: 0,
+        scheduled_on: new Date(),
         is_repeat: false,
         repeated_on: [], 
         repeated_on_mon: false,
