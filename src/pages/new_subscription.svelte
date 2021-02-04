@@ -76,6 +76,19 @@
         <Card noShadow>
           <CardContent>
             <Row>
+              
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="Quantity"
+                  type="number"
+                  value={$dataClient.subscription.quantity}
+                  onInput={(e) => $dataClient.subscription.quantity = e.target.value}
+                  pattern="[0-9]*"
+                  required
+                  validate />
+
+              </Col>
               <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
@@ -105,18 +118,7 @@
                   validate />
 
               </Col>
-              <Col width="100" medium="33">
-                <ListInput
-                  class="item-content-input"
-                  label="Quantity"
-                  type="number"
-                  value={$dataClient.subscription.quantity}
-                  onInput={(e) => $dataClient.subscription.quantity = e.target.value}
-                  pattern="[0-9]*"
-                  required
-                  validate />
-
-              </Col>
+              
             </Row>
           </CardContent>
         </Card>

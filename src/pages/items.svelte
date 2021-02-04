@@ -36,15 +36,16 @@
               <th>Status</th>
               {/if}
               
+              {#if $show_quantity}
+              <th class="numeric-cell">Quantity</th>
+              {/if}
               {#if $show_type}
               <th class="label-cell">Type</th>
               {/if}
               {#if $show_price}
               <th class="numeric-cell">Price</th>
               {/if}
-              {#if $show_quantity}
-              <th class="numeric-cell">Quantity</th>
-              {/if}
+              
               {#if $show_image}
               <th></th>
               {/if}
@@ -67,15 +68,17 @@
               {#if $show_status}
               <td class="label-cell">{dataClient.displayStatusTitle(item.status)}</td>
               {/if}
+
+              {#if $show_quantity}
+              <td class="numeric-cell">{item.quantity}</td>
+              {/if}
               {#if $show_type}
               <td class="labbel-cell">{dataClient.displayItemTypeTitle(item.type_id)}</td>
               {/if}
               {#if $show_price}
               <td class="numeric-cell">{item.price}</td>
               {/if}
-              {#if $show_quantity}
-              <td class="numeric-cell">{item.quantity}</td>
-              {/if}
+              
               {#if $show_image}
               <td ><img alt="" src={item.img_url} height="100%" /></td>
               {/if}
@@ -133,6 +136,14 @@
                 checked={$show_status}
                 onChange={(e) => $show_status = e.target.checked}
               ></ListItem>
+
+              <ListItem
+                checkbox
+                title="quantity"
+                value={$show_quantity}
+                checked={$show_quantity}
+                onChange={(e) => $show_quantity = e.target.checked}
+              ></ListItem>
               <ListItem
                 checkbox
                 title="type"
@@ -147,13 +158,7 @@
                 checked={$show_price}
                 onChange={(e) => $show_price = e.target.checked}
               ></ListItem>
-              <ListItem
-                checkbox
-                title="quantity"
-                value={$show_quantity}
-                checked={$show_quantity}
-                onChange={(e) => $show_quantity = e.target.checked}
-              ></ListItem>
+              
             </List>
           </AccordionContent>
         </ListItem>
