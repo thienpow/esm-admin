@@ -111,6 +111,7 @@
       await dataClient.getSubscriptionTypeList();
       await dataClient.getStatusTypeList();
       await dataClient.getPrizeTypeList();
+      await dataClient.getTimezonesList();
     }
   })
 

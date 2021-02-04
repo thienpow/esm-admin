@@ -148,8 +148,8 @@
                   value={$dataClient.prize.timezone}
                   onInput={(e) => $dataClient.prize.timezone = e.target.value}
                   placeholder="Please choose...">
-                  {#each timezones as tz}
-                  <option value={tz.value}>{tz.text}</option>
+                  {#each $dataClient.timezones as tz}
+                  <option value={tz.offset}>{tz.ltext}</option>
                   {/each}
                 </ListInput>
               </Col>
@@ -261,7 +261,7 @@
 
 </Page>
 <script>
-  import timezones from '../js/timezones';
+  //import timezones from '../js/timezones';
   import SaveCancel from '../components/SaveCancel.svelte';
   import {
       f7,

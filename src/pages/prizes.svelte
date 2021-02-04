@@ -177,7 +177,7 @@
 <svelte:window bind:innerWidth={innerWidth}/>
 
 <script>
-  import timezones from '../js/timezones';
+  //import timezones from '../js/timezones';
   import Paginator from '../components/Paginator.svelte';
   import ShowRows from '../components/ShowRows.svelte';
   import SearchBar from '../components/SearchBar.svelte';
@@ -202,10 +202,10 @@
 
   function getTimezone(tz) {
 
-    let foundTimezone = timezones.filter(zone => {
-      return zone.value == tz;
+    let foundTimezone = $dataClient.timezones.filter(zone => {
+      return zone.offset == tz;
     });
-    return foundTimezone[0].text;
+    return foundTimezone[0].stext;
   }
 
   async function doSearch(value) {

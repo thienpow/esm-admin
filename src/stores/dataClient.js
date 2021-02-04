@@ -9,6 +9,7 @@ import {
 
   // Common
   ListStatusTypeRequest,
+  ListTimezonesRequest,
 
   // User
   ChangePasswordRequest,
@@ -106,6 +107,7 @@ const dataClient = () => {
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
+    listTimezonesRequest: new ListTimezonesRequest(),
     // User
     changePasswordRequest: new ChangePasswordRequest(),
     updateUserStatusRequest:  new UpdateUserStatusRequest(),
@@ -178,6 +180,7 @@ const dataClient = () => {
 
 
     statusTypes: [],
+    timezones: [],
     user: {
       id: 0,
       username: "",
@@ -440,6 +443,30 @@ const dataClient = () => {
         update(state => state);
       
       },
+
+      async getTimezonesList() {
+        
+        let request = state.listTimezonesRequest;
+        
+        try {
+          const response = await state.apiClient.listTimezones(request, {'authorization': state.jwtToken});
+          state.timezones = [];
+          for (let s of response.getResultList()) {
+            state.timezones = [...state.timezones,  {
+              id: s.getId(), 
+              offset: s.getOffset(),
+              stext: s.getStext(),
+              ltext: s.getLtext()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
 
       /***
        * User & Login
