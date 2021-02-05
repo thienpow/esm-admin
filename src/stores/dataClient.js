@@ -419,6 +419,14 @@ const dataClient = () => {
         return sT.title;
       },
 
+      displayWinTypeTitle(id) {
+        let wT =  state.winTypes.find(function(i) {
+          return i.id == id;
+        });
+
+        return wT.title;
+      },
+
       displayPrizeTypeTitle(id) {
         let pT =  state.prizeTypes.find(function(p) {
           return p.id == id;
@@ -748,7 +756,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteSpinnerRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         

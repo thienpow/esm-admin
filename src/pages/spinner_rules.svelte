@@ -17,20 +17,22 @@
         <table>
           <thead>
             <tr>
-              <th class="numeric-cell">ID</th>
               <th class="numeric-cell">Probability</th>
               <th class="numeric-cell">Win</th>
               <th class="numeric-cell">TypeID</th>
+              <th class="numeric-cell"></th>
             </tr>
           </thead>
           <tbody>
         
             {#each $dataClient.spinner_rules as sr}
-            <tr on:click={onRowClick(sr)}>
-              <td class="numeric-cell">{sr.id}</td>
-              <td class="numeric-cell">{sr.probability}</td>
-              <td class="numeric-cell">{sr.win}</td>
-              <td class="numeric-cell">{sr.type_id}</td>
+            <tr >
+              
+              <td class="numeric-cell" on:click={onRowClick(sr)}>{sr.probability}</td>
+              <td class="numeric-cell" on:click={onRowClick(sr)}>{sr.win}</td>
+              <td class="numeric-cell" on:click={onRowClick(sr)}>{dataClient.displayWinTypeTitle(sr.type_id)}</td>
+              <td class="numeric-cell" ><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doDelete(sr.id)}>Delete</Button></td>
+
             </tr>
             {/each}
             
@@ -46,7 +48,7 @@
 
 <script>
   import { onMount } from 'svelte';
-  import { theme, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  import { f7, Button, theme, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
 
   export let f7router;
@@ -54,6 +56,13 @@
   let innerWidth = 0;
 
 
+
+  function doDelete(id) {
+    f7.dialog.confirm('Are you sure want to delete?', async function () {
+      await dataClient.deleteSpinnerRule(id);
+      await dataClient.getSpinnerRuleList();
+    });
+  }
 
   function onNewClick() {
     $dataClient.spinner_rule = {
