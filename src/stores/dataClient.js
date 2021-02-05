@@ -420,8 +420,8 @@ const dataClient = () => {
       },
 
       displayWinTypeTitle(id) {
-        let wT =  state.winTypes.find(function(i) {
-          return i.id == id;
+        let wT =  state.winTypes.find(function(w) {
+          return w.id == id;
         });
 
         return wT.title;
@@ -529,8 +529,6 @@ const dataClient = () => {
     
         try {
           const response = await state.apiClient.signIn(request);
-          //let userDetail = response.getResult();
-          //console.log(userDetail);
           if (response.getResult() == "query returned an unexpected number of rows" || response == "Invalid Password.") {
             f7.dialog.alert("Sorry, Invalid Password!", "Error");
           } else {
@@ -540,7 +538,6 @@ const dataClient = () => {
           }   
         } catch (err) {
           f7.dialog.alert(`Error code = ${err.code}, message = "${err.message}"`, "Error");
-          console.log(err);
         }
         
         update(state => state);
@@ -549,7 +546,6 @@ const dataClient = () => {
       async getUserCount() {
 
         let request = state.getUserCountRequest;
-        //request.setId(i);
     
         try {
           const response = await state.apiClient.getUserCount(request, {'authorization': state.jwtToken});
@@ -560,7 +556,6 @@ const dataClient = () => {
           state.userCount.total = state.userCount.active + state.userCount.blocked;
           
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -576,7 +571,6 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listUser(request, {'authorization': state.jwtToken});
-          console.log(response);
           state.users = [];
           for (let u of response.getResultList()) {
             state.users = [...state.users,  {
@@ -611,7 +605,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -636,7 +629,6 @@ const dataClient = () => {
             }
           }
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
 
@@ -653,7 +645,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateUserStatus(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -675,10 +666,8 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.updateConfig(request, {'authorization': state.jwtToken});
-          //console.log(response);
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -700,7 +689,6 @@ const dataClient = () => {
           state.config.days_to_claim = config.getDaysToClaim();
 
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -719,9 +707,9 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addSpinnerRule(request, {'authorization': state.jwtToken});
+          console.log(response);
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -739,7 +727,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateSpinnerRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -767,7 +754,6 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listSpinnerRule(request, {'authorization': state.jwtToken});
-          console.log(response);
           state.spinner_rules = [];
           for (let item of response.getResultList()) {
             state.spinner_rules = [...state.spinner_rules,  {
@@ -779,8 +765,7 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          console.log(err);
-          //state.isLoggedIn = false;
+          state.isLoggedIn = false;
         }
         update(state => state);
       
@@ -802,7 +787,6 @@ const dataClient = () => {
           const response = await state.apiClient.addRank(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -821,7 +805,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateRank(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -838,7 +821,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteRank(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -863,7 +845,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -895,7 +876,6 @@ const dataClient = () => {
           const response = await state.apiClient.addGame(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -924,7 +904,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateGame(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -944,7 +923,6 @@ const dataClient = () => {
           const response = await state.apiClient.addGameLeaderRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -960,7 +938,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteGameLeaderRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -973,7 +950,6 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listGameLeaderRule(request, {'authorization': state.jwtToken});
-          console.log(response);
           state.gameLeaderRules = [];
           for (let g of response.getResultList()) {
             
@@ -986,7 +962,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1002,7 +977,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteGame(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1017,7 +991,6 @@ const dataClient = () => {
           const response = await state.apiClient.getGameCode(request, {'authorization': state.jwtToken});
           state.game.game_code = response.getResult();
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1027,7 +1000,6 @@ const dataClient = () => {
       async getGameCount() {
 
         let request = state.getGameCountRequest;
-        //request.setId(i);
     
         try {
           const response = await state.apiClient.getGameCount(request, {'authorization': state.jwtToken});
@@ -1039,7 +1011,6 @@ const dataClient = () => {
           state.gameCount.total = state.gameCount.draft + state.gameCount.published + state.gameCount.archived;
 
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1055,7 +1026,6 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listGame(request, {'authorization': state.jwtToken});
-          //console.log(response);
           state.games = [];
           for (let g of response.getResultList()) {
             state.games = [...state.games,  {
@@ -1078,7 +1048,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1104,7 +1073,6 @@ const dataClient = () => {
           const response = await state.apiClient.addItem(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1127,7 +1095,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateItem(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -1144,7 +1111,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteItem(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1165,7 +1131,6 @@ const dataClient = () => {
           state.itemCount.total = state.itemCount.draft + state.itemCount.published + state.itemCount.archived;
           
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1199,7 +1164,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1247,8 +1211,7 @@ const dataClient = () => {
           const response = await state.apiClient.addSubscription(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          console.log(err);
-          //state.isLoggedIn = false;
+          state.isLoggedIn = false;
         }
         
       },
@@ -1270,7 +1233,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateSubscription(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -1287,7 +1249,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteSubscription(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1296,7 +1257,6 @@ const dataClient = () => {
       async getSubscriptionCount() {
 
         let request = state.getSubscriptionCountRequest;
-        //request.setId(i);
     
         try {
           const response = await state.apiClient.getSubscriptionCount(request, {'authorization': state.jwtToken});
@@ -1308,8 +1268,7 @@ const dataClient = () => {
           state.subscriptionCount.total = state.subscriptionCount.draft + state.subscriptionCount.published + state.subscriptionCount.archived;
 
         } catch (err) {
-          console.log(err);
-          //state.isLoggedIn = false;
+          state.isLoggedIn = false;
         }
         update(state => state);
         
@@ -1342,8 +1301,7 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          console.log(err);
-          //state.isLoggedIn = false;
+          state.isLoggedIn = false;
         }
         update(state => state);
       
@@ -1401,10 +1359,8 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addPrize(request, {'authorization': state.jwtToken});
-          //console.log(response)
           return response.getResult() > 0
         } catch (err) {
-          console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1440,7 +1396,6 @@ const dataClient = () => {
           const response = await state.apiClient.updatePrize(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          console.log(err);
           state.isLoggedIn = false;
         }
       
@@ -1456,7 +1411,6 @@ const dataClient = () => {
           const response = await state.apiClient.deletePrize(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1465,7 +1419,6 @@ const dataClient = () => {
       async getPrizeCount() {
 
         let request = state.getPrizeCountRequest;
-        //request.setId(i);
     
         try {
           const response = await state.apiClient.getPrizeCount(request, {'authorization': state.jwtToken});
@@ -1477,7 +1430,6 @@ const dataClient = () => {
           state.prizeCount.total = state.prizeCount.draft + state.prizeCount.published + state.prizeCount.archived;
           
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1494,10 +1446,8 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listPrize(request, {'authorization': state.jwtToken});
-          //console.log(response);
           state.prizes = [];
           for (let item of response.getResultList()) {
-            //alert(item.getTimezone());
             state.prizes = [...state.prizes, {
               id: item.getId(), 
               title: item.getTitle(), 
@@ -1520,7 +1470,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1565,7 +1514,6 @@ const dataClient = () => {
           const response = await state.apiClient.addTournament(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1581,10 +1529,8 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addTournamentSet(request, {'authorization': state.jwtToken});
-          //console.log(response);
           return response.getResult();
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
       },
@@ -1604,7 +1550,6 @@ const dataClient = () => {
           const response = await state.apiClient.addTournamentSetGameRule(request, {'authorization': state.jwtToken});
           return response.getResult()
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
       },
@@ -1624,7 +1569,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateTournament(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
       },
@@ -1641,10 +1585,8 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.updateTournamentSet(request, {'authorization': state.jwtToken});
-          console.log(response);
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
       },
@@ -1665,7 +1607,6 @@ const dataClient = () => {
           const response = await state.apiClient.updateTournamentSetGameRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
       },
@@ -1680,7 +1621,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteTournament(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1696,7 +1636,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteTournamentSet(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1712,7 +1651,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteTournamentSetGameRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1722,7 +1660,6 @@ const dataClient = () => {
       async getTournamentCount() {
 
         let request = state.getTournamentCountRequest;
-        //request.setId(i);
     
         try {
           const response = await state.apiClient.getTournamentCount(request, {'authorization': state.jwtToken});
@@ -1734,7 +1671,6 @@ const dataClient = () => {
           state.tournamentCount.total = state.tournamentCount.draft + state.tournamentCount.published + state.tournamentCount.archived;
           
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1764,7 +1700,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1811,7 +1746,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1826,7 +1760,6 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listTournamentSetGameRule(request, {'authorization': state.jwtToken});
-          //console.log(response);
           state.tournament_set_game_rules = [];
           for (let item of response.getResultList()) {
             state.tournament_set_game_rules = [...state.tournament_set_game_rules,  {
@@ -1841,7 +1774,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1860,9 +1792,8 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listWinner(request, {'authorization': state.jwtToken}); 
-          alert(response.getResult());
+          //alert(response.getResult());
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
@@ -1881,7 +1812,6 @@ const dataClient = () => {
           const response = await state.apiClient.addLeaderRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1896,7 +1826,6 @@ const dataClient = () => {
           const response = await state.apiClient.deleteLeaderRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         
@@ -1918,7 +1847,6 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);

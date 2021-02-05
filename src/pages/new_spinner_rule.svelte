@@ -5,7 +5,7 @@
   <Row>
     <Col width="0" small="10" medium="20"></Col>
     <Col width="100" small="80" medium="60">
-      <List noHairlinesMd form id="rankForm">
+      <List noHairlinesMd form id="srForm">
 
         <BlockTitle>Basic Details</BlockTitle>
         <Card noShadow>
@@ -99,6 +99,10 @@
   async function doSave() {
 
     const isValid = f7.input.validateInputs('#srForm');
+
+    if ($dataClient.spinner_rule.type_id == 0)
+      isValid = false;
+
     if (!isValid) {
       return;
     }

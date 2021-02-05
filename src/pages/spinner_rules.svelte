@@ -69,7 +69,7 @@
         id: 0, 
         probability: 0.0, 
         win: 0.0, 
-        type_id: 0
+        type_id: 1
       };
     f7router.navigate("/newspinner_rule/0/");
   };

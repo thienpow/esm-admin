@@ -144,7 +144,7 @@
         id: 0, 
         title: "", 
         tour_set_ids: [],
-        status: 0
+        status: 1
       };
     f7router.navigate("/newtournament/0/");
   };

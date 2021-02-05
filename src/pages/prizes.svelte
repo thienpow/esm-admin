@@ -248,7 +248,7 @@
         repeated_on_fri: false,
         repeated_on_sat: false,
         repeated_on_sun: false,
-        status: 0,
+        status: 1,
         status_prize: 0,
         tickets_collected: 0,
         tournament_ids: [], 
