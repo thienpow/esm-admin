@@ -43,8 +43,8 @@
                   class="item-content-input"
                   label="Win"
                   type="number"
-                  value={$dataClient.spinner_rule.exp}
-                  onInput={(e) => $dataClient.spinner_rule.exp = e.target.value}
+                  value={$dataClient.spinner_rule.win}
+                  onInput={(e) => $dataClient.spinner_rule.win = e.target.value}
                   step="0.01"
                   error-message="Only numbers please!"
                   required

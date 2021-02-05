@@ -232,7 +232,6 @@ const dataClient = () => {
     },
 
     config: {
-      spinner: [],
       invites: 0,
       games_per_ad: 0,
       days_to_claim: 0,
@@ -660,10 +659,8 @@ const dataClient = () => {
        */
 
       async updateConfig() {
-        let spinner = state.config.spinner.toString().replace(/\s/g, '').split`,`.map(x=>+x);
         
         let request = state.updateConfigRequest;
-        request.setSpinnerList(spinner);
         request.setInvites(state.config.invites);
         request.setGamesPerAd(state.config.games_per_ad);
         request.setDaysToClaim(state.config.days_to_claim);
@@ -690,7 +687,6 @@ const dataClient = () => {
           const response = await state.apiClient.getConfig(request, {'authorization': state.jwtToken});
 
           let config =  await response.getResult();
-          state.config.spinner =  config.getSpinnerList();
           state.config.invites = config.getInvites();
           state.config.games_per_ad =  config.getGamesPerAd();
           state.config.days_to_claim = config.getDaysToClaim();

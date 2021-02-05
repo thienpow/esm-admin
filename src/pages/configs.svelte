@@ -22,17 +22,6 @@
               <List noHairlinesMd form id="configForm">
                 
                 <ListInput
-                  label="Spin Tickes"
-                  floatingLabel
-                  type="text"
-                  placeholder="Tickets, example 1,2,3,4,5"
-                  errorMessage="Only numbers please!"
-                  clearButton
-                  value={$dataClient.config.spinner}
-                  onInput={(e) => $dataClient.config.spinner = e.target.value}
-                />
-                  
-                <ListInput
                   label="Gems Per Invite"
                   floatingLabel
                   type="number"
