@@ -74,6 +74,11 @@
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
             </ListItem>
+            <ListItem link="/spinner_rules/" view=".view-main" title="Spinner Rules" selected={selected === 'spinner_rules'} onClick={() => (selected = 'spinner_rules')}>
+              <span slot="media">
+                <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
+              </span>
+            </ListItem>
             <ListItem link="/configs/" view=".view-main" title="Other Configs"  selected={selected === 'other-configs'} onClick={() => (selected = 'other-configs')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />

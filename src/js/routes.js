@@ -15,6 +15,7 @@ import NewTournamentFormatSetPage from '../pages/new_tournament_format_set.svelt
 import NewUserPage from '../pages/new_user.svelte';
 
 import NewRankPage from '../pages/new_rank.svelte';
+import NewSpinnerRulePage from '../pages/new_spinner_rule.svelte';
 
 import GamesPage from '../pages/games.svelte';
 import PrizesPage from '../pages/prizes.svelte';
@@ -23,6 +24,7 @@ import SubscriptionsPage from '../pages/subscriptions.svelte';
 import RanksPage from '../pages/ranks.svelte';
 import ConfigsPage from '../pages/configs.svelte';
 import GameLeaderRulePage from '../pages/game_leader_rule.svelte';
+import SpinnerRulesPage from '../pages/spinner_rules.svelte';
 
 import TournamentsPage from '../pages/tournaments.svelte';
 import TournamentFormatSetsPage from '../pages/tournament_format_sets.svelte';
@@ -199,7 +201,20 @@ var routes = [
       animate: false,
     }
   },
-  
+  {
+    path: '/spinner_rules/',
+    component: SpinnerRulesPage,
+    options: {
+      animate: false,
+    }
+  },
+  {
+    path: '/newspinner_rule/:id/',
+    component: NewSpinnerRulePage,
+    options: {
+      animate: false,
+    },
+  },
 
 
 

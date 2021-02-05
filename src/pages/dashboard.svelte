@@ -110,6 +110,7 @@
       await dataClient.getItemTypeList();
       await dataClient.getSubscriptionTypeList();
       await dataClient.getStatusTypeList();
+      await dataClient.getWinTypeList();
       await dataClient.getPrizeTypeList();
       await dataClient.getTimezonesList();
     }

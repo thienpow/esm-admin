@@ -9,6 +9,7 @@ import {
 
   // Common
   ListStatusTypeRequest,
+  ListWinTypeRequest,
   ListTimezonesRequest,
 
   // User
@@ -107,6 +108,7 @@ const dataClient = () => {
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
+    listWinTypeRequest: new ListWinTypeRequest(),
     listTimezonesRequest: new ListTimezonesRequest(),
     // User
     changePasswordRequest: new ChangePasswordRequest(),
@@ -180,6 +182,7 @@ const dataClient = () => {
 
 
     statusTypes: [],
+    winTypes: [],
     timezones: [],
     user: {
       id: 0,
@@ -223,6 +226,14 @@ const dataClient = () => {
       games_per_ad: 0,
       days_to_claim: 0,
     },
+
+    spinner_rule: {
+      id: 0, 
+      probability: 0.0, 
+      win: 0.0, 
+      type_id: 0
+    },
+    spinner_rules: [],
 
     rank: {
       id: 0, 
@@ -432,6 +443,27 @@ const dataClient = () => {
           state.statusTypes = [];
           for (let s of response.getResultList()) {
             state.statusTypes = [...state.statusTypes,  {
+              id: s.getId(), 
+              title: s.getTitle()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async getWinTypeList() {
+        
+        let request = state.listWinTypeRequest;
+        
+        try {
+          const response = await state.apiClient.listWinType(request, {'authorization': state.jwtToken});
+          state.winTypes = [];
+          for (let s of response.getResultList()) {
+            state.winTypes = [...state.winTypes,  {
               id: s.getId(), 
               title: s.getTitle()
             }];
@@ -658,6 +690,86 @@ const dataClient = () => {
         }
         update(state => state);
         
+      },
+
+      /***
+       * Spinner Rule
+       */
+      async addSpinnerRule() {
+
+        let request = state.addSpinnerRuleRequest;
+        request.setProbability(state.spinner_rule.probability);
+        request.setWin(state.spinner_rule.win);
+        request.setTypeId(state.spinner_rule.type_id);
+        
+        try {
+          const response = await state.apiClient.addSpinnerRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async updateSpinnerRule() {
+
+        let request = state.updateSpinnerRuleRequest;
+        request.setId(state.spinner_rule.id);
+        request.setProbability(state.spinner_rule.probability);
+        request.setWin(state.spinner_rule.win);
+        request.setTypeId(state.spinner_rule.type_id);
+
+        try {
+          const response = await state.apiClient.updateSpinnerRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+
+        }
+      
+        return false;
+      },
+
+      async deleteSpinnerRule(id) {
+
+        let request = state.deleteSpinnerRuleRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.deleteSpinnerRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async getSpinnerRuleList() {
+          
+        let request = state.listSpinnerRuleRequest;
+
+        try {
+          const response = await state.apiClient.listSpinnerRule(request, {'authorization': state.jwtToken});
+
+          state.spinner_rules = [];
+          for (let item of response.getResultList()) {
+            state.spinner_rules = [...state.spinner_rules,  {
+              id: item.getId(), 
+              probability: item.getProbability(), 
+              win: item.getWin(), 
+              type_id: item.getTypeId()
+            }];
+          }
+            
+        } catch (err) {
+          console.log(err);
+          //state.isLoggedIn = false;
+        }
+        update(state => state);
+      
       },
 
 
