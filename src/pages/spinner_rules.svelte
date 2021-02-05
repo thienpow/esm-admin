@@ -6,7 +6,7 @@
     </NavLeft>
     <NavTitle sliding>Spinner Rule</NavTitle>
     <NavRight>
-      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New Rank" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
+      <Link ignoreCache={true} on:click={onNewClick}><Chip text="New SpinnerRule" mediaBgColor="blue" iconIos="f7:plus_circle" iconAurora="f7:plus_circle" iconMd="material:add_circle" /></Link>
     </NavRight>
   </Navbar>
   <!-- Body -->

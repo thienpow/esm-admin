@@ -20,6 +20,11 @@ import {
   // Config
   GetConfigRequest,
   UpdateConfigRequest,
+  // Spinner Rule
+  AddSpinnerRuleRequest, 
+  UpdateSpinnerRuleRequest, 
+  DeleteSpinnerRuleRequest,
+  ListSpinnerRuleRequest,
   // Rank
   AddRankRequest, 
   UpdateRankRequest, 
@@ -119,6 +124,12 @@ const dataClient = () => {
     // Config
     updateConfigRequest:  new UpdateConfigRequest(),
     getConfigRequest: new GetConfigRequest(),
+
+    // Spinner Rule
+    addSpinnerRuleRequest: new AddSpinnerRuleRequest(),
+    updateSpinnerRuleRequest: new UpdateSpinnerRuleRequest(),
+    deleteSpinnerRuleRequest: new DeleteSpinnerRuleRequest(),
+    listSpinnerRuleRequest: new ListSpinnerRuleRequest(),
 
     // Rank
     addRankRequest: new AddRankRequest(),
@@ -753,7 +764,7 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listSpinnerRule(request, {'authorization': state.jwtToken});
-
+          console.log(response);
           state.spinner_rules = [];
           for (let item of response.getResultList()) {
             state.spinner_rules = [...state.spinner_rules,  {
