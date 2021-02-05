@@ -15,7 +15,7 @@
 
                 <ListInput
                   class="item-content-input"
-                  label="Type"
+                  label="Reward Type"
                   type="select"
                   value={$dataClient.spinner_rule.type_id}
                   onInput={(e) => $dataClient.spinner_rule.type_id = e.target.value}

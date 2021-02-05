@@ -19,7 +19,7 @@
             <tr>
               <th class="numeric-cell">Probability</th>
               <th class="numeric-cell">Win</th>
-              <th class="numeric-cell">TypeID</th>
+              <th class="numeric-cell">Reward Type</th>
               <th class="numeric-cell"></th>
             </tr>
           </thead>
