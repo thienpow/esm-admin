@@ -18,7 +18,7 @@
           <thead>
             <tr>
               <th class="numeric-cell">ID</th>
-              <th class="label-cell">Probability</th>
+              <th class="numeric-cell">Probability</th>
               <th class="numeric-cell">Win</th>
               <th class="numeric-cell">TypeID</th>
             </tr>
