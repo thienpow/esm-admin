@@ -410,7 +410,15 @@ const dataClient = () => {
       duration_minutes: 0,
       group_id: 0,
     },
-    tournament_set_game_rules: []
+    tournament_set_game_rules: [],
+    winner: {
+      id: 1,
+      user_id: 0,
+      name: "",
+      email: "",
+      prize: 0,
+      status: 0,
+    }
 	}
 	
 

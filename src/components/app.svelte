@@ -91,17 +91,12 @@
         <ListItem accordionItem title="Reports">
           <AccordionContent>
   
-            <ListItem link="/winners/" view=".view-main" title="Winners" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
+            <ListItem link="/winners/" view=".view-main" title="Winners Management" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
               <span slot="media">
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>
-            </ListItem>
+            </ListItem>    
             <ListItem link="/sales/" view=".view-main" title="Sales" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
-              <span slot="media">
-                <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
-              </span>
-            </ListItem>
-            <ListItem link="/claims/" view=".view-main" title="Claims" selected={selected === 'claims'} onClick={() => (selected = 'claims')}>
               <span slot="media">
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>

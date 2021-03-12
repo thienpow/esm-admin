@@ -13,6 +13,7 @@ import NewTournamentPage from '../pages/new_tournament.svelte';
 import NewTournamentFormatSetPage from '../pages/new_tournament_format_set.svelte';
 
 import NewUserPage from '../pages/new_user.svelte';
+import NewWinnerPage from '../pages/new_winner.svelte';
 
 import NewRankPage from '../pages/new_rank.svelte';
 import NewSpinnerRulePage from '../pages/new_spinner_rule.svelte';
@@ -34,7 +35,6 @@ import LogPlayPage from '../pages/log_play.svelte';
 import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
 
 import SalesPage from '../pages/sales.svelte';
-import ClaimsPage from '../pages/claims.svelte';
 
 import NotFoundPage from '../pages/404.svelte';
 
@@ -229,21 +229,20 @@ var routes = [
     }
   },
   {
+    path: '/newwinner/:id/',
+    component: NewWinnerPage,
+    options: {
+      animate: false,
+    },
+  },
+  {
     path: '/sales/',
     component: SalesPage,
     options: {
       animate: false,
     }
   },
-  {
-    path: '/claims/',
-    component: ClaimsPage,
-    options: {
-      animate: false,
-    }
-  },
   
-
 
 
 
