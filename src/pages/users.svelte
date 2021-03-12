@@ -66,7 +66,7 @@
               <td class="label-cell">{timeConverter(user.last_login)}</td>
               {/if}
               {#if $show_status}
-              <td class="label-cell">{displayStatus(user.status)}</td>
+              <td class="label-cell">{dataClient.displayUserStatusTitle(user.status)}</td>
               {/if}
               {#if $show_gems}
               <td class="label-cell">{user.gem_balance}</td>
@@ -97,6 +97,8 @@
             <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.userCount.total}" color="blue" /></Link>
             <Link href="#" animate={false} ignoreCache={true}><Chip text="Active: {$dataClient.userCount.active}" color="green" /></Link>
             <Link href="#" animate={false} ignoreCache={true}><Chip text="Blocked: {$dataClient.userCount.blocked}" color="red" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Pending Delete: {$dataClient.userCount.pending_delete}" color="yellow" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.userCount.archived}" color="gray" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -182,17 +184,6 @@
     if (offset === 0)
       currentPage = 1;
     await dataClient.getUserList($row_count, offset, search);
-  }
-
-  function displayStatus(status) {
-    switch (status) {
-      case 0: 
-        return "Draft";
-      case 1:
-        return "Active";
-      case 2: 
-        return "Blocked";
-    }
   }
 
   function timeConverter(UNIX_timestamp){

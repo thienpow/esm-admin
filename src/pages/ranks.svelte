@@ -22,17 +22,19 @@
               <th class="numeric-cell">Exp</th>
               <th class="numeric-cell">Gem</th>
               <th class="numeric-cell">Multiplier</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
         
             {#each filteredRows as rank}
-            <tr on:click={onRowClick(rank)}>
-              <td class="numeric-cell">{rank.id}</td>
-              <td class="label-cell">{rank.title}</td>
-              <td class="numeric-cell">{rank.exp}</td>
-              <td class="numeric-cell">{rank.gem}</td>
-              <td class="numeric-cell">{rank.multiplier}</td>
+            <tr>
+              <td on:click={onRowClick(rank)} class="numeric-cell">{rank.id}</td>
+              <td on:click={onRowClick(rank)} class="label-cell">{rank.title}</td>
+              <td on:click={onRowClick(rank)} class="numeric-cell">{rank.exp}</td>
+              <td on:click={onRowClick(rank)} class="numeric-cell">{rank.gem}</td>
+              <td on:click={onRowClick(rank)} class="numeric-cell">{rank.multiplier} times / <b>{Math.round(rank.multiplier * 100)}%</b></td>
+              <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doDelete(rank.id)}>Delete</Button></td>
             </tr>
             {/each}
             
@@ -48,7 +50,7 @@
 
 <script>
   import { onMount } from 'svelte';
-  import { theme, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
+  import { f7, theme, Button, List, ListItem, Searchbar, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
 
   export let f7router;
@@ -67,6 +69,14 @@
     searchString = null;
   }
 
+
+  async function doDelete(id) {
+    f7.dialog.confirm('Are you sure want to delete?', async function () {
+      await dataClient.deleteRank(id);
+      await dataClient.getRankList(id);
+      $dataClient.ranks.sort();
+    });
+  }
 
   function onNewClick() {
     $dataClient.rank = {

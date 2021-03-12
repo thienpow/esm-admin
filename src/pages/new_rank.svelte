@@ -11,7 +11,16 @@
         <Card noShadow>
           <CardContent>
             <Row>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="ID"
+                  type="number"
+                  value={$dataClient.rank.id}
+                  onInput={(e) => $dataClient.rank.id = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Title"
@@ -21,7 +30,7 @@
                   required
                   validate />
               </Col>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Exp"
@@ -46,9 +55,13 @@
                   class="item-content-input"
                   label="Multiplier"
                   type="number"
-                  step="0.1"
+                  step="0.01"
                   value={$dataClient.rank.multiplier}
-                  onInput={(e) => $dataClient.rank.multiplier = e.target.value} />
+                  onInput={(e) => $dataClient.rank.multiplier = e.target.value} >
+
+                  <span slot="info">{Math.round($dataClient.rank.multiplier * 100)}%</span>
+
+                </ListInput>
               </Col>
             </Row>
           </CardContent>

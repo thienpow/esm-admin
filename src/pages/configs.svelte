@@ -28,9 +28,9 @@
                   placeholder="Tickets a user can get per successfull invitation"
                   errorMessage="Only numbers please!"
                   pattern="[0-9]*"
-                  clearButton
                   value={$dataClient.config.invites}
                   onInput={(e) => $dataClient.config.invites = e.target.value}
+                  step="1"
                 />
       
                 <ListInput
@@ -40,9 +40,9 @@
                   placeholder="How many Games Per AD Popup"
                   errorMessage="Only numbers please!"
                   pattern="[0-9]*"
-                  clearButton
                   value={$dataClient.config.games_per_ad}
                   onInput={(e) => $dataClient.config.games_per_ad = e.target.value}
+                  step="1"
                 />
                   
                 <ListInput
@@ -52,11 +52,47 @@
                   placeholder="How many days before expired to claim prize"
                   errorMessage="Only numbers please!"
                   pattern="[0-9]*"
-                  clearButton
                   value={$dataClient.config.days_to_claim}
                   onInput={(e) => $dataClient.config.days_to_claim = e.target.value}
+                  step="1"
                 />
-                  
+
+                <ListInput
+                  label="Freespin Per Day"
+                  floatingLabel
+                  type="number"
+                  placeholder="How many freespins to give per day?"
+                  errorMessage="Only numbers please!"
+                  pattern="[0-9]*"
+                  value={$dataClient.config.freespin_per_day}
+                  onInput={(e) => $dataClient.config.freespin_per_day = e.target.value}
+                  step="1"
+                />
+
+                <ListInput
+                  label="Gems Per Spin"
+                  floatingLabel
+                  type="number"
+                  placeholder="How many Gems required to exchange for a spin?"
+                  errorMessage="Only numbers please!"
+                  pattern="[0-9]*"
+                  value={$dataClient.config.gems_per_spin}
+                  onInput={(e) => $dataClient.config.gems_per_spin = e.target.value}
+                  step="1"
+                />
+
+                <ListInput
+                  label="Ads Per Spin"
+                  floatingLabel
+                  type="number"
+                  placeholder="How many AD views to exchange for a spin?"
+                  errorMessage="Only numbers please!"
+                  pattern="[0-9]*"
+                  value={$dataClient.config.ads_per_spin}
+                  onInput={(e) => $dataClient.config.ads_per_spin = e.target.value}
+                  step="1"
+                />
+
               </List>
               
             </Col>

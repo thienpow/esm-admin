@@ -115,11 +115,82 @@
                   step="0.01"
                   error-message="Only numbers please!"
                   required
-                  validate />
+                  validate >
+                  
+                </ListInput>
 
               </Col>
               
             </Row>
+
+            <Row>
+              
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="One Time Gem"
+                  type="number"
+                  value={$dataClient.subscription.one_time_gem}
+                  onInput={(e) => $dataClient.subscription.one_time_gem = e.target.value}
+                  required
+                  validate />
+
+              </Col>
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="One Time Multiplier"
+                  type="number"
+                  step="0.01"
+                  value={$dataClient.subscription.one_time_multiplier}
+                  onInput={(e) => $dataClient.subscription.one_time_multiplier = e.target.value}>
+
+                  <span slot="info">{Math.round($dataClient.subscription.one_time_multiplier * 100)}%</span>
+
+                </ListInput>
+
+              </Col>
+              <Col width="100" medium="33">
+                <p>Limited to FirstTime Purchase Only:
+                  <Checkbox name="checkbox-1" checked={$dataClient.subscription.one_time_is_firstonly} onChange={(e) => $dataClient.subscription.one_time_is_firstonly = e.target.checked}/>
+                </p>
+                
+              </Col>
+              
+            </Row>
+
+            <Row>
+              
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="Daily Gem"
+                  type="number"
+                  value={$dataClient.subscription.daily_gem}
+                  onInput={(e) => $dataClient.subscription.daily_gem = e.target.value}
+                  required
+                  validate />
+
+              </Col>
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="Daily Multiplier"
+                  type="number"
+                  step="0.01"
+                  value={$dataClient.subscription.daily_multiplier}
+                  onInput={(e) => $dataClient.subscription.daily_multiplier = e.target.value}>
+
+                  <span slot="info">{Math.round($dataClient.subscription.daily_multiplier * 100)}%</span>
+
+                </ListInput>
+
+              </Col>
+              <Col width="100" medium="33">
+              </Col>
+              
+            </Row>
+
           </CardContent>
         </Card>
 
@@ -138,6 +209,7 @@
   import {
     f7,
     theme,
+    Checkbox,
     Card, CardContent,
     Col,
     Page,

@@ -56,6 +56,7 @@
           <th class="numeric-cell">Tickets</th>
           <th class="numeric-cell">Exp</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -63,8 +64,25 @@
         {#each $dataClient.gameLeaderRules as rule}
         <tr>
           <td class="numeric-cell">{rule.rank}</td>
-          <td class="numeric-cell">{rule.tickets}</td>
-          <td class="numeric-cell">{rule.exp}</td>
+          <td class="numeric-cell">
+            <Input
+              class="item-content-input"
+              label="Tickets"
+              type="number"
+              value={rule.tickets}
+              onInput={(e) => rule.tickets = e.target.value}
+              pattern="[0-9]*" />
+          </td>
+          <td class="numeric-cell">
+            <Input
+              class="item-content-input"
+              label="Exp"
+              type="number"
+              value={rule.exp}
+              onInput={(e) => rule.exp = e.target.value}
+              pattern="[0-9]*" />
+          </td>
+          <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doUpdate(rule)}>Update</Button></td>
           <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doDelete(rule.rank)}>Delete</Button></td>
         </tr>
         {/each}
@@ -77,6 +95,7 @@
 <script>
   import {
     f7,
+    theme,
     ListItem,
     Card, CardContent,
     Col,
@@ -84,6 +103,7 @@
     Navbar,
     List,
     ListInput,
+    Input,
     BlockTitle,
     Row,
     Button,
@@ -106,6 +126,23 @@
       await dataClient.deleteGameLeaderRule(id, rank);
       await dataClient.getGameLeaderRuleList(id);
       $dataClient.gameLeaderRules.sort();
+    });
+  }
+
+  async function doUpdate(rule) {
+    f7.dialog.confirm('Are you sure want to update?', async function () {
+      let result = await dataClient.updateGameLeaderRule(rule);
+
+      if (result) {
+        let successToast = f7.toast.create({
+          icon: theme.ios || theme.aurora ? '<i class="f7-icons">checkmark</i>' : '<i class="material-icons">done</i>',
+          text: 'Data is Updated for Rank ' + rule.rank,
+          position: 'center',
+          closeTimeout: 2000,
+        });
+        successToast.open();
+      }
+      
     });
   }
 

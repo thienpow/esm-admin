@@ -9,6 +9,7 @@ import {
 
   // Common
   ListStatusTypeRequest,
+  ListUserStatusTypeRequest,
   ListWinTypeRequest,
   ListTimezonesRequest,
 
@@ -34,6 +35,7 @@ import {
   AddGameRequest, 
   UpdateGameRequest, 
   AddGameLeaderRuleRequest,
+  UpdateGameLeaderRuleRequest,
   DeleteGameLeaderRuleRequest,
   ListGameLeaderRuleRequest,
   DeleteGameRequest,
@@ -113,6 +115,7 @@ const dataClient = () => {
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
+    listUserStatusTypeRequest: new ListUserStatusTypeRequest(),
     listWinTypeRequest: new ListWinTypeRequest(),
     listTimezonesRequest: new ListTimezonesRequest(),
     // User
@@ -141,6 +144,7 @@ const dataClient = () => {
     addGameRequest: new AddGameRequest(),
     updateGameRequest: new UpdateGameRequest(),
     addGameLeaderRuleRequest: new AddGameLeaderRuleRequest(),
+    updateGameLeaderRuleRequest: new UpdateGameLeaderRuleRequest(),
     deleteGameLeaderRuleRequest: new DeleteGameLeaderRuleRequest(),
     listGameLeaderRuleRequest: new ListGameLeaderRuleRequest(),
     deleteGameRequest: new DeleteGameRequest(),
@@ -193,6 +197,7 @@ const dataClient = () => {
 
 
     statusTypes: [],
+    userStatusTypes: [],
     winTypes: [],
     timezones: [],
     user: {
@@ -229,12 +234,17 @@ const dataClient = () => {
       total: 0,
       active: 0,
       blocked: 0,
+      pending_delete: 0,
+      archived: 0,
     },
 
     config: {
       invites: 0,
       games_per_ad: 0,
       days_to_claim: 0,
+      freespin_per_day: 0,
+      gems_per_spin: 0,
+      ads_per_spin: 0,
     },
 
     spinner_rule: {
@@ -316,6 +326,11 @@ const dataClient = () => {
       type_id: 0, 
       price: 0.0,
       quantity: 0, 
+      one_time_gem: 0,
+      one_time_multiplier: 0,
+      one_time_is_firstonly: false,
+      daily_gem: 0,
+      daily_multiplier: 0,
       status: 1
     },
     subscriptions: [],
@@ -419,6 +434,14 @@ const dataClient = () => {
         return sT.title;
       },
 
+      displayUserStatusTitle(id) {
+        let sT =  state.userStatusTypes.find(function(s) {
+          return s.id == id;
+        });
+
+        return sT.title;
+      },
+
       displayWinTypeTitle(id) {
         let wT =  state.winTypes.find(function(w) {
           return w.id == id;
@@ -461,6 +484,27 @@ const dataClient = () => {
           state.statusTypes = [];
           for (let s of response.getResultList()) {
             state.statusTypes = [...state.statusTypes,  {
+              id: s.getId(), 
+              title: s.getTitle()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async getUserStatusTypeList() {
+        
+        let request = state.listUserStatusTypeRequest;
+        
+        try {
+          const response = await state.apiClient.listUserStatusType(request, {'authorization': state.jwtToken});
+          state.userStatusTypes = [];
+          for (let s of response.getResultList()) {
+            state.userStatusTypes = [...state.userStatusTypes,  {
               id: s.getId(), 
               title: s.getTitle()
             }];
@@ -553,8 +597,9 @@ const dataClient = () => {
           let count = await response.getResult();
           state.userCount.active = count.getActive();
           state.userCount.blocked = count.getBlocked();
-          state.userCount.total = state.userCount.active + state.userCount.blocked;
-          
+          state.userCount.pending_delete = count.getPendingDelete();
+          state.userCount.archived = count.getArchived();
+          state.userCount.total = state.userCount.active + state.userCount.blocked + state.userCount.pending_delete + state.userCount.archived;
         } catch (err) {
           state.isLoggedIn = false;
         }
@@ -663,6 +708,9 @@ const dataClient = () => {
         request.setInvites(state.config.invites);
         request.setGamesPerAd(state.config.games_per_ad);
         request.setDaysToClaim(state.config.days_to_claim);
+        request.setFreespinPerDay(state.config.freespin_per_day);
+        request.setGemsPerSpin(state.config.gems_per_spin);
+        request.setAdsPerSpin(state.config.ads_per_spin);
         
         try {
           const response = await state.apiClient.updateConfig(request, {'authorization': state.jwtToken});
@@ -687,7 +735,9 @@ const dataClient = () => {
           state.config.invites = config.getInvites();
           state.config.games_per_ad =  config.getGamesPerAd();
           state.config.days_to_claim = config.getDaysToClaim();
-
+          state.config.freespin_per_day = config.getFreespinPerDay();
+          state.config.gems_per_spin = config.getGemsPerSpin();
+          state.config.ads_per_spin = config.getAdsPerSpin();
         } catch (err) {
           state.isLoggedIn = false;
         }
@@ -778,6 +828,7 @@ const dataClient = () => {
       async addRank() {
 
         let request = state.addRankRequest;
+        request.setId(state.rank.id);
         request.setTitle(state.rank.title);
         request.setExp(state.rank.exp);
         request.setGem(state.rank.gem);
@@ -921,6 +972,23 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addGameLeaderRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async updateGameLeaderRule(rule) {
+        //console.log(rule);
+        let request = state.updateGameLeaderRuleRequest;
+        request.setGameId(rule.game_id);
+        request.setRank(rule.rank);
+        request.setTickets(rule.tickets);
+        request.setExp(rule.exp);
+        
+        try {
+          const response = await state.apiClient.updateGameLeaderRule(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
           state.isLoggedIn = false;
@@ -1205,6 +1273,11 @@ const dataClient = () => {
         request.setTypeId(state.subscription.type_id);
         request.setPrice(state.subscription.price);
         request.setQuantity(state.subscription.quantity);
+        request.setOneTimeGem(state.subscription.one_time_gem);
+        request.setOneTimeMultiplier(state.subscription.one_time_multiplier);
+        request.setOneTimeIsFirstonly(state.subscription.one_time_is_firstonly);
+        request.setDailyGem(state.subscription.daily_gem);
+        request.setDailyMultiplier(state.subscription.daily_multiplier);
         request.setStatus(state.subscription.status);
         
         try {
@@ -1227,6 +1300,12 @@ const dataClient = () => {
         request.setTypeId(state.subscription.type_id);
         request.setPrice(state.subscription.price);
         request.setQuantity(state.subscription.quantity);
+        request.setOneTimeGem(state.subscription.one_time_gem);
+        request.setOneTimeMultiplier(state.subscription.one_time_multiplier);
+        request.setOneTimeIsFirstonly(state.subscription.one_time_is_firstonly);
+        request.setDailyGem(state.subscription.daily_gem);
+        request.setDailyMultiplier(state.subscription.daily_multiplier);
+
         request.setStatus(state.subscription.status);
         
         try {
@@ -1296,6 +1375,11 @@ const dataClient = () => {
               type_id: sub.getTypeId(), 
               price: sub.getPrice(),
               quantity: sub.getQuantity(),
+              one_time_gem: sub.getOneTimeGem(),
+              one_time_multiplier: sub.getOneTimeMultiplier(),
+              one_time_is_firstonly: sub.getOneTimeIsFirstonly(),
+              daily_gem: sub.getDailyGem(),
+              daily_multiplier: sub.getDailyMultiplier(),
               status: sub.getStatus()
             }];
           }

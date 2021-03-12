@@ -21,9 +21,11 @@
                     value={$dataClient.user.status}
                     onInput={(e) => $dataClient.user.status = e.target.value}
                     placeholder="Please choose...">
-                    <option value={0}>Not Selected</option>
-                    <option value={1}>Active</option>
-                    <option value={2}>Blocked</option>
+
+                  {#each $dataClient.userStatusTypes as sT}
+                    <option value={sT.id}>{sT.title}</option>
+                  {/each}
+
                   </ListInput>
                 
               </Col>
