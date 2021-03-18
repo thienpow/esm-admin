@@ -1,4 +1,3 @@
-
 import DashboardPage from '../pages/dashboard.svelte';
 
 import PasswordPage from '../pages/password.svelte';
@@ -37,6 +36,8 @@ import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
 import SalesPage from '../pages/sales.svelte';
 
 import NotFoundPage from '../pages/404.svelte';
+
+import LoggedOutPage from '../pages/logged_out.svelte';
 
 var routes = [
   {
@@ -254,7 +255,13 @@ var routes = [
       animate: false,
     }
   },
-
+  {
+    path: '/logout/',
+    component: LoggedOutPage,
+    options: {
+      animate: false,
+    }
+  },
 
 
 

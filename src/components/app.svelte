@@ -122,7 +122,11 @@
                 {/if}
               </span>
             </ListItem>
-  
+            <ListItem link="/logout/" view=".view-main" title="Logout" onClick={() => (selected = '')}>
+              <span slot="media">
+                <Icon md="material:clear" aurora="f7:clear" ios="f7:clear" />
+              </span>
+            </ListItem>
           </AccordionContent>
         </ListItem>
   
