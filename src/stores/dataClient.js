@@ -291,7 +291,8 @@ const dataClient = () => {
 
     gameLeaderRule: {
       game_id:  0,
-      rank: 0,
+      rank_from: 0,
+      rank_to: 0,
       tickets: 0,
       exp: 0,
     },
@@ -975,7 +976,8 @@ const dataClient = () => {
 
         let request = state.addGameLeaderRuleRequest;
         request.setGameId(state.gameLeaderRule.game_id);
-        request.setRank(state.gameLeaderRule.rank);
+        request.setRankFrom(state.gameLeaderRule.rank_from);
+        request.setRankTo(state.gameLeaderRule.rank_to);
         request.setTickets(state.gameLeaderRule.tickets);
         request.setExp(state.gameLeaderRule.exp);
         
@@ -992,7 +994,8 @@ const dataClient = () => {
         //console.log(rule);
         let request = state.updateGameLeaderRuleRequest;
         request.setGameId(rule.game_id);
-        request.setRank(rule.rank);
+        request.setRankFrom(state.gameLeaderRule.rank_from);
+        request.setRankTo(state.gameLeaderRule.rank_to);
         request.setTickets(rule.tickets);
         request.setExp(rule.exp);
         
@@ -1005,11 +1008,11 @@ const dataClient = () => {
         
       },
 
-      async deleteGameLeaderRule(game_id, rank) {
+      async deleteGameLeaderRule(game_id, rank_from) {
 
         let request = state.deleteGameLeaderRuleRequest;
         request.setGameId(game_id);
-        request.setRank(rank);
+        request.setRankFrom(rank_from);
         
         try {
           const response = await state.apiClient.deleteGameLeaderRule(request, {'authorization': state.jwtToken});
@@ -1031,8 +1034,9 @@ const dataClient = () => {
           for (let g of response.getResultList()) {
             
             state.gameLeaderRules = [...state.gameLeaderRules,  {
-              game_id: g.getGameId(), 
-              rank: g.getRank(), 
+              game_id: g.getGameId(),
+              rank_from: g.getRankFrom(),
+              rank_to: g.getRankTo(),
               tickets: g.getTickets(),
               exp: g.getExp(),
             }];

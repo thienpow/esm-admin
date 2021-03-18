@@ -7,17 +7,27 @@
     <Card>
       <CardContent>
         <Row>
-          <Col width="100" medium="33">
+          <Col width="100" medium="25">
             <ListInput
               class="item-content-input"
-              label="Rank"
+              label="Rank From"
               type="number"
-              value={$dataClient.gameLeaderRule.rank}
-              onInput={(e) => $dataClient.gameLeaderRule.rank = e.target.value}
+              value={$dataClient.gameLeaderRule.rank_from}
+              onInput={(e) => $dataClient.gameLeaderRule.rank_from = e.target.value}
               required
               validate />
           </Col>
-          <Col width="100" medium="33">
+          <Col width="100" medium="25">
+            <ListInput
+              class="item-content-input"
+              label="Rank To"
+              type="number"
+              value={$dataClient.gameLeaderRule.rank_to}
+              onInput={(e) => $dataClient.gameLeaderRule.rank_to = e.target.value}
+              required
+              validate />
+          </Col>
+          <Col width="100" medium="25">
             <ListInput
               class="item-content-input"
               label="Tickets"
@@ -26,7 +36,7 @@
               onInput={(e) => $dataClient.gameLeaderRule.tickets = e.target.value}
               pattern="[0-9]*" />
           </Col>
-          <Col width="100" medium="33">
+          <Col width="100" medium="25">
             <ListInput
               class="item-content-input"
               label="Exp"
@@ -52,7 +62,8 @@
     <table>
       <thead>
         <tr>
-          <th class="numeric-cell">Rank</th>
+          <th class="numeric-cell">Rank From</th>
+          <th class="numeric-cell">Rank To</th>
           <th class="numeric-cell">Tickets</th>
           <th class="numeric-cell">Exp</th>
           <th></th>
@@ -63,7 +74,8 @@
     
         {#each $dataClient.gameLeaderRules as rule}
         <tr>
-          <td class="numeric-cell">{rule.rank}</td>
+          <td class="numeric-cell">{rule.rank_from}</td>
+          <td class="numeric-cell">{rule.rank_to}</td>
           <td class="numeric-cell">
             <Input
               class="item-content-input"
@@ -83,7 +95,7 @@
               pattern="[0-9]*" />
           </td>
           <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doUpdate(rule)}>Update</Button></td>
-          <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doDelete(rule.rank)}>Delete</Button></td>
+          <td><Button class="col" large small outline color="red" animate={true} transition="f7-fade" on:click={doDelete(rule.rank_from)}>Delete</Button></td>
         </tr>
         {/each}
         
@@ -121,9 +133,9 @@
   $: title = id > 0 ? "Leaderboard Rules for GameID: " + id : "Wrong Access";
 
 
-  async function doDelete(rank) {
+  async function doDelete(rank_from) {
     f7.dialog.confirm('Are you sure want to delete?', async function () {
-      await dataClient.deleteGameLeaderRule(id, rank);
+      await dataClient.deleteGameLeaderRule(id, rank_from);
       await dataClient.getGameLeaderRuleList(id);
       $dataClient.gameLeaderRules.sort();
     });
@@ -162,10 +174,13 @@
 
   onMount(async () => {
     
-    $dataClient.gameLeaderRule.game_id = id;
-    $dataClient.gameLeaderRule.rank = 0;
-    $dataClient.gameLeaderRule.tickets = 0;
-    $dataClient.gameLeaderRule.exp = 0;
+    $dataClient.gameLeaderRule = {
+      game_id:  id,
+      rank_from: 0,
+      rank_to: 0,
+      tickets: 0,
+      exp: 0,
+    };
 
     await dataClient.getGameLeaderRuleList(id);
     $dataClient.gameLeaderRules.sort();
