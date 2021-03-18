@@ -29,6 +29,17 @@
                   </ListInput>
                 
               </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  label="Gem Balance"
+                  type="number"
+                  value={$dataClient.user.gem_balance}
+                  onInput={(e) => $dataClient.user.gem_balance = e.target.value}
+                  step="1"
+                  error-message="Only numbers please!"
+                  required
+                />
+              </Col>
             </Row>
           </CardContent>
         </Card>
@@ -113,13 +124,7 @@
                     value={$dataClient.user.exp}
                     readonly />
                 </Col>
-                <Col width="100" medium="50">
-                  <ListInput
-                    label="Gem Balance"
-                    type="text"
-                    value={$dataClient.user.gem_balance}
-                    readonly />
-                </Col>
+                
               </Row>
             </List>
           </CardContent>
@@ -269,9 +274,11 @@
     }
 
     let result = false;
-    if (id > 0) {
-      result = await dataClient.updateUserStatus();
+    if (id > 1) {
+
+      result = await dataClient.updateUserStatusGemBalance();
     } else {
+      f7.dialog.alert("root user is not allowed to change status.");
     }
 
     if (result) {

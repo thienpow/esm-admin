@@ -16,7 +16,7 @@ import {
   // User
   ChangePasswordRequest,
   GetUserCountRequest,
-  UpdateUserStatusRequest,
+  UpdateUserStatusGemBalanceRequest,
   ListUserRequest,
   // Config
   GetConfigRequest,
@@ -120,7 +120,7 @@ const dataClient = () => {
     listTimezonesRequest: new ListTimezonesRequest(),
     // User
     changePasswordRequest: new ChangePasswordRequest(),
-    updateUserStatusRequest:  new UpdateUserStatusRequest(),
+    updateUserStatusGemBalanceRequest:  new UpdateUserStatusGemBalanceRequest(),
     getUserCountRequest: new GetUserCountRequest(),
     listUserRequest: new ListUserRequest(),
 
@@ -688,14 +688,15 @@ const dataClient = () => {
         update(state => state);
       },
 
-      async updateUserStatus() {
+      async updateUserStatusGemBalance() {
 
-        let request = state.updateUserStatusRequest;
+        let request = state.updateUserStatusGemBalanceRequest;
         request.setId(state.user.id);
         request.setStatus(state.user.status);
+        request.setGemBalance(state.user.gem_balance);
         
         try {
-          const response = await state.apiClient.updateUserStatus(request, {'authorization': state.jwtToken});
+          const response = await state.apiClient.updateUserStatusGemBalance(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
           state.isLoggedIn = false;
