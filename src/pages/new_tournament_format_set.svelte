@@ -83,7 +83,7 @@
               <span slot="media">
                 <Icon md="material:search" aurora="f7:search" ios="f7:search" />
               </span>
-              <select name="car" bind:value={game_id} oninput={(e) => alert(e)}>
+              <select bind:value={game_id} oninput={(e) => alert(e)}>
                 <option value={0}>Not Selected</option>
                 {#each $dataClient.games as game}
                 <option value={game.id}>{game.title}</option>
@@ -96,7 +96,6 @@
               label="Game"
               floatingLabel
               type="number"
-              placeholder="1"
               errorMessage="Only numbers please!"
               clearButton
               value={game_id}

@@ -9,7 +9,7 @@
           <Card noShadow>
             <CardContent>
               <Row>
-                <Col width="100" medium="50">
+                <Col width="100" medium="40">
                   <ListInput
                     class="item-content-input"
                     label="Status"
@@ -37,9 +37,12 @@
                     validate />
 
                 </Col>
+                <Col width="20" medium="10">
+                  <URLHelp />
+                </Col>
               </Row>
               <Row>
-                <Col width="100" medium="50">
+                <Col width="100" medium="40">
                   <ListInput
                     class="item-content-input"
                     label="Title"
@@ -50,7 +53,7 @@
                     validate />
 
                 </Col>
-                <Col width="100" medium="50">
+                <Col width="100" medium="60">
                   <ListInput
                     class="item-content-input"
                     label="Sub-title"
@@ -205,6 +208,7 @@
 
 </Page>
 <script>
+  import URLHelp from '../components/URLHelp.svelte';
   import SaveCancel from '../components/SaveCancel.svelte';
   import {
     f7,

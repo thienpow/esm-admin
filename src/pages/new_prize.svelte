@@ -11,7 +11,7 @@
         <Card noShadow>
           <CardContent>
             <Row>
-              <Col width="100" medium="50">
+              <Col width="100" medium="40">
 
                 <ListInput
                   class="item-content-input"
@@ -28,7 +28,7 @@
                 </ListInput>
 
               </Col>
-              <Col width="100" medium="50">
+              <Col width="80" medium="50">
                 <ListInput
                   class="item-content-input"
                   label="Image URL"
@@ -38,10 +38,14 @@
                   onInput={(e) => $dataClient.prize.img_url = e.target.value}
                   required
                   validate />
+                  
+              </Col>
+              <Col width="20" medium="10">
+                <URLHelp />
               </Col>
             </Row>
             <Row>
-              <Col width="100" medium="50">
+              <Col width="100" medium="40">
                 <ListInput
                   class="item-content-input"
                   label="Title"
@@ -51,7 +55,7 @@
                   required
                   validate />
               </Col>
-              <Col width="100" medium="50">
+              <Col width="100" medium="60">
                 <ListInput
                   class="item-content-input"
                   label="Sub-title"
@@ -214,7 +218,7 @@
             <Card noShadow>
               <CardContent>
                 <Row>
-                  <Col width="100" medium="70">
+                  <Col>
     
                         <ListItem 
                           title="Find & Select Tournaments" 
@@ -223,7 +227,8 @@
                           <span slot="media">
                             <Icon md="material:search" aurora="f7:search" ios="f7:search" />
                           </span>
-                          <select multiple bind:value={$dataClient.prize.tournament_ids}>
+                          <select bind:value={tour_id}>
+                            <option value={0}>Not Selected</option>
                             {#each $dataClient.tournaments as tour}
                             <option value={tour.id}>{tour.title}</option>
                             {/each}
@@ -231,21 +236,22 @@
                         </ListItem>
     
                   </Col>
-                  <Col width="100" medium="30">
+                  <Col>
     
                         <ListInput
-                          label="Tournament Formats"
+                          label="Tournament"
                           floatingLabel
-                          type="text"
-                          placeholder="example: 1,2,3"
+                          type="number"
                           errorMessage="Only numbers please!"
                           clearButton
-                          value={$dataClient.prize.tournament_ids}
-                          onInput={(e) => $dataClient.prize.tournament_ids = e.target.value}
+                          value={tour_id}
+                          onInput={(e) => tour_id = e.target.value}
                         />
     
                   </Col>
-                  
+                  <Col>
+                    <Button fill raised color="blue" animate={false} on:click={addToList}>Add to list</Button>
+                  </Col>
                 </Row>
               </CardContent>
             </Card>
@@ -253,6 +259,40 @@
       </Col>
     </Row>
     
+
+    <BlockTitle>List  of Linked Tournament</BlockTitle>
+    <Card noShadow>
+      <CardContent>
+
+        <div class="data-table">
+          <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">TourID</th>
+              <th class="label-cell">Title</th>
+              <th class="label-cell">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each prize_tours as p, i}
+              <tr>
+                <td class="numeric-cell">{p.tour_id}</td>
+                <td class="label-cell">{p.tour_title}</td>
+                <td class="label-cell">{p.status}</td>
+                <td>
+                  <Link ignoreCache={true} on:click={(e) => delFromList(p.id)}>
+                    <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
+                  </Link>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+          </table>
+        </div>
+
+      </CardContent>
+    </Card>
+
   </List>
 
   
@@ -262,10 +302,13 @@
 </Page>
 <script>
   //import timezones from '../js/timezones';
+  import URLHelp from '../components/URLHelp.svelte';
   import SaveCancel from '../components/SaveCancel.svelte';
   import {
       f7,
       theme,
+      Button,
+      Chip,
       Card, CardContent,
       Col,
       Page,
@@ -273,13 +316,10 @@
       List,
       ListInput,
       ListItem,
-      Toggle,
       BlockTitle,
       Row,
-      Icon,
-      Range,
-      Radio,
-      Block
+      Link,
+      Icon
     } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
@@ -291,6 +331,8 @@
 
   $: title = id > 0 ? "Edit Prize" : "New Prize";
 
+  let prize_tours = [];
+  let tour_id = 0;
 
   async function doSave() {
 
@@ -339,6 +381,28 @@
     
   };
 
+  async function delFromList(id) {
+
+    f7.dialog.confirm("Are you sure want to delete?", async function () {
+      await dataClient.deletePrizeTour(id);
+      prize_tours = prize_tours.filter(p => p.id != id);
+    });
+
+  }
+
+  async function addToList() {
+
+    if (tour_id <= 0) {
+      f7.dialog.alert("TourID must be > 0");
+      return;
+    }
+
+    let id = await dataClient.addPrizeTour(f7route.params.id, tour_id);
+    await dataClient.getPrizeTourList(f7route.params.id);
+    prize_tours = $dataClient.prize_tours;
+
+  }
+
   onMount(async () => {
     await dataClient.getTournamentList(1000, 0, "", 2);
 
@@ -359,6 +423,8 @@
         $dataClient.prize.repeated_on_sun = true;
     }
     
+    await dataClient.getPrizeTourList(f7route.params.id);
+    prize_tours = $dataClient.prize_tours;
   });
   
 </script>

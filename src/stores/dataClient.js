@@ -63,6 +63,9 @@ import {
   GetPrizeCountRequest, 
   ListPrizeRequest,
   ListPrizeTypeRequest,
+  AddPrizeTourRequest,
+  DeletePrizeTourRequest,
+  ListPrizeTourRequest,
   // Tournament
   AddTournamentRequest,
   AddTournamentSetRequest,
@@ -175,6 +178,9 @@ const dataClient = () => {
     getPrizeCountRequest: new GetPrizeCountRequest(),
     listPrizeRequest: new ListPrizeRequest(),
     listPrizeTypeRequest: new ListPrizeTypeRequest(),
+    addPrizeTourRequest: new AddPrizeTourRequest(),
+    deletePrizeTourRequest: new DeletePrizeTourRequest(),
+    listPrizeTourRequest: new ListPrizeTourRequest(),
 
     // Tournament
     addTournamentRequest: new AddTournamentRequest(),
@@ -377,6 +383,7 @@ const dataClient = () => {
       archived: 0,
     },
     prizeTypes: [],
+    prize_tours: [],
 
     tournament: {
       id: 0, 
@@ -1585,6 +1592,59 @@ const dataClient = () => {
             state.prizeTypes = [...state.prizeTypes,  {
               id: p.getId(), 
               title: p.getTitle()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async addPrizeTour(prize_id, tour_id) {
+
+        let request = state.addPrizeTourRequest;
+        request.setPrizeId(prize_id);
+        request.setTourId(tour_id);
+        
+        try {
+          const response = await state.apiClient.addPrizeTour(request, {'authorization': state.jwtToken});
+          return response.getResult()
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+      },
+
+      async deletePrizeTour(id) {
+
+        let request = state.deletePrizeTourRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.deletePrizeTour(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async getPrizeTourList(id) {
+          
+        let request = state.listPrizeTourRequest;
+        request.setId(id);
+
+        try {
+          const response = await state.apiClient.listPrizeTour(request, {'authorization': state.jwtToken});
+          state.prize_tours = [];
+          for (let item of response.getResultList()) {
+            state.prize_tours = [...state.prize_tours,  {
+              id: item.getId(),
+              prize_id: item.getPrizeId(),
+              tour_id: item.getTourId(),
+              tour_title: item.getTourTitle(),
+              status: item.getStatus()
             }];
           }
             

@@ -30,6 +30,14 @@
                   </ListInput>
                 
               </Col>
+              <Col width="100" medium="50">
+                <ListInput
+                  label="Shipment Tracking"
+                  type="text"
+                  value={$dataClient.winner.shipment_tracking}
+                  onInput={(e) => $dataClient.winner.shipment_tracking = e.target.value}
+                />
+              </Col>
             </Row>
           </CardContent>
         </Card>
