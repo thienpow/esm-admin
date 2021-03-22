@@ -249,8 +249,10 @@ const dataClient = () => {
       games_per_ad: 0,
       days_to_claim: 0,
       freespin_per_day: 0,
-      gems_per_spin: 0,
-      ads_per_spin: 0,
+      gems_per_spins_1: 0,
+      ads_per_spins_1: 0,
+      gems_per_spins_2: 0,
+      ads_per_spins_2: 0,
     },
 
     spinner_rule: {
@@ -286,6 +288,7 @@ const dataClient = () => {
       watch_ad_get_exp: 0,
       use_gem_get_tickets: 0,
       use_gem_get_exp: 0,
+      use_how_many_gems: 0,
     },
     games: [],
     gameCount: {
@@ -726,8 +729,10 @@ const dataClient = () => {
         request.setGamesPerAd(state.config.games_per_ad);
         request.setDaysToClaim(state.config.days_to_claim);
         request.setFreespinPerDay(state.config.freespin_per_day);
-        request.setGemsPerSpin(state.config.gems_per_spin);
-        request.setAdsPerSpin(state.config.ads_per_spin);
+        request.setGemsPerSpins1(state.config.gems_per_spins_1);
+        request.setAdsPerSpins1(state.config.ads_per_spins_1);
+        request.setGemsPerSpins2(state.config.gems_per_spins_2);
+        request.setAdsPerSpins2(state.config.ads_per_spins_2);
         
         try {
           const response = await state.apiClient.updateConfig(request, {'authorization': state.jwtToken});
@@ -753,8 +758,10 @@ const dataClient = () => {
           state.config.games_per_ad =  config.getGamesPerAd();
           state.config.days_to_claim = config.getDaysToClaim();
           state.config.freespin_per_day = config.getFreespinPerDay();
-          state.config.gems_per_spin = config.getGemsPerSpin();
-          state.config.ads_per_spin = config.getAdsPerSpin();
+          state.config.gems_per_spins_1 = config.getGemsPerSpins1();
+          state.config.ads_per_spins_1 = config.getAdsPerSpins1();
+          state.config.gems_per_spins_2 = config.getGemsPerSpins2();
+          state.config.ads_per_spins_2 = config.getAdsPerSpins2();
         } catch (err) {
           state.isLoggedIn = false;
         }
@@ -939,6 +946,7 @@ const dataClient = () => {
         request.setWatchAdGetExp(state.game.watch_ad_get_exp);
         request.setUseGemGetTickets(state.game.use_gem_get_tickets);
         request.setUseGemGetExp(state.game.use_gem_get_exp);
+        request.setUseHowManyGems(state.game.use_how_many_gems);
         
         try {
           const response = await state.apiClient.addGame(request, {'authorization': state.jwtToken});
@@ -967,11 +975,14 @@ const dataClient = () => {
         request.setWatchAdGetExp(state.game.watch_ad_get_exp);
         request.setUseGemGetTickets(state.game.use_gem_get_tickets);
         request.setUseGemGetExp(state.game.use_gem_get_exp);
+        request.setUseHowManyGems(state.game.use_how_many_gems);
         
         try {
+          //console.log("updating game...");
           const response = await state.apiClient.updateGame(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
+          //console.log(err);
           state.isLoggedIn = false;
 
         }
@@ -1132,6 +1143,7 @@ const dataClient = () => {
               watch_ad_get_exp: g.getWatchAdGetExp(),
               use_gem_get_tickets: g.getUseGemGetTickets(),
               use_gem_get_exp: g.getUseGemGetExp(),
+              use_how_many_gems: g.getUseHowManyGems(),
             }];
           }
             

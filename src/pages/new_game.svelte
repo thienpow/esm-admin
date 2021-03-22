@@ -124,7 +124,16 @@
               </Col>
             </Row>
             <Row>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
+                <ListInput
+                  class="item-content-input"
+                  label="Use How Many Gems"
+                  type="number"
+                  value={$dataClient.game.use_how_many_gems}
+                  onInput={(e) => $dataClient.game.use_how_many_gems = e.target.value}
+                  pattern="[0-9]*" />
+              </Col>
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Use Gem Get Tickets"
@@ -133,7 +142,7 @@
                   onInput={(e) => $dataClient.game.use_gem_get_tickets = e.target.value}
                   pattern="[0-9]*" />
               </Col>
-              <Col width="100" medium="50">
+              <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
                   label="Use Gem Get Exp"
