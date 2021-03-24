@@ -251,7 +251,6 @@
         status: 1,
         status_prize: 0,
         tickets_collected: 0,
-        tournament_ids: [], 
       };
     f7router.navigate("/newprize/0/");
   };

@@ -81,6 +81,9 @@ import {
   ListTournamentRequest,
   ListTournamentSetRequest,
   ListTournamentSetGameRuleRequest,
+  AddTourSetRequest,
+  DeleteTourSetRequest,
+  ListTourSetRequest,
   // Winner
   AddWinnerRequest, 
   DeleteWinnerRequest,
@@ -197,6 +200,9 @@ const dataClient = () => {
     listTournamentRequest: new ListTournamentRequest(),
     listTournamentSetRequest: new ListTournamentSetRequest(),
     listTournamentSetGameRuleRequest: new ListTournamentSetGameRuleRequest(),
+    addTourSetRequest: new AddTourSetRequest(),
+    deleteTourSetRequest: new DeleteTourSetRequest(),
+    listTourSetRequest: new ListTourSetRequest(),
 
     // Winner
     listWinnerRequest: new ListWinnerRequest(),
@@ -374,7 +380,6 @@ const dataClient = () => {
       repeated_on_sat: false,
       repeated_on_sun: false,
       status: 1,
-      tournament_ids: [],
       status_prize: 0,
       tickets_collected: 0,
     },
@@ -390,8 +395,7 @@ const dataClient = () => {
 
     tournament: {
       id: 0, 
-      title: "", 
-      tour_set_ids: [],
+      title: "",
       status: 1
     },
     tournaments: [],
@@ -422,6 +426,7 @@ const dataClient = () => {
       group_id: 0,
     },
     tournament_set_game_rules: [],
+    tour_sets: [],
     winner: {
       id: 1,
       user_id: 0,
@@ -1452,7 +1457,6 @@ const dataClient = () => {
       
         let scheduled_on = new Date(state.prize.scheduled_on);
         let repeated_on = state.prize.repeated_on.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        let tournament_ids = state.prize.tournament_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
 
         let request = state.addPrizeRequest;
         request.setTitle(state.prize.title);
@@ -1471,7 +1475,6 @@ const dataClient = () => {
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
-        request.setTournamentIdsList(tournament_ids);
         
         try {
           const response = await state.apiClient.addPrize(request, {'authorization': state.jwtToken});
@@ -1486,7 +1489,6 @@ const dataClient = () => {
 
         let scheduled_on = new Date(state.prize.scheduled_on);
         let repeated_on = state.prize.repeated_on.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        let tournament_ids = state.prize.tournament_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
 
         let request = state.updatePrizeRequest;
         request.setId(state.prize.id);
@@ -1506,7 +1508,6 @@ const dataClient = () => {
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
-        request.setTournamentIdsList(tournament_ids);
         
         try {
           const response = await state.apiClient.updatePrize(request, {'authorization': state.jwtToken});
@@ -1581,7 +1582,6 @@ const dataClient = () => {
               status: item.getStatus(),
               status_prize: item.getStatusPrize(),
               tickets_collected: item.getTicketsCollected(),
-              tournament_ids: item.getTournamentIdsList(),
             }];
           }
             
@@ -1673,10 +1673,8 @@ const dataClient = () => {
        */
       async addTournament() {
 
-        let tour_set_ids = state.tournament.tour_set_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
         let request = state.addTournamentRequest;
         request.setTitle(state.tournament.title);
-        request.setTourSetIdsList(tour_set_ids);
         request.setStatus(state.tournament.status);
         
         try {
@@ -1726,12 +1724,9 @@ const dataClient = () => {
 
       async updateTournament() {
 
-        let tour_set_ids = state.tournament.tour_set_ids.toString().replace(/\s/g, '').split`,`.map(x=>+x);
-        
         let request = state.updateTournamentRequest;
         request.setId(state.tournament.id);
         request.setTitle(state.tournament.title);
-        request.setTourSetIdsList(tour_set_ids);
         request.setStatus(state.tournament.status);
         
         try {
@@ -1863,7 +1858,6 @@ const dataClient = () => {
             state.tournaments = [...state.tournaments,  {
               id: item.getId(),
               title: item.getTitle(),
-              tour_set_ids: item.getTourSetIdsList(),
               status: item.getStatus()
             }];
           }
@@ -1939,6 +1933,59 @@ const dataClient = () => {
               duration_hours: item.getDurationHours(),
               duration_minutes: item.getDurationMinutes(),
               group_id: item.getGroupId()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async addTourSet(tour_id, set_id) {
+
+        let request = state.addTourSetRequest;
+        request.setTourId(tour_id);
+        request.setSetId(set_id);
+        
+        try {
+          const response = await state.apiClient.addTourSet(request, {'authorization': state.jwtToken});
+          return response.getResult()
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+      },
+
+      async deleteTourSet(id) {
+
+        let request = state.deleteTourSetRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.deleteTourSet(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async getTourSetList(id) {
+          
+        let request = state.listTourSetRequest;
+        request.setId(id);
+
+        try {
+          const response = await state.apiClient.listTourSet(request, {'authorization': state.jwtToken});
+          state.tour_sets = [];
+          for (let item of response.getResultList()) {
+            state.tour_sets = [...state.tour_sets,  {
+              id: item.getId(),
+              tour_id: item.getTourId(),
+              set_id: item.getSetId(),
+              set_title: item.getSetTitle(),
+              status: item.getStatus()
             }];
           }
             

@@ -215,7 +215,12 @@
         type_id: 0, 
         price: 0.0,
         quantity: 0, 
-        status: 1
+        one_time_gem: 0,
+        one_time_multiplier: 0,
+        one_time_is_firstonly: false,
+        daily_gem: 0,
+        daily_multiplier: 0,
+        status: 1,
       };
     f7router.navigate("/newsub/0/");
   };

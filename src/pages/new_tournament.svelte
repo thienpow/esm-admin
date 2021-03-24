@@ -44,7 +44,7 @@
     <Card noShadow>
       <CardContent>
         <Row>
-          <Col width="70">
+          <Col>
             <ListItem 
               title="Find & Select Format Sets" 
               smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Format Set'}}
@@ -52,29 +52,67 @@
               <span slot="media">
                 <Icon md="material:search" aurora="f7:search" ios="f7:search" />
               </span>
-              <select name="car" multiple bind:value={$dataClient.tournament.tour_set_ids}>
+              <select name="car" bind:value={set_id}>
                 {#each $dataClient.tournament_sets as set}
                 <option value={set.id}>{set.title}</option>
                 {/each}
               </select>
             </ListItem>
           </Col>
-          <Col width="30">
+          <Col>
   
             <ListInput
               class="item-content-input"
-              label="Format Set IDs"
+              label="Format Set ID"
               type="text"
-              value={$dataClient.tournament.tour_set_ids}
-              onInput={(e) => $dataClient.tournament.tour_set_ids = e.target.value}
+              value={set_id}
+              onInput={(e) => set_id = e.target.value}
               required
               validate />
         
       
           </Col>
+          <Col>
+            <Button fill raised color="blue" animate={false} on:click={addToList}>Add to list</Button>
+          </Col>
         </Row>
       </CardContent>
     </Card>
+
+
+    <BlockTitle>List  of Linked Tournament</BlockTitle>
+    <Card noShadow>
+      <CardContent>
+
+        <div class="data-table">
+          <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">TourID</th>
+              <th class="label-cell">Title</th>
+              <th class="label-cell">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each tour_sets as p, i}
+              <tr>
+                <td class="numeric-cell">{p.set_id}</td>
+                <td class="label-cell">{p.set_title}</td>
+                <td class="label-cell">{p.status}</td>
+                <td>
+                  <Link ignoreCache={true} on:click={(e) => delFromList(p.id)}>
+                    <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
+                  </Link>
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+          </table>
+        </div>
+
+      </CardContent>
+    </Card>
+
   </List>
 
   
@@ -86,10 +124,12 @@
   import {
     f7,
     theme,
+    Chip,
     Card, CardContent,
     Col,
     Page,
     Navbar,
+    Link,
     List,
     ListInput,
     ListItem,
@@ -109,6 +149,9 @@
   const id = f7route.params.id;
 
   $: title = id > 0 ? "Edit Tournament" : "New Tournament";
+
+  let tour_sets = [];
+  let set_id = 0;
 
   async function doSave() {
 
@@ -139,8 +182,34 @@
     
   }
 
+  async function delFromList(id) {
+
+    f7.dialog.confirm("Are you sure want to delete?", async function () {
+      await dataClient.deleteTourSet(id);
+      tour_sets = tour_sets.filter(p => p.id != id);
+    });
+
+  }
+
+  async function addToList() {
+
+    if (set_id <= 0) {
+      f7.dialog.alert("TourID must be > 0");
+      return;
+    }
+
+    let id = await dataClient.addTourSet(f7route.params.id, set_id);
+    await dataClient.getTourSetList(f7route.params.id);
+    tour_sets = $dataClient.tour_sets;
+
+  }
+
   onMount(async () => {
     await dataClient.getTournamentSetList(1000, 0, "");
+
+
+    await dataClient.getTourSetList(f7route.params.id);
+    tour_sets = $dataClient.tour_sets;
   });
   
 </script>

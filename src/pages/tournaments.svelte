@@ -23,10 +23,6 @@
             <tr>
               <th class="numeric-cell">ID</th>
               <th class="label-cell">Title</th>
-              
-              {#if $tour_set_ids}
-              <th class="numeric-cell">Format Set IDs</th>
-              {/if}
     
               {#if $show_status}
               <th>Status</th>
@@ -40,10 +36,6 @@
             <tr on:click={onRowClick(tournament)}>
               <td class="numeric-cell">{tournament.id}</td>
               <td class="label-cell">{tournament.title}</td>
-    
-              {#if $tour_set_ids}
-              <td class="numeric-cell">{tournament.tour_set_ids}</td>
-              {/if}
     
               {#if $show_status}
               <td class="label-cell">{dataClient.displayStatusTitle(tournament.status)}</td>
@@ -75,14 +67,7 @@
         <ListItem accordionItem title="Show/Hide fields">
           <AccordionContent>
             <List>
-              <ListItem
-                checkbox
-                title="set_ids"
-                value={$tour_set_ids}
-                checked={$tour_set_ids}
-                onChange={(e) => $tour_set_ids = e.target.checked}
-              ></ListItem>
-
+              
               <ListItem
                 checkbox
                 title="status"
@@ -113,7 +98,7 @@
   import { onMount } from 'svelte';
   import { AccordionContent, theme, Searchbar, NavLeft, NavTitle, NavRight, List, ListItem, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
-  import {tour_set_ids, show_status, row_count} from '../stores/ui';
+  import {show_status, row_count} from '../stores/ui';
   
   export let f7router;
 
@@ -142,8 +127,7 @@
   function onNewClick() {
     $dataClient.tournament = {
         id: 0, 
-        title: "", 
-        tour_set_ids: [],
+        title: "",
         status: 1
       };
     f7router.navigate("/newtournament/0/");
