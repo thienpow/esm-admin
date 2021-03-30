@@ -60,14 +60,14 @@ var routes = [
   },
   
   {
-    path: '/log_play/',
+    path: '/log_play/:id/',
     component: LogPlayPage,
     options: {
       animate: false,
     }
   },
   {
-    path: '/log_prize_pool/',
+    path: '/log_prize_pool/:id/',
     component: LogPrizePoolPage,
     options: {
       animate: false,

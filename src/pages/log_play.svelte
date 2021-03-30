@@ -27,20 +27,27 @@
     <table>
       <thead>
         <tr>
+          <th class="numeric-cell">ID</th>
           <th class="numeric-cell">Prize ID</th>
-          <th class="numeric-cell">Timestamp</th>
+          <th class="numeric-cell">Game ID</th>
+          <th class="numeric-cell">Enter Timestamp</th>
+          <th class="numeric-cell">Leave Timestamp</th>
+          <th class="numeric-cell">Is Watched Ad</th>
+          <th class="numeric-cell">Game Score</th>
         </tr>
       </thead>
       <tbody>
+        {#each $dataClient.logGList as log}
         <tr>
-          <td class="numeric-cell">1</td>
-          <td class="numeric-cell">Fri Sep 25 2020 09:22:45 GMT+0800 (Malaysia Time)</td>
+          <td class="numeric-cell">{log.id}</td>
+          <td class="numeric-cell">{log.prize_id}</td>
+          <td class="numeric-cell">{log.game_id}</td>
+          <td class="numeric-cell">{log.enter_timestamp}</td>
+          <td class="numeric-cell">{log.leave_timestamp}</td>
+          <td class="numeric-cell">{log.is_watched_ad}</td>
+          <td class="numeric-cell">{log.game_score}</td>
         </tr>
-        <tr>
-          <td class="numeric-cell">2</td>
-          <td class="numeric-cell">Fri Sep 25 2020 09:22:45 GMT+0800 (Malaysia Time)</td>
-        </tr>
-        
+        {/each}
       </tbody>
     </table>
   </div>
@@ -57,13 +64,19 @@
   import dataClient from '../stores/dataClient';
   import { row_count } from '../stores/ui';
   
+  export let f7route;
+  const id = f7route.params.id;
+
   async function resetRows() {
     await dataClient.getGameList($row_count);
     searchString = null;
   }
 
   onMount(async () => {
-    //dataClient.getWinnerList($row_count);
-  });
+    if (id > 0) {
+      //
+      await dataClient.getLogGList(id, 100);
+    }
+  })
   
 </script>

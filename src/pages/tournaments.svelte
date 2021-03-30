@@ -134,7 +134,11 @@
   };
 
   function onRowClick(tournament) {
-    $dataClient.tournament = tournament;
+    $dataClient.tournament = {
+        id: tournament.id, 
+        title: tournament.title,
+        status: tournament.status
+      };
     f7router.navigate("/newtournament/" + tournament.id + "/");
   };
 

@@ -174,13 +174,37 @@
         game_code: "",
         engine_id: 11, 
         version: 0, 
-        status: 1
+        status: 1,
+        score_rule: 0,
+        watch_ad_get_tickets: 0,
+        watch_ad_get_exp: 0,
+        use_gem_get_tickets: 0,
+        use_gem_get_exp: 0,
+        use_how_many_gems: 0,
       };
     f7router.navigate("/newgame/0/");
   };
 
   async function onRowClick(game) {
-    $dataClient.game = game;
+    $dataClient.game = {
+        id: game.id, 
+        title: game.title, 
+        subtitle: game.subtitle, 
+        img_url: game.img_url, 
+        content: game.content, 
+        type_id: game.type_id, 
+        game_code: "",
+        engine_id: game.engine_id, 
+        version: game.version, 
+        status: game.status,
+        score_rule: game.score_rule,
+        watch_ad_get_tickets: game.watch_ad_get_tickets,
+        watch_ad_get_exp: game.watch_ad_get_exp,
+        use_gem_get_tickets: game.use_gem_get_tickets,
+        use_gem_get_exp: game.use_gem_get_exp,
+        use_how_many_gems: game.use_how_many_gems,
+      };
+    
     f7router.navigate("/newgame/" + game.id + "/");
   };
 

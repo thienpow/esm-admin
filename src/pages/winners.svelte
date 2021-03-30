@@ -185,7 +185,16 @@ import Paginator from '../components/Paginator.svelte';
   }
 
   function onRowClick(winner) {
-    $dataClient.winner = winner;
+    $dataClient.winner = {
+      id: winner.id,
+      user_id: winner.user_id,
+      name: winner.name,
+      email: winner.email,
+      prize_id: winner.prize_id,
+      prize_title: winner.prize_title,
+      status: winner.status,
+      ship_tracking: winner.ship_tracking
+    };
     f7router.navigate("/newwinner/" + winner.id + "/");
   };
 

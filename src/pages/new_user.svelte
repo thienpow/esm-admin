@@ -136,12 +136,12 @@
     <Col class="toolpanel" width="100" large="40" xlarge="30">
 
       <List>
-        <ListItem link="/log_play/" view=".view-main" panelClose title="Play Logs">
+        <ListItem link="/log_play/{id}/" view=".view-main" panelClose title="Play Logs">
           <span slot="media">
             <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
           </span>
         </ListItem>
-        <ListItem link="/log_prize_pool/" view=".view-main" panelClose title="Prize Pools">
+        <ListItem link="/log_prize_pool/{id}" view=".view-main" panelClose title="Prize Pools">
           <span slot="media">
             <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
           </span>
@@ -299,7 +299,7 @@
 
   onMount(async () => {
     if (id > 0) {
-      //
+      
     }
   })
 </script>

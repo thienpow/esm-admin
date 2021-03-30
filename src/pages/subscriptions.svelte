@@ -225,9 +225,24 @@
     f7router.navigate("/newsub/0/");
   };
 
-  function onRowClick(subscription) {
-    $dataClient.subscription = subscription;
-    f7router.navigate("/newsub/" + subscription.id + "/");
+  function onRowClick(sub) {
+    $dataClient.subscription = {
+        id: sub.id, 
+        title: sub.title, 
+        subtitle: sub.subtitle, 
+        img_url: sub.img_url, 
+        content: sub.content, 
+        type_id: sub.type_id, 
+        price: sub.price,
+        quantity: sub.quantity, 
+        one_time_gem: sub.one_time_gem,
+        one_time_multiplier: sub.one_time_multiplier,
+        one_time_is_firstonly: sub.one_time_is_firstonly,
+        daily_gem: sub.daily_gem,
+        daily_multiplier: sub.daily_multiplier,
+        status: sub.status,
+      };
+    f7router.navigate("/newsub/" + sub.id + "/");
   };
 
   onMount(async () => {

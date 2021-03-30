@@ -191,7 +191,35 @@
   }
 
   function onRowClick(user) {
-    $dataClient.user = user;
+    $dataClient.user = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      created_on: user.created_on,
+      last_login: user.last_login,
+      role_id: user.role_id,
+      status: user.status,
+      gem_balance: user.gem_balance,
+      social_link_fb: user.social_link_fb,
+      social_link_google: user.social_link_google,
+      avatar_url:  user.avatar_url,
+      exp: user.exp,
+      full_name: user.full_name,
+      address: user.address,
+      city: user.city,
+      state: user.state,
+      zip_code: user.zip_code,
+      country: user.country,
+      country_code: user.country_code,
+      is_notify_allowed: user.is_notify_allowed,
+      is_notify_new_reward: user.is_notify_new_reward,
+      is_notify_new_tournament: user.is_notify_new_tournament,
+      is_notify_tour_ending: user.is_notify_tour_ending,
+      nick_name: user.nick_name,
+    };
     f7router.navigate("/newuser/" + user.id + "/");
   };
 

@@ -212,54 +212,50 @@
       </Col>
 
     </Row>
-    <Row class="no-gap">
-      <Col width="100">
-        <BlockTitle>Linked Tournament</BlockTitle>
-            <Card noShadow>
-              <CardContent>
-                <Row>
-                  <Col>
-    
-                        <ListItem 
-                          title="Find & Select Tournaments" 
-                          smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
-                        >
-                          <span slot="media">
-                            <Icon md="material:search" aurora="f7:search" ios="f7:search" />
-                          </span>
-                          <select bind:value={tour_id}>
-                            <option value={0}>Not Selected</option>
-                            {#each $dataClient.tournaments as tour}
-                            <option value={tour.id}>{tour.title}</option>
-                            {/each}
-                          </select>
-                        </ListItem>
-    
-                  </Col>
-                  <Col>
-    
-                        <ListInput
-                          label="Tournament"
-                          floatingLabel
-                          type="number"
-                          errorMessage="Only numbers please!"
-                          clearButton
-                          value={tour_id}
-                          onInput={(e) => tour_id = e.target.value}
-                        />
-    
-                  </Col>
-                  <Col>
-                    <Button fill raised color="blue" animate={false} on:click={addToList}>Add to list</Button>
-                  </Col>
-                </Row>
-              </CardContent>
-            </Card>
-            
-      </Col>
-    </Row>
-    
 
+    <SaveCancel on:doSave={doSave} />
+    <br/><br/>
+    <BlockTitle>Linked Tournament</BlockTitle>
+    <Card noShadow>
+      <CardContent>
+        <Row>
+          <Col>
+
+                <ListItem 
+                  title="Find & Select Tournaments" 
+                  smartSelect smartSelectParams={{openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search Tournament'}}
+                >
+                  <span slot="media">
+                    <Icon md="material:search" aurora="f7:search" ios="f7:search" />
+                  </span>
+                  <select bind:value={tour_id}>
+                    <option value={0}>Not Selected</option>
+                    {#each $dataClient.tournaments as tour}
+                    <option value={tour.id}>{tour.title}</option>
+                    {/each}
+                  </select>
+                </ListItem>
+
+          </Col>
+          <Col>
+
+                <ListInput
+                  label="Tournament"
+                  floatingLabel
+                  type="number"
+                  errorMessage="Only numbers please!"
+                  clearButton
+                  value={tour_id}
+                  onInput={(e) => tour_id = e.target.value}
+                />
+
+          </Col>
+          <Col>
+            <Button fill raised color="blue" animate={false} on:click={addToList}>Add to list</Button>
+          </Col>
+        </Row>
+      </CardContent>
+    </Card>
     <BlockTitle>List  of Linked Tournament</BlockTitle>
     <Card noShadow>
       <CardContent>
@@ -296,8 +292,6 @@
   </List>
 
   
-  <SaveCancel on:doSave={doSave} />
-
 
 </Page>
 <script>

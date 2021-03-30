@@ -222,7 +222,17 @@
   };
 
   function onRowClick(item) {
-    $dataClient.item = item;
+    $dataClient.item = {
+        id: item.id, 
+        title: item.title, 
+        subtitle: item.subtitle, 
+        img_url: item.img_url, 
+        content: item.content, 
+        type_id: item.type_id, 
+        price: item.price,
+        quantity: item.quantity, 
+        status: item.status
+      };
     f7router.navigate("/newitem/" + item.id + "/");
   };
 

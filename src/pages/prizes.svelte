@@ -256,7 +256,31 @@
   };
 
   function onRowClick(prize) {
-    $dataClient.prize = prize;
+    $dataClient.prize = {
+        id: prize.id, 
+        title: prize.title, 
+        subtitle: prize.subtitle, 
+        img_url: prize.img_url, 
+        content: prize.content, 
+        type_id: prize.type_id, 
+        tickets_required: prize.tickets_required,
+        duration_days: prize.duration_days,
+        duration_hours: prize.duration_hours,
+        timezone: prize.timezone,
+        scheduled_on: prize.scheduled_on,
+        is_repeat: prize.is_repeat,
+        repeated_on: prize.repeated_on, 
+        repeated_on_mon: prize.repeated_on_mon,
+        repeated_on_tue: prize.repeated_on_tue,
+        repeated_on_wed: prize.repeated_on_wed,
+        repeated_on_thu: prize.repeated_on_thu,
+        repeated_on_fri: prize.repeated_on_fri,
+        repeated_on_sat: prize.repeated_on_sat,
+        repeated_on_sun: prize.repeated_on_sun,
+        status: prize.status,
+        status_prize: prize.status_prize,
+        tickets_collected: prize.tickets_collected,
+      };
     f7router.navigate("/newprize/" + prize.id + "/");
   };
 

@@ -61,6 +61,9 @@
   import dataClient from '../stores/dataClient';
   import { row_count } from '../stores/ui';
 
+  export let f7route;
+  const id = f7route.params.id;
+
   async function resetRows() {
     await dataClient.getGameList($row_count);
     searchString = null;

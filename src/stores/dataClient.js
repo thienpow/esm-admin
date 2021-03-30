@@ -90,6 +90,8 @@ import {
   ClaimWinnerRequest,
   GetWinnerCountRequest,
   ListWinnerRequest,
+  // GPlayer
+  ListLogGRequest,
   
 } from '../js/adminapi_pb.js';
 //import PreloaderComponent from 'framework7/components/preloader/preloader';
@@ -206,6 +208,9 @@ const dataClient = () => {
 
     // Winner
     listWinnerRequest: new ListWinnerRequest(),
+
+    // GPlayer
+    listLogGRequest: new ListLogGRequest(),
 
 
     statusTypes: [],
@@ -428,13 +433,16 @@ const dataClient = () => {
     tournament_set_game_rules: [],
     tour_sets: [],
     winner: {
-      id: 1,
+      id: 0,
       user_id: 0,
       name: "",
       email: "",
-      prize: 0,
+      prize_id: 0,
+      prize_title: "",
       status: 0,
-    }
+      ship_tracking: "",
+    },
+    logGList: [],
 	}
 	
 
@@ -2069,6 +2077,38 @@ const dataClient = () => {
       
       },
 
+
+      /***
+       * GPlayer
+       */
+       async getLogGList(user_id, row_count) {
+          
+        let request = state.listLogGRequest;
+        request.setUserId(user_id)
+        request.setLimit(row_count);
+        request.setOffset(0);
+
+        try {
+          const response = await state.apiClient.listLogG(request, {'authorization': state.jwtToken}); 
+
+          state.logGList = [];
+          for (let l of response.getResultList()) {
+            state.logGList = [...state.logGList,  {
+              id: l.getId(),
+              game_id: l.getGameId(), 
+              prize_id: l.getPrizeId(),
+              enter_timestamp: timeConverter(l.getEnterTimestamp()),
+              leave_timestamp: timeConverter(l.getLeaveTimestamp()),
+              is_watched_ad: l.getIsWatchedAd(),
+              game_score: l.getGameScore(),
+            }];
+          }
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
 	}
 
 	return {

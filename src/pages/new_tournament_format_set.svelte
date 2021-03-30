@@ -53,6 +53,8 @@
       </CardContent>
     </Card>
 
+    <SaveCancel on:doSave={doSave} />
+    <br/><br/>
 
     {#if f7route.params.id > 0}
     <BlockTitle>Linked Games</BlockTitle>
@@ -68,9 +70,16 @@
               value={group_id}
               onInput={(e) => group_id = e.target.value}
               placeholder="Please choose...">
-              <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+              <option value={8}>8</option>
+              <option value={9}>9</option>
+              <option value={10}>10</option>
             </ListInput>
             {/if}
 
@@ -193,8 +202,6 @@
   </List>
 
   
-  <SaveCancel on:doSave={doSave} />
-
 
 </Page>
 <script>

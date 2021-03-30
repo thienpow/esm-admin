@@ -127,7 +127,13 @@
   };
 
   function onRowClick(set) {
-    $dataClient.tournament_set = set;
+    $dataClient.tournament_set = {
+        id: set.id, 
+        title: set.title, 
+        duration_days: set.duration_days,
+        duration_hours: set.duration_hours,
+        is_group: set.is_group
+      };
     f7router.navigate("/newformatset/" + set.id + "/");
   };
 

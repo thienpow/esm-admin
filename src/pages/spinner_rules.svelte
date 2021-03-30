@@ -75,7 +75,12 @@
   };
 
   function onRowClick(sr) {
-    $dataClient.spinner_rule = sr;
+    $dataClient.spinner_rule = {
+        id: sr.id, 
+        probability: sr.probability, 
+        win: sr.win, 
+        type_id: sr.type_id
+      };
     f7router.navigate("/newspinner_rule/" + sr.id + "/");
   };
 

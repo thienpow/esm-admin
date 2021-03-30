@@ -90,7 +90,13 @@
   };
 
   function onRowClick(rank) {
-    $dataClient.rank = rank;
+    $dataClient.rank = {
+        id: rank.id, 
+        title: rank.title, 
+        exp: rank.exp, 
+        gem: rank.gem, 
+        multiplier: rank.multiplier
+      };
     f7router.navigate("/newrank/" + rank.id + "/");
   };
 

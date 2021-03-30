@@ -40,7 +40,11 @@
       </CardContent>
       
     </Card>
-    <BlockTitle>Format Sets</BlockTitle>
+
+    <SaveCancel on:doSave={doSave} />
+    <br/><br/>
+
+    <BlockTitle>Linked Format Sets</BlockTitle>
     <Card noShadow>
       <CardContent>
         <Row>
@@ -79,7 +83,6 @@
       </CardContent>
     </Card>
 
-
     <BlockTitle>List  of Linked Tournament</BlockTitle>
     <Card noShadow>
       <CardContent>
@@ -116,8 +119,6 @@
   </List>
 
   
-  <SaveCancel on:doSave={doSave} />
-
 </Page>
 <script>
   import SaveCancel from '../components/SaveCancel.svelte';
