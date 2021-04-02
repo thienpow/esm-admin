@@ -215,6 +215,7 @@
 
     <SaveCancel on:doSave={doSave} />
     <br/><br/>
+    {#if (id > 0)}
     <BlockTitle>Linked Tournament</BlockTitle>
     <Card noShadow>
       <CardContent>
@@ -288,7 +289,7 @@
 
       </CardContent>
     </Card>
-
+    {/if}
   </List>
 
   
@@ -321,7 +322,7 @@
   export let f7router;
 
   export let f7route;
-  const id = f7route.params.id;
+  let id = f7route.params.id;
 
   $: title = id > 0 ? "Edit Prize" : "New Prize";
 
@@ -335,7 +336,12 @@
       return;
     }
 
+    if ($dataClient.prize.type_id == 0) {
+      f7.dialog.alert("Please select a Type");
+    }
+
     let repeated_on = [];
+
     if ($dataClient.prize.repeated_on_mon)
       repeated_on.push(1);
     if ($dataClient.prize.repeated_on_tue)
@@ -370,7 +376,13 @@
       });
       successToast.open();
 
-      f7router.navigate('/prizes/');
+
+      if (id > 0) {
+        f7router.navigate('/prizes/');
+      } else {
+        $dataClient.prize.id = result;
+        id = result;
+      }
     }
     
   };
@@ -398,27 +410,32 @@
   }
 
   onMount(async () => {
-    await dataClient.getTournamentList(1000, 0, "", 2);
 
-    for (let x of $dataClient.prize.repeated_on.entries()) {
-      if (x[1] == 1)
-        $dataClient.prize.repeated_on_mon = true;
-      if (x[1] == 2)
-        $dataClient.prize.repeated_on_tue = true;
-      if (x[1] == 3)
-        $dataClient.prize.repeated_on_wed = true;
-      if (x[1] == 4)
-        $dataClient.prize.repeated_on_thu = true;
-      if (x[1] == 5)
-        $dataClient.prize.repeated_on_fri = true;
-      if (x[1] == 6)
-        $dataClient.prize.repeated_on_sat = true;
-      if (x[1] == 7)
-        $dataClient.prize.repeated_on_sun = true;
+    if (id > 0) {
+
+      await dataClient.getTournamentList(1000, 0, "", 2);
+      await dataClient.getPrizeTourList(id);
+      prize_tours = $dataClient.prize_tours;
+
+      for (let x of $dataClient.prize.repeated_on.entries()) {
+        if (x[1] == 1)
+          $dataClient.prize.repeated_on_mon = true;
+        if (x[1] == 2)
+          $dataClient.prize.repeated_on_tue = true;
+        if (x[1] == 3)
+          $dataClient.prize.repeated_on_wed = true;
+        if (x[1] == 4)
+          $dataClient.prize.repeated_on_thu = true;
+        if (x[1] == 5)
+          $dataClient.prize.repeated_on_fri = true;
+        if (x[1] == 6)
+          $dataClient.prize.repeated_on_sat = true;
+        if (x[1] == 7)
+          $dataClient.prize.repeated_on_sun = true;
+      }
+      
     }
     
-    await dataClient.getPrizeTourList(f7route.params.id);
-    prize_tours = $dataClient.prize_tours;
   });
   
 </script>

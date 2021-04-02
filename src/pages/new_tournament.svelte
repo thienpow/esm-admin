@@ -44,6 +44,7 @@
     <SaveCancel on:doSave={doSave} />
     <br/><br/>
 
+    {#if (id > 0)}
     <BlockTitle>Linked Format Sets</BlockTitle>
     <Card noShadow>
       <CardContent>
@@ -115,7 +116,7 @@
 
       </CardContent>
     </Card>
-
+    {/if}
   </List>
 
   
@@ -147,7 +148,7 @@
   export let f7router;
 
   export let f7route;
-  const id = f7route.params.id;
+  let id = f7route.params.id;
 
   $: title = id > 0 ? "Edit Tournament" : "New Tournament";
 
@@ -178,7 +179,13 @@
       });
       successToast.open();
 
-      f7router.navigate('/tournaments/');
+
+      if (id > 0) {
+        f7router.navigate('/tournaments/');
+      } else {
+        $dataClient.tournament.id = result;
+        id = result;
+      }
     }
     
   }
@@ -206,11 +213,13 @@
   }
 
   onMount(async () => {
-    await dataClient.getTournamentSetList(1000, 0, "");
 
-
-    await dataClient.getTourSetList(f7route.params.id);
-    tour_sets = $dataClient.tour_sets;
+    if (id > 0) {
+      await dataClient.getTournamentSetList(1000, 0, "");
+      await dataClient.getTourSetList(f7route.params.id);
+      tour_sets = $dataClient.tour_sets;
+    }
+    
   });
   
 </script>

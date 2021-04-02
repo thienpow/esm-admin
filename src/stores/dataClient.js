@@ -375,6 +375,7 @@ const dataClient = () => {
       duration_hours: 0,
       timezone: 0.0,
       scheduled_on: 0,
+      scheduled_off: 0,
       is_repeat: false,
       repeated_on: [], 
       repeated_on_mon: false,
@@ -1486,7 +1487,7 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addPrize(request, {'authorization': state.jwtToken});
-          return response.getResult() > 0
+          return response.getResult();
         } catch (err) {
           state.isLoggedIn = false;
         }
@@ -1585,6 +1586,7 @@ const dataClient = () => {
               duration_hours: item.getDurationHours(),
               timezone: item.getTimezone(),
               scheduled_on: timeConverter(item.getScheduledOn()),
+              scheduled_off: timeConverter(item.getScheduledOff()),
               is_repeat: item.getIsRepeat(),
               repeated_on: item.getRepeatedOnList(),
               status: item.getStatus(),
@@ -1687,7 +1689,7 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.addTournament(request, {'authorization': state.jwtToken});
-          return response.getResult() > 0
+          return response.getResult();
         } catch (err) {
           state.isLoggedIn = false;
         }

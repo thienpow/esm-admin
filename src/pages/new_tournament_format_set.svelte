@@ -56,7 +56,7 @@
     <SaveCancel on:doSave={doSave} />
     <br/><br/>
 
-    {#if f7route.params.id > 0}
+    {#if (id > 0)}
     <BlockTitle>Linked Games</BlockTitle>
     <Card noShadow>
       <CardContent>
@@ -231,7 +231,8 @@
   export let f7router;
 
   export let f7route;
-  
+  let id = f7route.params.id;
+
   let set_game_rules = [];
   let game_id = 0;
   let duration_days = 0;
@@ -285,7 +286,7 @@
     }
 
     let result = false;
-    if (f7route.params.id > 0) {
+    if (id > 0) {
       result = await dataClient.updateTournamentSet();
 
     } else {
@@ -302,20 +303,21 @@
       });
       successToast.open();
 
-      if (f7route.params.id > 0) {
+      if (id > 0) {
         f7router.navigate('/formatsets/');
       } else {
         $dataClient.tournament_set.id = result;
-        f7router.navigate("/newformatset/" + result + "/");
+        id = result;
       }
     }
     
   }
 
   onMount(async () => {
-    if (f7route.params.id > 0) {
+
+    if (id > 0) {
       await dataClient.getGameList(1000, 0, "", 2);
-      await dataClient.getTournamentSetGameRuleList(f7route.params.id);
+      await dataClient.getTournamentSetGameRuleList(id);
       set_game_rules = $dataClient.tournament_set_game_rules;
     }
     
