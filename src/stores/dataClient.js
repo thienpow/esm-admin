@@ -386,7 +386,7 @@ const dataClient = () => {
       repeated_on_sat: false,
       repeated_on_sun: false,
       status: 1,
-      status_prize: 0,
+      status_progress: 0,
       tickets_collected: 0,
     },
     prizes: [],
@@ -1590,7 +1590,7 @@ const dataClient = () => {
               is_repeat: item.getIsRepeat(),
               repeated_on: item.getRepeatedOnList(),
               status: item.getStatus(),
-              status_prize: item.getStatusPrize(),
+              status_progress: item.getStatusProgress(),
               tickets_collected: item.getTicketsCollected(),
             }];
           }

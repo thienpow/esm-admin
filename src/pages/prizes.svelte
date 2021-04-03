@@ -249,7 +249,7 @@
         repeated_on_sat: false,
         repeated_on_sun: false,
         status: 1,
-        status_prize: 0,
+        status_progress: 0,
         tickets_collected: 0,
       };
     f7router.navigate("/newprize/0/");
@@ -278,7 +278,7 @@
         repeated_on_sat: prize.repeated_on_sat,
         repeated_on_sun: prize.repeated_on_sun,
         status: prize.status,
-        status_prize: prize.status_prize,
+        status_progress: prize.status_progress,
         tickets_collected: prize.tickets_collected,
       };
     f7router.navigate("/newprize/" + prize.id + "/");
