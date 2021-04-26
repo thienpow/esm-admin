@@ -245,6 +245,7 @@ const dataClient = () => {
       is_notify_new_tournament: "",
       is_notify_tour_ending: "",
       nick_name: "",
+      msg_token: "",
     },
     users: [],
     userCount: {
@@ -678,7 +679,8 @@ const dataClient = () => {
               is_notify_new_reward: u.getIsNotifyNewReward(),
               is_notify_new_tournament: u.getIsNotifyNewTournament(),
               is_notify_tour_ending: u.getIsNotifyTourEnding(),
-              nick_name: u.getNickName()
+              nick_name: u.getNickName(),
+              msg_token: u.getMsgToken()
             }];
           }
             
