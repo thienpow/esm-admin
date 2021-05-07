@@ -22,10 +22,9 @@
                     onInput={(e) => $dataClient.winner.status = e.target.value}
                     placeholder="Please choose...">
 
-                    <option value={0}>Unclaimed</option>
-                    <option value={1}>Claimed</option>
-                    <option value={2}>Delivered</option>
-                    <option value={3}>Expired</option>
+                  {#each $dataClient.winnerStatusTypes as sT}
+                    <option value={sT.id}>{sT.title}</option>
+                  {/each}
 
                   </ListInput>
                 
@@ -245,7 +244,8 @@
 
   onMount(async () => {
     if (id > 0) {
-      //
+      await dataClient.getUser($dataClient.winner.user_id);
+
     }
   })
 </script>

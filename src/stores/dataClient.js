@@ -5,11 +5,13 @@ const {AdminApiPromiseClient} = require('../js/adminapi_grpc_web_pb.js');
 import {
   // Login
   SignInRequest,
+  GetUserRequest,
   UserDetail,
 
   // Common
   ListStatusTypeRequest,
   ListUserStatusTypeRequest,
+  ListWinnerStatusTypeRequest,
   ListWinTypeRequest,
   ListTimezonesRequest,
 
@@ -119,11 +121,13 @@ const dataClient = () => {
 
     // Login
     sigInRequest: new SignInRequest(),
+    getUserRequest: new GetUserRequest(),
     userDetail: new UserDetail(),
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
     listUserStatusTypeRequest: new ListUserStatusTypeRequest(),
+    listWinnerStatusTypeRequest: new ListWinnerStatusTypeRequest(),
     listWinTypeRequest: new ListWinTypeRequest(),
     listTimezonesRequest: new ListTimezonesRequest(),
     // User
@@ -208,6 +212,7 @@ const dataClient = () => {
 
     // Winner
     listWinnerRequest: new ListWinnerRequest(),
+    getWinnerCountRequest: new GetWinnerCountRequest(),
 
     // GPlayer
     listLogGRequest: new ListLogGRequest(),
@@ -215,6 +220,7 @@ const dataClient = () => {
 
     statusTypes: [],
     userStatusTypes: [],
+    winnerStatusTypes: [],
     winTypes: [],
     timezones: [],
     user: {
@@ -444,6 +450,14 @@ const dataClient = () => {
       status: 0,
       ship_tracking: "",
     },
+    winnerCount: {
+      total: 0,
+      unclaimed: 0,
+      claimed: 0,
+      delivered: 0,
+      expired: 0,
+    },
+    winners: [],
     logGList: [],
 	}
 	
@@ -470,6 +484,14 @@ const dataClient = () => {
 
       displayUserStatusTitle(id) {
         let sT =  state.userStatusTypes.find(function(s) {
+          return s.id == id;
+        });
+
+        return sT.title;
+      },
+
+      displayWinnerStatusTitle(id) {
+        let sT =  state.winnerStatusTypes.find(function(s) {
           return s.id == id;
         });
 
@@ -551,6 +573,27 @@ const dataClient = () => {
       
       },
 
+      async getWinnerStatusTypeList() {
+        
+        let request = state.listWinnerStatusTypeRequest;
+        
+        try {
+          const response = await state.apiClient.listWinnerStatusType(request, {'authorization': state.jwtToken});
+          state.winnerStatusTypes = [];
+          for (let s of response.getResultList()) {
+            state.winnerStatusTypes = [...state.winnerStatusTypes,  {
+              id: s.getId(), 
+              title: s.getTitle()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
       async getWinTypeList() {
         
         let request = state.listWinTypeRequest;
@@ -616,6 +659,53 @@ const dataClient = () => {
           }   
         } catch (err) {
           f7.dialog.alert(`Error code = ${err.code}, message = "${err.message}"`, "Error");
+        }
+        
+        update(state => state);
+      },
+
+      async getUser(id) {
+    
+        let request = state.getUserRequest;
+        request.setId(id);
+    
+        try {
+          const response = await state.apiClient.getUser(request, {'authorization': state.jwtToken});
+          let u = await response.getResult();
+          
+          state.user = {
+            id: u.getId(),
+            username: u.getUsername(),
+            email: u.getEmail(),
+            phone: u.getPhone(),
+            firstname: u.getFirstname(),
+            lastname: u.getLastname(),
+            created_on: u.getCreatedOn(),
+            last_login: u.getLastLogin(),
+            role_id: u.getRoleId(),
+            status: u.getStatus(),
+            gem_balance: u.getGemBalance(),
+            social_link_fb: u.getSocialLinkFb(),
+            social_link_google: u.getSocialLinkGoogle(),
+            avatar_url: u.getAvatarUrl(),
+            exp: u.getExp(),
+            full_name: u.getFullName(),
+            address: u.getAddress(),
+            city: u.getCity(),
+            state: u.getState(),
+            zip_code: u.getZipCode(),
+            country: u.getCountry(),
+            country_code: u.getCountryCode(),
+            is_notify_allowed: u.getIsNotifyAllowed(),
+            is_notify_new_reward: u.getIsNotifyNewReward(),
+            is_notify_new_tournament: u.getIsNotifyNewTournament(),
+            is_notify_tour_ending: u.getIsNotifyTourEnding(),
+            nick_name: u.getNickName(),
+          }
+          
+        } catch (err) {
+          console.log(err);
+          //state.isLoggedIn = false;
         }
         
         update(state => state);
@@ -2020,12 +2110,47 @@ const dataClient = () => {
 
         try {
           const response = await state.apiClient.listWinner(request, {'authorization': state.jwtToken}); 
-          //alert(response.getResult());
+
+          state.winners = [];
+          for (let item of response.getResultList()) {
+            //alert(item.getId());
+            state.winners = [...state.winners,  {
+              id: item.getId(),
+              user_id: item.getUserId(),
+              user_nick_name: item.getUserNickName(),
+              //email: "",
+              prize_id: item.getPrizeId(),
+              prize_title: item.getPrizeTitle(),
+              status: item.getStatus(),
+              ship_tracking: item.getShipTracking()
+            }];
+          }
         } catch (err) {
           state.isLoggedIn = false;
         }
         update(state => state);
       
+      },
+
+      async getWinnerCount() {
+
+        let request = state.getWinnerCountRequest;
+    
+        try {
+          const response = await state.apiClient.getWinnerCount(request, {'authorization': state.jwtToken});
+
+          let count = await response.getResult();
+          state.winnerCount.unclaimed = count.getUnclaimed();
+          state.winnerCount.published = count.getClaimed();
+          state.winnerCount.delivered = count.getDelivered();
+          state.winnerCount.expired = count.getExpired();
+          state.winnerCount.total = state.winnerCount.unclaimed + state.winnerCount.published + state.winnerCount.delivered + state.winnerCount.expired;
+          
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+        
       },
 
 

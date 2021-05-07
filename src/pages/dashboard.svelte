@@ -111,6 +111,7 @@
       await dataClient.getSubscriptionTypeList();
       await dataClient.getStatusTypeList();
       await dataClient.getUserStatusTypeList();
+      await dataClient.getWinnerStatusTypeList();
       await dataClient.getWinTypeList();
       await dataClient.getPrizeTypeList();
       await dataClient.getTimezonesList();

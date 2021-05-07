@@ -22,45 +22,21 @@
             <tr>
               <th class="numeric-cell">WinningID</th>
               <th class="label-cell">User</th>
-              <th class="label-cell">Email</th>
-              <th class="label-cell">Prize Type</th>
+              <th class="label-cell">User ID</th>
               <th class="label-cell">Prize Title</th>
               <th class="label-cell">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr on:click={onRowClick($dataClient.winner)}>
-              <td class="numeric-cell">1</td>
-              <td class="label-cell">wukong</td>
-              <td class="label-cell">thienpow@gmail.com</td>
-              <td class="label-cell">FEATURED</td>
-              <td class="label-cell">SteelSeries Rival 60</td>
-              <td class="label-cell">Unclaimed</td>
+            {#each $dataClient.winners as winner}
+            <tr on:click={onRowClick(winner)}>
+              <td class="numeric-cell">{winner.id}</td>
+              <td class="label-cell">{winner.user_nick_name}</td>
+              <td class="label-cell">{winner.user_id}</td>
+              <td class="label-cell">{winner.prize_title}</td>
+              <td class="label-cell">{dataClient.displayWinnerStatusTitle(winner.status)}</td>
             </tr>
-            <tr on:click={onRowClick($dataClient.winner)}>
-              <td class="numeric-cell">2</td>
-              <td class="label-cell">wukong</td>
-              <td class="label-cell">thienpow@gmail.com</td>
-              <td class="label-cell">FEATURED</td>
-              <td class="label-cell">SteelSeries Rival 60</td>
-              <td class="label-cell">Claimed</td>
-            </tr>
-            <tr on:click={onRowClick($dataClient.winner)}>
-              <td class="numeric-cell">3</td>
-              <td class="label-cell">wukong</td>
-              <td class="label-cell">thienpow@gmail.com</td>
-              <td class="label-cell">FEATURED</td>
-              <td class="label-cell">SteelSeries Rival 60</td>
-              <td class="label-cell">Delivered</td>
-            </tr>
-            <tr on:click={onRowClick($dataClient.winner)}>
-              <td class="numeric-cell">4</td>
-              <td class="label-cell">wukong</td>
-              <td class="label-cell">thienpow@gmail.com</td>
-              <td class="label-cell">FEATURED</td>
-              <td class="label-cell">SteelSeries Rival 60</td>
-              <td class="label-cell">Expired</td>
-            </tr>
+            {/each}
           </tbody>
         </table>
       </div>
@@ -71,15 +47,16 @@
 
       <!-- right section here -->
       
-      <Paginator total={$dataClient.prizeCount.total} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
+      <Paginator total={$dataClient.winnerCount.total} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
 
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Unclaimed: 1" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Claimed: 1" color="yellow" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Delivered: 1" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Expired: 1" color="red" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.winnerCount.total}" color="blue" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Unclaimed: {$dataClient.winnerCount.unclaimed}" color="green" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Claimed: {$dataClient.winnerCount.claimed}" color="yellow" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Delivered: {$dataClient.winnerCount.delivered}" color="gray" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Expired: {$dataClient.winnerCount.expired}" color="red" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -181,25 +158,28 @@ import Paginator from '../components/Paginator.svelte';
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getPrizeList($row_count, offset, search, 0);
+    await dataClient.getWinnerList($row_count, offset, search, 0);
   }
 
   function onRowClick(winner) {
+    
     $dataClient.winner = {
       id: winner.id,
       user_id: winner.user_id,
-      name: winner.name,
-      email: winner.email,
+      user_nick_name: winner.user_nick_name,
       prize_id: winner.prize_id,
       prize_title: winner.prize_title,
       status: winner.status,
       ship_tracking: winner.ship_tracking
     };
+
+    
     f7router.navigate("/newwinner/" + winner.id + "/");
   };
 
   onMount(async () => {
-    //dataClient.getWinnerList($row_count, 0, "", 0);
+    await dataClient.getWinnerCount();
+    await dataClient.getWinnerList($row_count, 0, "", 0);
   });
   
 </script>
