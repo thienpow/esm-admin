@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
@@ -26,8 +26,8 @@ module.exports = {
   },
   output: {
     path: resolvePath('www'),
-    filename: 'js/[name].[hash:6].js',
-    chunkFilename: 'js/[name].[hash:6].js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[name].js',
     publicPath: '',
     hotUpdateChunkFilename: 'hot/hot-update.js',
     hotUpdateMainFilename: 'hot/hot-update.json',
@@ -138,27 +138,30 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: '[path][name].[hash:6].[ext]',
-          context: path.resolve(__dirname, '../src'),
+          name: 'images/[name].[ext]',
+
         },
+        type: 'javascript/auto'
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac|m4a)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: '[path][name].[hash:6].[ext]',
-          context: path.resolve(__dirname, '../src'),
+          name: 'media/[name].[ext]',
+
         },
+        type: 'javascript/auto'
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: '[path][name].[hash:6].[ext]',
-          context: path.resolve(__dirname, '../src'),
+          name: 'fonts/[name].[ext]',
+
         },
+        type: 'javascript/auto'
       },
     ],
   },
@@ -169,12 +172,7 @@ module.exports = {
     }),
 
     ...(env === 'production' ? [
-      new OptimizeCSSPlugin({
-        cssProcessorOptions: {
-          safe: true,
-          map: { inline: false },
-        },
-      }),
+      new CssMinimizerPlugin(),
     ] : [
       // Development only plugins
       new webpack.HotModuleReplacementPlugin(),
@@ -194,7 +192,7 @@ module.exports = {
       } : false,
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[hash:6].css',
+      filename: 'css/[name].css',
     }),
     new CopyWebpackPlugin({
       patterns: [

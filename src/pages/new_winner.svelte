@@ -33,8 +33,8 @@
                 <ListInput
                   label="Shipment Tracking"
                   type="text"
-                  value={$dataClient.winner.shipment_tracking}
-                  onInput={(e) => $dataClient.winner.shipment_tracking = e.target.value}
+                  value={$dataClient.winner.ship_tracking}
+                  onInput={(e) => $dataClient.winner.ship_tracking = e.target.value}
                 />
               </Col>
             </Row>
@@ -222,7 +222,7 @@
 
     let result = false;
     if (id > 0) {
-      //result = await dataClient.updateUserStatus();
+      result = await dataClient.updateWinner();
     } else {
     }
 

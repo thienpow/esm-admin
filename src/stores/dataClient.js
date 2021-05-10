@@ -87,9 +87,7 @@ import {
   DeleteTourSetRequest,
   ListTourSetRequest,
   // Winner
-  AddWinnerRequest, 
-  DeleteWinnerRequest,
-  ClaimWinnerRequest,
+  UpdateWinnerRequest,
   GetWinnerCountRequest,
   ListWinnerRequest,
   // GPlayer
@@ -211,6 +209,7 @@ const dataClient = () => {
     listTourSetRequest: new ListTourSetRequest(),
 
     // Winner
+    updateWinnerRequest: new UpdateWinnerRequest(),
     listWinnerRequest: new ListWinnerRequest(),
     getWinnerCountRequest: new GetWinnerCountRequest(),
 
@@ -250,8 +249,7 @@ const dataClient = () => {
       is_notify_new_reward: "",
       is_notify_new_tournament: "",
       is_notify_tour_ending: "",
-      nick_name: "",
-      msg_token: "",
+      nick_name: ""
     },
     users: [],
     userCount: {
@@ -443,8 +441,7 @@ const dataClient = () => {
     winner: {
       id: 0,
       user_id: 0,
-      name: "",
-      email: "",
+      user_nick_name: "",
       prize_id: 0,
       prize_title: "",
       status: 0,
@@ -704,8 +701,7 @@ const dataClient = () => {
           }
           
         } catch (err) {
-          console.log(err);
-          //state.isLoggedIn = false;
+          state.isLoggedIn = false;
         }
         
         update(state => state);
@@ -769,8 +765,7 @@ const dataClient = () => {
               is_notify_new_reward: u.getIsNotifyNewReward(),
               is_notify_new_tournament: u.getIsNotifyNewTournament(),
               is_notify_tour_ending: u.getIsNotifyTourEnding(),
-              nick_name: u.getNickName(),
-              msg_token: u.getMsgToken()
+              nick_name: u.getNickName()
             }];
           }
             
@@ -2102,6 +2097,25 @@ const dataClient = () => {
       /***
        * Winners
        */
+
+       async updateWinner() {
+
+        let request = state.updateWinnerRequest;
+        request.setId(state.winner.id);
+        request.setStatus(state.winner.status);
+        request.setShipTracking(state.winner.ship_tracking);
+        
+        try {
+          const response = await state.apiClient.updateWinner(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+
+        }
+      
+        return false;
+      },
+
       async getWinnerList(row_count) {
           
         let request = state.listWinnerRequest;
@@ -2113,12 +2127,10 @@ const dataClient = () => {
 
           state.winners = [];
           for (let item of response.getResultList()) {
-            //alert(item.getId());
             state.winners = [...state.winners,  {
               id: item.getId(),
               user_id: item.getUserId(),
               user_nick_name: item.getUserNickName(),
-              //email: "",
               prize_id: item.getPrizeId(),
               prize_title: item.getPrizeTitle(),
               status: item.getStatus(),
