@@ -440,10 +440,15 @@ const dataClient = () => {
     tour_sets: [],
     winner: {
       id: 0,
-      user_id: 0,
-      user_nick_name: "",
       prize_id: 0,
       prize_title: "",
+      prize_img_url: "",
+      prize_type_id: 0,
+      user_id: 0,
+      user_nick_name: "",
+      user_avatar_url: "",
+      created_on: 0,
+      claimed_on: 0,
       status: 0,
       ship_tracking: "",
     },
@@ -2116,11 +2121,13 @@ const dataClient = () => {
         return false;
       },
 
-      async getWinnerList(row_count) {
+      async getWinnerList(row_count, offset, search_title, status) {
           
         let request = state.listWinnerRequest;
         request.setLimit(row_count);
-        request.setOffset(0);
+        request.setOffset(offset);
+        request.setSearchTitle(search_title);
+        request.setStatus(status);
 
         try {
           const response = await state.apiClient.listWinner(request, {'authorization': state.jwtToken}); 
@@ -2129,10 +2136,15 @@ const dataClient = () => {
           for (let item of response.getResultList()) {
             state.winners = [...state.winners,  {
               id: item.getId(),
-              user_id: item.getUserId(),
-              user_nick_name: item.getUserNickName(),
               prize_id: item.getPrizeId(),
               prize_title: item.getPrizeTitle(),
+              prize_img_url: item.getPrizeImgUrl(),
+              prize_type_id: item.getPrizeTypeId(),
+              user_id: item.getUserId(),
+              user_nick_name: item.getUserNickName(),
+              user_avatar_url: item.getUserAvatarUrl(),
+              created_on: timeConverter(item.getCreatedOn()),
+              claimed_on: timeConverter(item.getClaimedOn()),
               status: item.getStatus(),
               ship_tracking: item.getShipTracking()
             }];
@@ -2153,10 +2165,10 @@ const dataClient = () => {
 
           let count = await response.getResult();
           state.winnerCount.unclaimed = count.getUnclaimed();
-          state.winnerCount.published = count.getClaimed();
+          state.winnerCount.claimed = count.getClaimed();
           state.winnerCount.delivered = count.getDelivered();
           state.winnerCount.expired = count.getExpired();
-          state.winnerCount.total = state.winnerCount.unclaimed + state.winnerCount.published + state.winnerCount.delivered + state.winnerCount.expired;
+          state.winnerCount.total = state.winnerCount.unclaimed + state.winnerCount.claimed + state.winnerCount.delivered + state.winnerCount.expired;
           
         } catch (err) {
           state.isLoggedIn = false;

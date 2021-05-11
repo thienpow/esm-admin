@@ -24,7 +24,10 @@
               <th class="label-cell">User</th>
               <th class="label-cell">User ID</th>
               <th class="label-cell">Prize Title</th>
+              <th class="label-cell">Prize Type</th>
               <th class="label-cell">Status</th>
+              <th class="label-cell">Created On</th>
+              <th class="label-cell">Claimed On</th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +37,10 @@
               <td class="label-cell">{winner.user_nick_name}</td>
               <td class="label-cell">{winner.user_id}</td>
               <td class="label-cell">{winner.prize_title}</td>
+              <td class="label-cell">{winner.prize_type_id}</td>
               <td class="label-cell">{dataClient.displayWinnerStatusTitle(winner.status)}</td>
+              <td class="label-cell">{winner.created_on}</td>
+              <td class="label-cell">{winner.claimed_on}</td>
             </tr>
             {/each}
           </tbody>
@@ -165,11 +171,14 @@ import Paginator from '../components/Paginator.svelte';
     
     $dataClient.winner = {
       id: winner.id,
-      user_id: winner.user_id,
-      user_nick_name: winner.user_nick_name,
       prize_id: winner.prize_id,
       prize_title: winner.prize_title,
+      prize_type_id: winner.prize_type_id,
+      user_id: winner.user_id,
+      user_nick_name: winner.user_nick_name,
       status: winner.status,
+      created_on: winner.created_on,
+      claimed_on: winner.claimed_on,
       ship_tracking: winner.ship_tracking
     };
 
