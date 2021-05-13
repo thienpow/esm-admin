@@ -92,6 +92,9 @@ import {
   ListWinnerRequest,
   // GPlayer
   ListLogGRequest,
+  // Shop
+  ListBuyRequest,
+  GetBuyCountRequest,
   
 } from '../js/adminapi_pb.js';
 //import PreloaderComponent from 'framework7/components/preloader/preloader';
@@ -215,6 +218,10 @@ const dataClient = () => {
 
     // GPlayer
     listLogGRequest: new ListLogGRequest(),
+
+    // Shop
+    listBuyRequest: new ListBuyRequest(),
+    getBuyCountRequest: new GetBuyCountRequest(),
 
 
     statusTypes: [],
@@ -461,6 +468,23 @@ const dataClient = () => {
     },
     winners: [],
     logGList: [],
+    buys: [],
+    buyCount:  {
+      subscription: 0,
+      item: 0,
+    },
+    buy: {
+      id: 0, 
+      item_type_id: 0, 
+      item_id: 0, 
+      item_title: "", 
+      user_id: 0, 
+      user_nick_name: "", 
+      user_email: "",
+      payment_id: 0, 
+      price: 0,
+      created_on: 0,
+    }
 	}
 	
 
@@ -2259,6 +2283,64 @@ const dataClient = () => {
         } catch (err) {
           state.isLoggedIn = false;
         }
+        update(state => state);
+      
+      },
+
+      /***
+       * Shop
+       */
+
+       async getBuyCount() {
+
+        let request = state.getBuyCountRequest;
+    
+        try {
+          const response = await state.apiClient.getBuyCount(request, {'authorization': state.jwtToken});
+
+          let count = await response.getResult();
+          state.buyCount.subscription = count.getSubscription();
+          state.buyCount.item = count.getItem();
+          state.buyCount.total = state.buyCount.subscription + state.buyCount.item;
+          
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+        
+      },
+
+      async getBuyList(row_count, offset, search_title) {
+          
+        let request = state.listBuyRequest;
+        request.setLimit(row_count);
+        request.setOffset(offset);
+        //request.setSearchTitle(search_title);
+
+        try {
+          const response = await state.apiClient.listBuy(request, {'authorization': state.jwtToken});
+
+          state.buys = [];
+          for (let item of response.getResultList()) {
+            state.buys = [...state.buys,  {
+              id: item.getId(), 
+              item_type_id: item.getItemTypeId(), 
+              item_id: item.getItemId(), 
+              item_title: item.getItemTitle(), 
+              user_id: item.getUserId(), 
+              user_nick_name: item.getUserNickName(), 
+              user_email: item.getUserEmail(),
+              payment_id: item.getPaymentId(), 
+              price: item.getPrice(),
+              created_on: item.getCreatedOn()
+            }];
+          }
+
+        } catch (err) {
+          //console.log(err);
+          state.isLoggedIn = false;
+        }
+        
         update(state => state);
       
       },

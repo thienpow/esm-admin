@@ -33,7 +33,7 @@ import WinnersPage from '../pages/winners.svelte';
 import LogPlayPage from '../pages/log_play.svelte';
 import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
 
-import SalesPage from '../pages/sales.svelte';
+import BuysPage from '../pages/buys.svelte';
 
 import NotFoundPage from '../pages/404.svelte';
 
@@ -237,8 +237,8 @@ var routes = [
     },
   },
   {
-    path: '/sales/',
-    component: SalesPage,
+    path: '/buys/',
+    component: BuysPage,
     options: {
       animate: false,
     }

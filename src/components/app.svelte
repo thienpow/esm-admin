@@ -96,7 +96,7 @@
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>
             </ListItem>    
-            <ListItem link="/sales/" view=".view-main" title="Sales" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
+            <ListItem link="/buys/" view=".view-main" title="Sales Management" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
               <span slot="media">
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>

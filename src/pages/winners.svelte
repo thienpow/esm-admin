@@ -5,7 +5,7 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle>Winners Management</NavTitle>
-    <SearchBar name="searchbar-prize" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
+    <SearchBar name="searchbar-winners" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
     
   </Navbar>
   <!-- Body -->
@@ -68,55 +68,7 @@
         <ListItem accordionItem title="Show/Hide fields">
           <AccordionContent>
             <List>
-              <ListItem
-                checkbox
-                title="sub_title"
-                value={$show_sub_title}
-                checked={$show_sub_title}
-                onChange={(e) => $show_sub_title = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="img_url"
-                value={$show_img_url}
-                checked={$show_img_url}
-                onChange={(e) => $show_img_url = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="image"
-                value={$show_image}
-                checked={$show_image}
-                onChange={(e) => $show_image = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="tickets_collected"
-                value={$show_tickets_collected}
-                checked={$show_tickets_collected}
-                onChange={(e) => $show_tickets_collected = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="show_timezone"
-                value={$show_timezone}
-                checked={$show_timezone}
-                onChange={(e) => $show_timezone = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="scheduled_on"
-                value={$show_scheduled_on}
-                checked={$show_scheduled_on}
-                onChange={(e) => $show_scheduled_on = e.target.checked}
-              ></ListItem>
-              <ListItem
-                checkbox
-                title="status"
-                value={$show_status}
-                checked={$show_status}
-                onChange={(e) => $show_status = e.target.checked}
-              ></ListItem>
+              
             </List>
           </AccordionContent>
         </ListItem>

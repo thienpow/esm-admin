@@ -1,0 +1,148 @@
+<Page>
+  <!-- Top Navbar -->
+  <Navbar sliding={false}>
+    <NavLeft>
+      <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
+    </NavLeft>
+    <NavTitle>Sales Management</NavTitle>
+    <SearchBar name="searchbar-sales" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
+    
+  </Navbar>
+  <!-- Body -->
+
+  <Row class="no-gap">
+    
+    <Col width="100" large="60" xlarge="70">
+      
+      <!-- data-table here -->
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="numeric-cell">Id</th>
+              <th class="numeric-cell">item_type_id</th>
+              <th class="numeric-cell">item_id</th>
+              <th class="label-cell">item_title</th>
+              <th class="numeric-cell">user_id</th>
+              <th class="label-cell">user_nick_name</th>
+              <th class="label-cell">user_email</th>
+              <th class="label-cell">payment_id</th>
+              <th class="numeric-cell">price</th>
+              <th class="label-cell">created_on</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each $dataClient.buys as buy}
+            <tr on:click={onRowClick(buy)}>
+              <td class="numeric-cell">{buy.id}</td>
+              <td class="numeric-cell">{buy.item_type_id}</td>
+              <td class="numeric-cell">{buy.item_id}</td>
+              <td class="label-cell">{buy.item_title}</td>
+              <td class="numeric-cell">{buy.user_id}</td>
+              <td class="label-cell">{buy.user_nick_name}</td>
+              <td class="label-cell">{buy.user_email}</td>
+              <td class="label-cell">{buy.payment_id}</td>
+              <td class="numeric-cell">{buy.price}</td>
+              <td class="label-cell">{buy.created_on}</td>
+            </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+      
+
+    </Col>
+    <Col class="toolpanel" width="100" large="40" xlarge="30">
+
+      <!-- right section here -->
+      
+      <Paginator total={$dataClient.buyCount.total} row_count={$row_count} bind:currentPage on:resetRows={(e) => resetRows(e.detail.offset)} />
+
+      <List accordionList>
+        <ListItem accordionItem accordionItemOpened title="Summary">
+          <AccordionContent>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.buyCount.total}" color="blue" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Subscription: {$dataClient.buyCount.subscription}" color="green" /></Link>
+            <Link href="#" animate={false} ignoreCache={true}><Chip text="Item: {$dataClient.buyCount.item}" color="yellow" /></Link>
+          </AccordionContent>
+        </ListItem>
+        <ListItem accordionItem title="Show/Hide fields">
+          <AccordionContent>
+            <List>
+              
+            </List>
+          </AccordionContent>
+        </ListItem>
+        <ShowRows on:resetRows={(e) => resetRows(e.detail.offset)} />
+      </List>
+      
+    </Col>
+  </Row>
+
+
+</Page>
+
+<svelte:window bind:innerWidth={innerWidth}/>
+
+<script>
+
+import Paginator from '../components/Paginator.svelte';
+  import ShowRows from '../components/ShowRows.svelte';
+  import SearchBar from '../components/SearchBar.svelte';
+  import SearchBarIcon from '../components/SearchBarIcon.svelte';
+  import { onMount } from 'svelte';
+  import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Page, Navbar } from 'framework7-svelte';
+  import dataClient from '../stores/dataClient';
+  import {show_sub_title, show_img_url, show_image, show_status, show_type, show_timezone, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
+  
+
+  export let f7router;
+
+  let innerWidth = 0;
+
+  $: searchString = "";
+
+  async function doSearch(value) {
+    resetRows(0, value);
+  }
+
+  $: currentPage = 1;
+  async function resetRows(offset, search) {
+    if (!search) {
+      searchString = "";
+      search = "";
+    } else {
+      offset = 0;
+    }
+
+    if (offset === 0)
+      currentPage = 1;
+    await dataClient.getBuyList($row_count, offset, search);
+  }
+
+  function onRowClick(buy) {
+    
+    $dataClient.buy = {
+      id: buy.id,
+      item_type_id: buy.item_type_id,
+      item_id: buy.item_id,
+      item_title: buy.item_title,
+      user_id: buy.user_id,
+      user_nick_name: buy.user_nick_name,
+      user_email:  buy.user_email,
+      payment_id: buy.payment_id,
+      price: buy.price,
+      created_on: buy.created_on
+    };
+
+    
+    //f7router.navigate("/newbuy/" + buy.id + "/");
+  };
+
+  onMount(async () => {
+    await dataClient.getBuyCount();
+    await dataClient.getBuyList($row_count, 0, "");
+  });
+  
+</script>
