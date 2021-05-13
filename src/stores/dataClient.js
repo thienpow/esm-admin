@@ -2332,7 +2332,7 @@ const dataClient = () => {
               user_email: item.getUserEmail(),
               payment_id: item.getPaymentId(), 
               price: item.getPrice(),
-              created_on: item.getCreatedOn()
+              created_on: timeConverter(item.getCreatedOn())
             }];
           }
 

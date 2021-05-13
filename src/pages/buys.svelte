@@ -21,12 +21,12 @@
           <thead>
             <tr>
               <th class="numeric-cell">Id</th>
-              <th class="numeric-cell">item_type_id</th>
-              <th class="numeric-cell">item_id</th>
-              <th class="label-cell">item_title</th>
-              <th class="numeric-cell">user_id</th>
-              <th class="label-cell">user_nick_name</th>
-              <th class="label-cell">user_email</th>
+              <th class="numeric-cell">Type</th>
+              <th class="numeric-cell">Item ID</th>
+              <th class="label-cell">Title</th>
+              <th class="numeric-cell">UserID</th>
+              <th class="label-cell">Nickname</th>
+              <th class="label-cell">Email</th>
               <th class="label-cell">payment_id</th>
               <th class="numeric-cell">price</th>
               <th class="label-cell">created_on</th>
