@@ -92,7 +92,7 @@
           <table>
           <thead>
             <tr>
-              <th class="numeric-cell">TourID</th>
+              <th class="numeric-cell">SetID</th>
               <th class="label-cell">Title</th>
               <th class="label-cell">Status</th>
             </tr>
