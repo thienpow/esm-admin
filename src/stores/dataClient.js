@@ -64,6 +64,7 @@ import {
   DeletePrizeRequest,
   GetPrizeCountRequest, 
   ListPrizeRequest,
+  ListPrizeTodayRequest,
   ListPrizeTypeRequest,
   AddPrizeTourRequest,
   DeletePrizeTourRequest,
@@ -187,6 +188,7 @@ const dataClient = () => {
     deletePrizeRequest: new DeletePrizeRequest(),
     getPrizeCountRequest: new GetPrizeCountRequest(),
     listPrizeRequest: new ListPrizeRequest(),
+    listPrizeTodayRequest: new ListPrizeTodayRequest(),
     listPrizeTypeRequest: new ListPrizeTypeRequest(),
     addPrizeTourRequest: new AddPrizeTourRequest(),
     deletePrizeTourRequest: new DeletePrizeTourRequest(),
@@ -1747,11 +1749,12 @@ const dataClient = () => {
               tickets_required: p.getTicketsRequired(),
               tickets_collected: p.getTicketsCollected(),
               start_timestamp: timeConverter(p.getStartTimestamp()),
-              end_timestamp: timeConverter(p.getEndTimeStamp()),
+              end_timestamp: timeConverter(p.getEndTimestamp()),
             }];
           }
             
         } catch (err) {
+          //console.log(err);
           state.isLoggedIn = false;
         }
         update(state => state);
