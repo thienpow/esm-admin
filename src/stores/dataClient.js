@@ -408,6 +408,18 @@ const dataClient = () => {
       published: 0,
       archived: 0,
     },
+    prizeTodays: [],
+    prizeToday: {
+      prize_id: 0, 
+      prize_title: 0,
+      status_progress: 0,
+      game_id: 0,
+      game_title: "",
+      tickets_required: 0,
+      tickets_collected: 0,
+      start_timestamp: 0,
+      end_timestamp: 0,
+    },
     prizeTypes: [],
     prize_tours: [],
 
@@ -1718,7 +1730,34 @@ const dataClient = () => {
       
       },
 
+      async getPrizeTodayList() {
+        
+        let request = state.listPrizeTodayRequest;
+        
+        try {
+          const response = await state.apiClient.listPrizeToday(request, {'authorization': state.jwtToken});
+          state.prizeTodays = [];
+          for (let p of response.getResultList()) {
+            state.prizeTodays = [...state.prizeTodays,  {
+              prize_id: p.getPrizeId(), 
+              prize_title: p.getPrizeTitle(),
+              status_progress: p.getStatusProgress(),
+              game_id: p.getGameId(),
+              game_title: p.getGameTitle(),
+              tickets_required: p.getTicketsRequired(),
+              tickets_collected: p.getTicketsCollected(),
+              start_timestamp: timeConverter(p.getStartTimestamp()),
+              end_timestamp: timeConverter(p.getEndTimeStamp()),
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
       
+      },
+
       async getPrizeTypeList() {
         
         let request = state.listPrizeTypeRequest;

@@ -17,21 +17,27 @@
             <table>
               <thead>
                 <tr>
-                  <td class="numeric-cell">ID</td>
-                  <td class="label-cell">Title</td>
-                  <td class="numeric-cell">Amount</td>
+                  <td class="numeric-cell">PrizeID</td>
+                  <td class="label-cell">PrizeTitle</td>
                   <td class="numeric-cell">GameID</td>
+                  <td class="label-cell">GameTitle</td>
+                  <td class="numeric-cell">Tickets Required</td>
                   <td class="numeric-cell">Tickets in Pool</td>
                 </tr>
               </thead>
               <tbody>
+
+                {#each $dataClient.prizeTodays as pt}
                 <tr>
-                  <td class="numeric-cell">1</td>
-                  <td class="label-cell">iPhone 12</td>
-                  <td class="numeric-cell">1</td>
-                  <td class="numeric-cell">101</td>
-                  <td class="numeric-cell">887788</td>
+                  <td class="numeric-cell">{pt.prize_id}</td>
+                  <td class="label-cell">{pt.prize_title}</td>
+                  <td class="numeric-cell">{pt.game_id}</td>
+                  <td class="label-cell">{pt.game_title}</td>
+                  <td class="numeric-cell">{pt.tickets_required}</td>
+                  <td class="numeric-cell">{pt.tickets_collected}</td>
                 </tr>
+                {/each}
+
               </tbody>
             </table>
           </div>
@@ -115,6 +121,8 @@
       await dataClient.getWinTypeList();
       await dataClient.getPrizeTypeList();
       await dataClient.getTimezonesList();
+
+      await dataClient.getPrizeTodayList();
     }
   })
 
