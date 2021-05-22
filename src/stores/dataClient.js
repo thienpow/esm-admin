@@ -69,6 +69,7 @@ import {
   AddPrizeTourRequest,
   DeletePrizeTourRequest,
   ListPrizeTourRequest,
+  ListPrizePoolRequest,
   // Tournament
   AddTournamentRequest,
   AddTournamentSetRequest,
@@ -193,6 +194,7 @@ const dataClient = () => {
     addPrizeTourRequest: new AddPrizeTourRequest(),
     deletePrizeTourRequest: new DeletePrizeTourRequest(),
     listPrizeTourRequest: new ListPrizeTourRequest(),
+    listPrizePoolRequest: new ListPrizePoolRequest(),
 
     // Tournament
     addTournamentRequest: new AddTournamentRequest(),
@@ -424,6 +426,16 @@ const dataClient = () => {
     },
     prizeTypes: [],
     prize_tours: [],
+    prizePools: [],
+    prize_pool: {
+      id: 0,
+      prize_id: 0,
+      game_id: 0,
+      win_from: 0,
+      tickets: 0,
+      created_on: 0,
+      is_closed: false,
+    },
 
     tournament: {
       id: 0, 
@@ -573,6 +585,10 @@ const dataClient = () => {
 
       async getStatusTypeList() {
         
+        if (state.statusTypes.length > 0) {
+          return;
+        }
+
         let request = state.listStatusTypeRequest;
         
         try {
@@ -594,6 +610,10 @@ const dataClient = () => {
 
       async getUserStatusTypeList() {
         
+        if (state.userStatusTypes.length > 0) {
+          return;
+        }
+
         let request = state.listUserStatusTypeRequest;
         
         try {
@@ -615,6 +635,10 @@ const dataClient = () => {
 
       async getWinnerStatusTypeList() {
         
+        if (state.winnerStatusTypes.length > 0) {
+          return;
+        }
+
         let request = state.listWinnerStatusTypeRequest;
         
         try {
@@ -636,6 +660,10 @@ const dataClient = () => {
 
       async getWinTypeList() {
         
+        if (state.winTypes.length > 0) {
+          return;
+        }
+
         let request = state.listWinTypeRequest;
         
         try {
@@ -657,6 +685,10 @@ const dataClient = () => {
 
       async getTimezonesList() {
         
+        if (state.timezones.length > 0) {
+          return;
+        }
+
         let request = state.listTimezonesRequest;
         
         try {
@@ -1416,6 +1448,11 @@ const dataClient = () => {
 
       async getItemTypeList() {
         
+        if (state.itemTypes.length > 0) {
+          return;
+        }
+          
+
         let request = state.listItemTypeRequest;
         
         try {
@@ -1568,7 +1605,11 @@ const dataClient = () => {
       },
 
       async getSubscriptionTypeList() {
-          
+        
+        if (state.subscriptionTypes.length > 0) {
+          return;
+        }
+
         let request = state.listSubscriptionTypeRequest;
 
         try {
@@ -1763,6 +1804,10 @@ const dataClient = () => {
 
       async getPrizeTypeList() {
         
+        if (state.prizeTypes.length > 0) {
+          return;
+        }
+
         let request = state.listPrizeTypeRequest;
         
         try {
@@ -1835,6 +1880,34 @@ const dataClient = () => {
       
       },
 
+
+      async getPrizePoolList(user_id) {
+          
+        let request = state.listPrizePoolRequest;
+        request.setUserId(user_id);
+
+        try {
+          const response = await state.apiClient.listPrizePool(request, {'authorization': state.jwtToken});
+          state.prizePools = [];
+          for (let item of response.getResultList()) {
+            state.prizePools = [...state.prizePools,  {
+              id: item.getId(),
+              prize_id: item.getPrizeId(),
+              game_id: item.getGameId(),
+              win_from: item.getWinFrom(),
+              tickets: item.getTickets(),
+              created_on: timeConverter(item.getCreatedOn()),
+              is_closed: item.getIsClosed(),
+            }];
+          }
+            
+        } catch (err) {
+          console.log(err);
+          //state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
 
       /***
        * Tournaments

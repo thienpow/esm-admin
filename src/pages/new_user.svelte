@@ -141,7 +141,7 @@
             <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
           </span>
         </ListItem>
-        <ListItem link="/log_prize_pool/{id}" view=".view-main" panelClose title="Prize Pools">
+        <ListItem link="/log_prize_pool/{id}/" view=".view-main" panelClose title="Prize Pools">
           <span slot="media">
             <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
           </span>

@@ -4,7 +4,7 @@
     <NavLeft>
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
-    <NavTitle sliding>Prize Pools joined</NavTitle>
+    <NavTitle sliding>Prize Pools</NavTitle>
     
     <NavRight>
       
@@ -28,22 +28,24 @@
       <thead>
         <tr>
           <th class="numeric-cell">Prize ID</th>
+          <th class="numeric-cell">Game ID</th>
+          <th class="numeric-cell">WinFrom</th>
           <th class="numeric-cell">Tickets</th>
-          <th class="numeric-cell">Timestamp</th>
+          <th class="label-cell">Timestamp</th>
+          <th class="label-cell">IsClosed</th>
         </tr>
       </thead>
       <tbody>
+        {#each $dataClient.prizePools as p}
         <tr>
-          <td class="numeric-cell">1</td>
-          <td class="numeric-cell">1000</td>
-          <td class="numeric-cell">Fri Sep 25 2020 09:22:45 GMT+0800 (Malaysia Time)</td>
+          <td class="numeric-cell">{p.id}</td>
+          <td class="numeric-cell">{p.prize_id}</td>
+          <td class="numeric-cell">{p.game_id}</td>
+          <td class="numeric-cell">{p.win_from}</td>
+          <td class="label-cell">{p.created_on}</td>
+          <td class="label-cell">{p.is_closed}</td>
         </tr>
-        <tr>
-          <td class="numeric-cell">2</td>
-          <td class="numeric-cell">50</td>
-          <td class="numeric-cell">Fri Sep 25 2020 09:22:45 GMT+0800 (Malaysia Time)</td>
-        </tr>
-        
+        {/each}
       </tbody>
     </table>
   </div>
@@ -59,18 +61,12 @@
   import { Button, NavLeft, NavTitle, NavRight, Menu, MenuItem, MenuDropdown, MenuDropdownItem, Icon, Link, Chip, Row, Col, Page, Navbar, Block, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
-  import { row_count } from '../stores/ui';
 
   export let f7route;
   const id = f7route.params.id;
 
-  async function resetRows() {
-    await dataClient.getGameList($row_count);
-    searchString = null;
-  }
-
   onMount(async () => {
-    //dataClient.getWinnerList($row_count);
+    await dataClient.getPrizePoolList(id);
   });
   
 </script>
