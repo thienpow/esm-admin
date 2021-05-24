@@ -2392,6 +2392,7 @@ const dataClient = () => {
               enter_timestamp: timeConverter(l.getEnterTimestamp()),
               leave_timestamp: timeConverter(l.getLeaveTimestamp()),
               is_watched_ad: l.getIsWatchedAd(),
+              is_used_gem: l.getIsUsedGem(),
               game_score: l.getGameScore(),
             }];
           }

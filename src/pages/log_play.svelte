@@ -33,6 +33,7 @@
           <th class="numeric-cell">Enter Timestamp</th>
           <th class="numeric-cell">Leave Timestamp</th>
           <th class="numeric-cell">Is Watched Ad</th>
+          <th class="numeric-cell">Is Used Gem</th>
           <th class="numeric-cell">Game Score</th>
         </tr>
       </thead>
@@ -45,6 +46,7 @@
           <td class="numeric-cell">{log.enter_timestamp}</td>
           <td class="numeric-cell">{log.leave_timestamp}</td>
           <td class="numeric-cell">{log.is_watched_ad}</td>
+          <td class="numeric-cell">{log.is_used_gem}</td>
           <td class="numeric-cell">{log.game_score}</td>
         </tr>
         {/each}
