@@ -6,7 +6,6 @@ import {
   // Login
   SignInRequest,
   GetUserRequest,
-  UserDetail,
 
   // Common
   ListStatusTypeRequest,
@@ -125,7 +124,6 @@ const dataClient = () => {
     // Login
     sigInRequest: new SignInRequest(),
     getUserRequest: new GetUserRequest(),
-    userDetail: new UserDetail(),
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
@@ -725,8 +723,7 @@ const dataClient = () => {
           if (response.getResult() == "query returned an unexpected number of rows" || response == "Invalid Password.") {
             f7.dialog.alert("Sorry, Invalid Password!", "Error");
           } else {
-            state.userDetail = response.getResult();
-            state.jwtToken = state.userDetail.getJwtToken();
+            state.jwtToken = response.getResult().getJwtToken();
             state.isLoggedIn = true;
           }   
         } catch (err) {
