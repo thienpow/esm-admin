@@ -63,7 +63,14 @@
                 </tr>
               </thead>
               <tbody>
-                
+
+                {#each $dataClient.winners as w}
+                <tr>
+                  <td class="numeric-cell">{w.prize_id}</td>
+                  <td class="label-cell">{w.prize_title}</td>
+                  <td class="label-cell">{w.user_nick_name}</td>
+                </tr>
+                {/each}
               </tbody>
             </table>
           </div>
@@ -78,7 +85,7 @@
 <script>
   import { Row, Col, Card, CardContent, Chip, Link, NavLeft, NavTitle, Page, Navbar, BlockTitle } from 'framework7-svelte';
   import { onMount } from 'svelte';
-import { now } from 'svelte/internal';
+  
   import dataClient from '../stores/dataClient';
   
   function resetCache() {
@@ -105,6 +112,7 @@ import { now } from 'svelte/internal';
       await dataClient.getTimezonesList();
 
       await dataClient.getPrizeTodayList();
+      await dataClient.getWinnerList(20, 0, "", 0);
     }
   })
 
