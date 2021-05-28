@@ -215,7 +215,8 @@
 
     <SaveCancel on:doSave={doSave} />
     <br/><br/>
-    {#if (id > 0)}
+    
+    {#if (id > 0 && $dataClient.prize.type_id != 4)}
     <BlockTitle>Linked Tournament</BlockTitle>
     <Card noShadow>
       <CardContent>
