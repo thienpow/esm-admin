@@ -112,7 +112,7 @@
       await dataClient.getTimezonesList();
 
       await dataClient.getPrizeTodayList();
-      await dataClient.getWinnerList(20, 0, "", 0);
+      await dataClient.getWinnerList(20, 0, "", -1);
     }
   })
 
