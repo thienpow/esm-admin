@@ -63,7 +63,7 @@
               <td class="label-cell">{prize.subtitle}</td>
               {/if}
                 {#if $show_img_url}
-              <td class="label-cell">{prize.img_url}</td>
+              <td class="label-cell" style="font-size: 9px;">{prize.img_url}</td>
                 {/if}
               {/if}
               {#if $show_status}

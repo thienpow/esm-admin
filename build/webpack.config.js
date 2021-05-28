@@ -26,8 +26,8 @@ module.exports = {
   },
   output: {
     path: resolvePath('www'),
-    filename: 'js/[name].js',
-    chunkFilename: 'js/[name].js',
+    filename: 'js/[name].[hash:6].js',
+    chunkFilename: 'js/[name].[hash:6].js',
     publicPath: '',
     hotUpdateChunkFilename: 'hot/hot-update.js',
     hotUpdateMainFilename: 'hot/hot-update.json',
@@ -138,8 +138,8 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'images/[name].[ext]',
-
+          name: '[path][name].[hash:6].[ext]',
+          context: path.resolve(__dirname, '../src'),
         },
         type: 'javascript/auto'
       },
@@ -148,8 +148,8 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'media/[name].[ext]',
-
+          name: '[path][name].[hash:6].[ext]',
+          context: path.resolve(__dirname, '../src'),
         },
         type: 'javascript/auto'
       },
@@ -158,8 +158,8 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'fonts/[name].[ext]',
-
+          name: '[path][name].[hash:6].[ext]',
+          context: path.resolve(__dirname, '../src'),
         },
         type: 'javascript/auto'
       },
@@ -192,7 +192,7 @@ module.exports = {
       } : false,
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
+      filename: 'css/[name].[hash:6].css',
     }),
     new CopyWebpackPlugin({
       patterns: [

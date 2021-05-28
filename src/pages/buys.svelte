@@ -5,8 +5,10 @@
       <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
     </NavLeft>
     <NavTitle>Sales Management</NavTitle>
-    <SearchBar name="searchbar-sales" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
-    
+    <SearchBar name="searchbar-buy" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
+      <NavRight>
+        <SearchBarIcon name="searchbar-buy" />
+      </NavRight>
   </Navbar>
   <!-- Body -->
 
@@ -27,9 +29,7 @@
               <th class="numeric-cell">UserID</th>
               <th class="label-cell">Nickname</th>
               <th class="label-cell">Email</th>
-              <th class="label-cell">payment_id</th>
-              <th class="numeric-cell">price</th>
-              <th class="label-cell">created_on</th>
+              <th class="label-cell">Payment Detail</th>
             </tr>
           </thead>
           <tbody>
@@ -42,9 +42,7 @@
               <td class="numeric-cell">{buy.user_id}</td>
               <td class="label-cell">{buy.user_nick_name}</td>
               <td class="label-cell">{buy.user_email}</td>
-              <td class="label-cell">{buy.payment_id}</td>
-              <td class="numeric-cell">{buy.price}</td>
-              <td class="label-cell">{buy.created_on}</td>
+              <td class="label-cell" style="font-size: 9px;">${buy.price} | {buy.payment_id}<hr/>{buy.created_on}</td>
             </tr>
             {/each}
           </tbody>

@@ -6,7 +6,9 @@
     </NavLeft>
     <NavTitle>Winners Management</NavTitle>
     <SearchBar name="searchbar-winners" bind:searchString on:doSearch={(e) => doSearch(e.detail.value)} />
-    
+    <NavRight>
+      <SearchBarIcon name="searchbar-winners" />
+    </NavRight>
   </Navbar>
   <!-- Body -->
 
@@ -26,8 +28,7 @@
               <th class="label-cell">Prize Title</th>
               <th class="label-cell">Prize Type</th>
               <th class="label-cell">Status</th>
-              <th class="label-cell">Created On</th>
-              <th class="label-cell">Claimed On</th>
+              <th class="label-cell">Created On | Claimed On</th>
             </tr>
           </thead>
           <tbody>
@@ -39,8 +40,7 @@
               <td class="label-cell">{winner.prize_title}</td>
               <td class="label-cell">{winner.prize_type_id}</td>
               <td class="label-cell">{dataClient.displayWinnerStatusTitle(winner.status)}</td>
-              <td class="label-cell">{winner.created_on}</td>
-              <td class="label-cell">{winner.claimed_on}</td>
+              <td class="label-cell" style="font-size: 9px;">{winner.created_on}<hr/>{winner.claimed_on}</td>
             </tr>
             {/each}
           </tbody>
@@ -93,7 +93,6 @@ import Paginator from '../components/Paginator.svelte';
   import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
   import {show_sub_title, show_img_url, show_image, show_status, show_type, show_timezone, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
-  
 
   export let f7router;
 
