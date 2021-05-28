@@ -8498,7 +8498,8 @@ proto.adminapi.esm.ListUserRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     limit: jspb.Message.getFieldWithDefault(msg, 1, 0),
     offset: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    searchUsername: jspb.Message.getFieldWithDefault(msg, 3, "")
+    searchUsername: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -8547,6 +8548,10 @@ proto.adminapi.esm.ListUserRequest.deserializeBinaryFromReader = function(msg, r
       var value = /** @type {string} */ (reader.readString());
       msg.setSearchUsername(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setStatus(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -8594,6 +8599,13 @@ proto.adminapi.esm.ListUserRequest.serializeBinaryToWriter = function(message, w
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getStatus();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
       f
     );
   }
@@ -8651,6 +8663,24 @@ proto.adminapi.esm.ListUserRequest.prototype.getSearchUsername = function() {
  */
 proto.adminapi.esm.ListUserRequest.prototype.setSearchUsername = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 status = 4;
+ * @return {number}
+ */
+proto.adminapi.esm.ListUserRequest.prototype.getStatus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.adminapi.esm.ListUserRequest} returns this
+ */
+proto.adminapi.esm.ListUserRequest.prototype.setStatus = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
@@ -29874,8 +29904,10 @@ proto.adminapi.esm.ListBuyRequest.prototype.toObject = function(opt_includeInsta
  */
 proto.adminapi.esm.ListBuyRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    limit: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    offset: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    limit: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    offset: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    searchTitle: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -29912,13 +29944,21 @@ proto.adminapi.esm.ListBuyRequest.deserializeBinaryFromReader = function(msg, re
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 2:
+    case 1:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setLimit(value);
       break;
-    case 3:
+    case 2:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setOffset(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSearchTitle(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setStatus(value);
       break;
     default:
       reader.skipField();
@@ -29952,14 +29992,28 @@ proto.adminapi.esm.ListBuyRequest.serializeBinaryToWriter = function(message, wr
   f = message.getLimit();
   if (f !== 0) {
     writer.writeInt64(
-      2,
+      1,
       f
     );
   }
   f = message.getOffset();
   if (f !== 0) {
     writer.writeInt64(
+      2,
+      f
+    );
+  }
+  f = message.getSearchTitle();
+  if (f.length > 0) {
+    writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getStatus();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
       f
     );
   }
@@ -29967,11 +30021,11 @@ proto.adminapi.esm.ListBuyRequest.serializeBinaryToWriter = function(message, wr
 
 
 /**
- * optional int64 limit = 2;
+ * optional int64 limit = 1;
  * @return {number}
  */
 proto.adminapi.esm.ListBuyRequest.prototype.getLimit = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
@@ -29980,16 +30034,16 @@ proto.adminapi.esm.ListBuyRequest.prototype.getLimit = function() {
  * @return {!proto.adminapi.esm.ListBuyRequest} returns this
  */
 proto.adminapi.esm.ListBuyRequest.prototype.setLimit = function(value) {
-  return jspb.Message.setProto3IntField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
 /**
- * optional int64 offset = 3;
+ * optional int64 offset = 2;
  * @return {number}
  */
 proto.adminapi.esm.ListBuyRequest.prototype.getOffset = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
@@ -29998,7 +30052,43 @@ proto.adminapi.esm.ListBuyRequest.prototype.getOffset = function() {
  * @return {!proto.adminapi.esm.ListBuyRequest} returns this
  */
 proto.adminapi.esm.ListBuyRequest.prototype.setOffset = function(value) {
-  return jspb.Message.setProto3IntField(this, 3, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional string search_title = 3;
+ * @return {string}
+ */
+proto.adminapi.esm.ListBuyRequest.prototype.getSearchTitle = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.adminapi.esm.ListBuyRequest} returns this
+ */
+proto.adminapi.esm.ListBuyRequest.prototype.setSearchTitle = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 status = 4;
+ * @return {number}
+ */
+proto.adminapi.esm.ListBuyRequest.prototype.getStatus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.adminapi.esm.ListBuyRequest} returns this
+ */
+proto.adminapi.esm.ListBuyRequest.prototype.setStatus = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 

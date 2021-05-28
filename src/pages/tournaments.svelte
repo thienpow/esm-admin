@@ -58,10 +58,10 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total}" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft}" color="red" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published}" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived}" color="gray" /></Link>
+            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total}" color="blue" /></Link>
+            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft}" color="red" /></Link>
+            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published}" color="green" /></Link>
+            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived}" color="gray" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -121,7 +121,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getTournamentList($row_count, offset, search, 0);
+    await dataClient.getTournamentList($row_count, offset, search, -1);
   }
 
   function onNewClick() {
@@ -142,9 +142,15 @@
     f7router.navigate("/newtournament/" + tournament.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+    await dataClient.getTournamentList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getTournamentCount();
-    await dataClient.getTournamentList($row_count, 0, "", 0);
+    await dataClient.getTournamentList($row_count, 0, "", -1);
   });
   
 </script>

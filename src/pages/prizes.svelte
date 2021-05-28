@@ -103,10 +103,10 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.prizeCount.total}" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.prizeCount.draft}" color="red" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.prizeCount.published}" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.prizeCount.archived}" color="gray" /></Link>
+            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.prizeCount.total}" color="blue" /></Link>
+            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.prizeCount.draft}" color="red" /></Link>
+            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.prizeCount.published}" color="green" /></Link>
+            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.prizeCount.archived}" color="gray" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -223,7 +223,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getPrizeList($row_count, offset, search, 0);
+    await dataClient.getPrizeList($row_count, offset, search, -1);
   }
 
   function onNewClick() {
@@ -284,9 +284,15 @@
     f7router.navigate("/newprize/" + prize.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+    await dataClient.getPrizeList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getPrizeCount();
-    await dataClient.getPrizeList($row_count, 0, "", 0);
+    await dataClient.getPrizeList($row_count, 0, "", -1);
   });
   
 </script>

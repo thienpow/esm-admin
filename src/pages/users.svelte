@@ -94,11 +94,11 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.userCount.total}" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Active: {$dataClient.userCount.active}" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Blocked: {$dataClient.userCount.blocked}" color="red" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Pending Delete: {$dataClient.userCount.pending_delete}" color="yellow" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.userCount.archived}" color="gray" /></Link>
+            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.userCount.total}" color="blue" /></Link>
+            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Active: {$dataClient.userCount.active}" color="green" /></Link>
+            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Blocked: {$dataClient.userCount.blocked}" color="red" /></Link>
+            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Pending Delete: {$dataClient.userCount.pending_delete}" color="yellow" /></Link>
+            <Link on:click={(e) => onFilterClick(4)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.userCount.archived}" color="gray" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -183,7 +183,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getUserList($row_count, offset, search);
+    await dataClient.getUserList($row_count, offset, search, -1);
   }
 
   function timeConverter(UNIX_timestamp){
@@ -223,9 +223,15 @@
     f7router.navigate("/newuser/" + user.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+    await dataClient.getUserList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getUserCount();
-    await dataClient.getUserList($row_count);
+    await dataClient.getUserList($row_count, 0, "", -1);
   });
 
 </script>

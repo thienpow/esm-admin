@@ -799,12 +799,13 @@ const dataClient = () => {
         
       },
 
-      async getUserList(row_count, offset, search_username) {
+      async getUserList(row_count, offset, search_username, status) {
           
         let request = state.listUserRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
         request.setSearchUsername(search_username);
+        request.setStatus(status);
 
         try {
           const response = await state.apiClient.listUser(request, {'authorization': state.jwtToken});
@@ -1764,7 +1765,8 @@ const dataClient = () => {
           }
             
         } catch (err) {
-          state.isLoggedIn = false;
+          console.log(err);
+          //state.isLoggedIn = false;
         }
         update(state => state);
       
@@ -2423,12 +2425,13 @@ const dataClient = () => {
         
       },
 
-      async getBuyList(row_count, offset, search_title) {
+      async getBuyList(row_count, offset, search_title, status) {
           
         let request = state.listBuyRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
-        //request.setSearchTitle(search_title);
+        request.setSearchTitle(search_title);
+        request.setStatus(status);
 
         try {
           const response = await state.apiClient.listBuy(request, {'authorization': state.jwtToken});

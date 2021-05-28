@@ -99,10 +99,10 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.itemCount.total}" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.itemCount.draft}" color="red" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.itemCount.published}" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.itemCount.archived}" color="gray" /></Link>
+            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.itemCount.total}" color="blue" /></Link>
+            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.itemCount.draft}" color="red" /></Link>
+            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.itemCount.published}" color="green" /></Link>
+            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.itemCount.archived}" color="gray" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -203,7 +203,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getItemList($row_count, offset, search, 0);
+    await dataClient.getItemList($row_count, offset, search, -1);
   }
 
   function onNewClick() {
@@ -236,9 +236,15 @@
     f7router.navigate("/newitem/" + item.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+    await dataClient.getItemList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getItemCount();
-    await dataClient.getItemList($row_count, 0, "", 0);
+    await dataClient.getItemList($row_count, 0, "", -1);
   });
   
   

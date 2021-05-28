@@ -58,11 +58,11 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.winnerCount.total}" color="blue" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Unclaimed: {$dataClient.winnerCount.unclaimed}" color="green" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Claimed: {$dataClient.winnerCount.claimed}" color="yellow" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Delivered: {$dataClient.winnerCount.delivered}" color="gray" /></Link>
-            <Link href="#" animate={false} ignoreCache={true}><Chip text="Expired: {$dataClient.winnerCount.expired}" color="red" /></Link>
+            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.winnerCount.total}" color="blue" /></Link>
+            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Unclaimed: {$dataClient.winnerCount.unclaimed}" color="green" /></Link>
+            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Claimed: {$dataClient.winnerCount.claimed}" color="yellow" /></Link>
+            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Delivered: {$dataClient.winnerCount.delivered}" color="gray" /></Link>
+            <Link on:click={(e) => onFilterClick(4)} href="#" animate={false} ignoreCache={true}><Chip text="Expired: {$dataClient.winnerCount.expired}" color="red" /></Link>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -116,7 +116,7 @@ import Paginator from '../components/Paginator.svelte';
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getWinnerList($row_count, offset, search, 0);
+    await dataClient.getWinnerList($row_count, offset, search, -1);
   }
 
   function onRowClick(winner) {
@@ -138,9 +138,15 @@ import Paginator from '../components/Paginator.svelte';
     f7router.navigate("/newwinner/" + winner.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+    await dataClient.getWinnerList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getWinnerCount();
-    await dataClient.getWinnerList($row_count, 0, "", 0);
+    await dataClient.getWinnerList($row_count, 0, "", -1);
   });
   
 </script>
