@@ -9,6 +9,7 @@ import {
 
   // Common
   ListStatusTypeRequest,
+  ListStatusProgressTypeRequest,
   ListUserStatusTypeRequest,
   ListWinnerStatusTypeRequest,
   ListWinTypeRequest,
@@ -128,6 +129,7 @@ const dataClient = () => {
 
     // Common
     listStatusTypeRequest: new ListStatusTypeRequest(),
+    listStatusProgressTypeRequest: new ListStatusProgressTypeRequest(),
     listUserStatusTypeRequest: new ListUserStatusTypeRequest(),
     listWinnerStatusTypeRequest: new ListWinnerStatusTypeRequest(),
     listWinTypeRequest: new ListWinTypeRequest(),
@@ -229,7 +231,7 @@ const dataClient = () => {
 
 
     statusTypes: [],
-    statusProgressTypes: [{id: 0, title: "Inactive"}, {id: 1, title: "Running"}, {id: 999, title: "Ended"}],
+    statusProgressTypes: [],
     userStatusTypes: [],
     winnerStatusTypes: [],
     winTypes: [],
@@ -603,6 +605,31 @@ const dataClient = () => {
           state.statusTypes = [];
           for (let s of response.getResultList()) {
             state.statusTypes = [...state.statusTypes,  {
+              id: s.getId(), 
+              title: s.getTitle()
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async getStatusProgressTypeList() {
+        
+        if (state.statusProgressTypes.length > 0) {
+          return;
+        }
+
+        let request = state.listStatusProgressTypeRequest;
+        
+        try {
+          const response = await state.apiClient.listStatusProgressType(request, {'authorization': state.jwtToken});
+          state.statusProgressTypes = [];
+          for (let s of response.getResultList()) {
+            state.statusProgressTypes = [...state.statusProgressTypes,  {
               id: s.getId(), 
               title: s.getTitle()
             }];
@@ -1728,6 +1755,8 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.sosStopPrize(request, {'authorization': state.jwtToken});
+          console.log("===== here ===== ");
+          console.log(response.getResult());
           return response.getResult() > 0
         } catch (err) {
           state.isLoggedIn = false;

@@ -105,6 +105,7 @@
       await dataClient.getItemTypeList();
       await dataClient.getSubscriptionTypeList();
       await dataClient.getStatusTypeList();
+      await dataClient.getStatusProgressTypeList();
       await dataClient.getUserStatusTypeList();
       await dataClient.getWinnerStatusTypeList();
       await dataClient.getWinTypeList();
