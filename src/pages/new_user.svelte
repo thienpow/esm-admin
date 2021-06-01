@@ -275,7 +275,6 @@
 
     let result = false;
     if (id > 1) {
-
       result = await dataClient.updateUserStatusGemBalance();
     } else {
       f7.dialog.alert("root user is not allowed to change status.");

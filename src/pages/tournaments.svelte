@@ -58,10 +58,19 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total}" color="blue" /></Link>
-            <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft}" color="red" /></Link>
-            <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published}" color="green" /></Link>
-            <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived}" color="gray" /></Link>
+            <Row>
+              <Col>
+                <Chip outline text="Selected: {filter_selected}" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentCount.total}" color="blue" /></Link>
+                <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentCount.draft}" color="red" /></Link>
+                <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentCount.published}" color="green" /></Link>
+                <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentCount.archived}" color="gray" /></Link>
+              </Col>
+            </Row>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -105,6 +114,8 @@
   let innerWidth = 0;
 
   $: searchString = "";
+  $: filter_selected = "Published";
+
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -145,12 +156,28 @@
   async function onFilterClick(status) {
     searchString = "";
     currentPage = 1;
+
+    switch(status) {
+      case -1:
+        filter_selected = "Total";
+        break;
+      case 1:
+        filter_selected = "Draft";
+        break;
+      case 2:
+        filter_selected = "Published";
+        break;
+      case 3:
+        filter_selected = "Archived/Disabled";
+        break;
+    }
+    
     await dataClient.getTournamentList($row_count, 0, "", status);
   }
 
   onMount(async () => {
     await dataClient.getTournamentCount();
-    await dataClient.getTournamentList($row_count, 0, "", -1);
+    await dataClient.getTournamentList($row_count, 0, "", 2);
   });
   
 </script>

@@ -60,9 +60,18 @@
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
           <AccordionContent>
-            <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.buyCount.total}" color="blue" /></Link>
-            <Link on:click={(e) => onFilterClick(101)} href="#" animate={false} ignoreCache={true}><Chip text="Subscription: {$dataClient.buyCount.subscription}" color="green" /></Link>
-            <Link on:click={(e) => onFilterClick(201)} href="#" animate={false} ignoreCache={true}><Chip text="Item: {$dataClient.buyCount.item}" color="yellow" /></Link>
+            <Row>
+              <Col>
+                <Chip outline text="Selected: {filter_selected}" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.buyCount.total}" color="blue" /></Link>
+                <Link on:click={(e) => onFilterClick(101)} href="#" animate={false} ignoreCache={true}><Chip text="Subscription: {$dataClient.buyCount.subscription}" color="green" /></Link>
+                <Link on:click={(e) => onFilterClick(201)} href="#" animate={false} ignoreCache={true}><Chip text="Item: {$dataClient.buyCount.item}" color="yellow" /></Link>
+              </Col>
+            </Row>
           </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
@@ -95,11 +104,13 @@ import Paginator from '../components/Paginator.svelte';
   import {show_sub_title, show_img_url, show_image, show_status, show_type, show_timezone, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
   
 
-  export let f7router;
+  //export let f7router;
 
   let innerWidth = 0;
 
   $: searchString = "";
+  $: filter_selected = "Total";
+
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -141,6 +152,19 @@ import Paginator from '../components/Paginator.svelte';
   async function onFilterClick(status) {
     searchString = "";
     currentPage = 1;
+
+    switch(status) {
+      case -1:
+        filter_selected = "Total";
+        break;
+      case 101:
+        filter_selected = "Subscription";
+        break;
+      case 201:
+        filter_selected = "Item";
+        break;
+    }
+    
     await dataClient.getBuyList($row_count, 0, "", status);
   }
 

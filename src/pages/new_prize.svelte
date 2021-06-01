@@ -19,6 +19,7 @@
                   type="select"
                   value={$dataClient.prize.status}
                   onInput={(e) => $dataClient.prize.status = e.target.value}
+                        
                   placeholder="Please choose...">
 
                   {#each $dataClient.statusTypes as sT}
@@ -64,6 +65,7 @@
                   onInput={(e) => $dataClient.prize.subtitle = e.target.value} />
               </Col>
             </Row>
+            
             <ListInput
               class="item-content-input"
               type="textarea"
@@ -71,6 +73,24 @@
               value={$dataClient.prize.content}
               onInput={(e) => $dataClient.prize.content = e.target.value}
               resizable />
+
+            <Row>
+              <Col width="100" medium="30" />
+              <Col width="100" medium="40">
+                  
+                {#if $dataClient.prize.status_progress == 1}
+                <Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSOSStop}>SOS Stop</Button>
+                {/if}
+                {#if $dataClient.prize.status_progress == 0}
+                <Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doDelete}>Delete</Button>
+                {/if}
+                {#if $dataClient.prize.status_progress == 9999}
+                  <div>Prize is under SOS Stopped. No more changes allowed until issue is resolved.</div>
+                {/if}
+              </Col>
+              <Col width="100" medium="30" />
+            </Row>
+            
           </CardContent>
         </Card>
         
@@ -329,6 +349,29 @@
 
   let prize_tours = [];
   let tour_id = 0;
+  let original_prize_status = 0;
+
+
+  async function doSOSStop() {
+    f7.dialog.confirm('Use at Your Own Risk! Are you sure want to STOP the Prize/Tournament? All current scheduled timeline will be removed and Prize status will be forced to Disabled/Archived.  Please make sure you have read the T&C!', async function () {
+      let result = await dataClient.sosStopPrize(id);
+      if (result) {
+        f7.dialog.alert("Damage Done!");
+        f7router.navigate('/prizes/');
+      }
+    });
+  }
+
+  async function doDelete() {
+    f7.dialog.confirm('Use at Your Own Risk! Are you sure want to Delete the Prize?', async function () {
+      let result = await dataClient.deletePrize(id);
+      if (result) {
+        f7.dialog.alert("Delete Done!");
+        f7router.navigate('/prizes/');
+      }
+        
+    });
+  }
 
   async function doSave() {
 
@@ -339,7 +382,22 @@
 
     if ($dataClient.prize.type_id == 0) {
       f7.dialog.alert("Please select a Type");
+      return;
     }
+    if ($dataClient.prize.status_progress == 1 && original_prize_status !== $dataClient.prize.status) {
+      f7.dialog.alert("Modifying data after the prize started is not allowed!");
+      return;
+    }
+    if ($dataClient.prize.scheduled_on < Date.now()) {
+      f7.dialog.alert("Date must be after today/now!");
+      return;
+    }
+
+    if ($dataClient.prize.status_progress == 9999) {
+      f7.dialog.alert("Prize is under SOS Stopped. No more changes allowed until issue is resolved.");
+      return;
+    }
+
 
     let repeated_on = [];
 
@@ -413,6 +471,7 @@
   onMount(async () => {
 
     if (id > 0) {
+      original_prize_status = $dataClient.prize.status;
 
       await dataClient.getTournamentList(1000, 0, "", 2);
       await dataClient.getPrizeTourList(id);

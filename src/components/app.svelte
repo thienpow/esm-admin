@@ -206,9 +206,9 @@
     theme: 'auto', // Automatic theme detection
     // App routes
     routes: routes,
-    serviceWorker: {
-      path: '/service-worker.js',
-    },
+    //serviceWorker: {
+    //  path: '/service-worker.js',
+    //},
   };
 
   let selected = 'home';

@@ -61,6 +61,7 @@ import {
   AddPrizeRequest, 
   UpdatePrizeRequest, 
   DeletePrizeRequest,
+  SosStopPrizeRequest,
   GetPrizeCountRequest, 
   ListPrizeRequest,
   ListPrizeTodayRequest,
@@ -185,6 +186,7 @@ const dataClient = () => {
     addPrizeRequest: new AddPrizeRequest(),
     updatePrizeRequest: new UpdatePrizeRequest(),
     deletePrizeRequest: new DeletePrizeRequest(),
+    sosStopPrizeRequest: new SosStopPrizeRequest(),
     getPrizeCountRequest: new GetPrizeCountRequest(),
     listPrizeRequest: new ListPrizeRequest(),
     listPrizeTodayRequest: new ListPrizeTodayRequest(),
@@ -227,6 +229,7 @@ const dataClient = () => {
 
 
     statusTypes: [],
+    statusProgressTypes: [{id: 0, title: "Inactive"}, {id: 1, title: "Running"}, {id: 999, title: "Ended"}],
     userStatusTypes: [],
     winnerStatusTypes: [],
     winTypes: [],
@@ -531,7 +534,13 @@ const dataClient = () => {
 
         return sT.title;
       },
+      displayStatusProgressTitle(id) {
+        let sT =  state.statusProgressTypes.find(function(s) {
+          return s.id == id;
+        });
 
+        return sT.title;
+      },
       displayUserStatusTitle(id) {
         let sT =  state.userStatusTypes.find(function(s) {
           return s.id == id;
@@ -1686,6 +1695,7 @@ const dataClient = () => {
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
+        request.setStatusProgress(state.prize.status_progress);
         
         try {
           const response = await state.apiClient.updatePrize(request, {'authorization': state.jwtToken});
@@ -1704,6 +1714,20 @@ const dataClient = () => {
         
         try {
           const response = await state.apiClient.deletePrize(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        
+      },
+
+      async sosStopPrize(id) {
+
+        let request = state.sosStopPrizeRequest;
+        request.setId(id);
+        
+        try {
+          const response = await state.apiClient.sosStopPrize(request, {'authorization': state.jwtToken});
           return response.getResult() > 0
         } catch (err) {
           state.isLoggedIn = false;
