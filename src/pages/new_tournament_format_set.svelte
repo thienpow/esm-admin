@@ -163,6 +163,7 @@
           <thead>
             <tr>
               <th class="numeric-cell">GameID</th>
+              <th class="numeric-cell">Title</th>
               <th class="numeric-cell">Days</th>
               <th class="numeric-cell">Hours</th>
               <th class="numeric-cell">Minutes</th>
@@ -176,6 +177,7 @@
             {#each set_game_rules as set, i}
               <tr>
                 <td class="numeric-cell">{set.game_id}</td>
+                <td class="numeric-cell">{set.game_title}</td>
                 <td class="numeric-cell">{set.duration_days}</td>
                 <td class="numeric-cell">{set.duration_hours}</td>
                 <td class="numeric-cell">{set.duration_minutes}</td>
@@ -235,6 +237,7 @@
 
   let set_game_rules = [];
   let game_id = 0;
+  let game_title = "";
   let duration_days = 0;
   let duration_hours = 0;
   let duration_minutes = 0;
@@ -270,6 +273,7 @@
     set_game_rules = [...set_game_rules, {
       id: id,
       game_id: game_id,
+      game_title: game_title,
       duration_days: duration_days,
       duration_hours: duration_hours,
       duration_minutes: duration_minutes,
