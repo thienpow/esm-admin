@@ -1,5 +1,6 @@
 <script>
   import { 
+    Row, Col,
     Block,
     Button,
     Sheet,
@@ -10,7 +11,7 @@
 <Button round raised sheetOpen=".help-sheet">url ?</Button>
 <Sheet class="help-sheet" 
 push
-style="height: 380px; --f7-sheet-bg-color: #fff"
+style="height: 380px;"
 swipeToClose
 swipeToStep
 >
