@@ -30,7 +30,13 @@
     "grpc-web": "^1.2.1",
     "skeleton-elements": "^3.3.0",
     "svelte": "^3.38.2",
-    "swiper": "^6.5.9"
+    "@codemirror/basic-setup": "^0.17.1",
+    "@codemirror/highlight": "^0.17.2",
+    "@codemirror/lang-markdown": "^0.17.1",
+    "@codemirror/state": "^0.17.1",
+    "@codemirror/theme-one-dark": "^0.17.4",
+    "@codemirror/view": "^0.17.7",
+    "@octokit/rest": "^18.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
@@ -43,12 +49,12 @@
     "cpy-cli": "^3.1.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.4",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "less": "^4.1.1",
     "less-loader": "^8.1.1",
     "mini-css-extract-plugin": "^1.6.0",
-    "css-minimizer-webpack-plugin": "^2.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "ora": "^5.4.0",
     "postcss-loader": "^5.2.0",

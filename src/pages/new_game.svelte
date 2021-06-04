@@ -185,18 +185,19 @@
               <option value={10}>PhaserJS v2</option>
               <option value={20}>PixiJS v5</option>
             </ListInput>
+            
           </Col>
         </Row>
-
-        <ListInput
-          class="code"
-          type="textarea"
-          label="Game Code"
-          value="{$dataClient.game.game_code}"
-          onInput={(e) => $dataClient.game.game_code = e.target.value}
-          required
-          validate />
-    
+        <div id="edContainer">
+          <CodeMirror
+              height="580px"
+              width="98%"
+              config={code_mirror_config}
+              initFinished={loadDone};
+              on:textChange={textChange}
+              on:editorChange={editorChange}
+            />
+        </div>
       </CardContent>
     </Card>
 
@@ -208,6 +209,8 @@
   
 </Page>
 <script>
+  import CodeMirror from '../components/CodeMirror.svelte';
+  
   import URLHelp from '../components/URLHelp.svelte';
   import SaveCancel from '../components/SaveCancel.svelte';
   import {
@@ -239,6 +242,13 @@
   
   $: title = id > 0 ? "Edit Game" : "New Game";
 
+  let code_mirror_config = {
+    language: 'javascript',
+    lineNumbers: true,
+    lineWrapping: false,
+    lineHighlight: true
+  };
+  let code_mirror;
 
   async function doSave() {
 
@@ -269,12 +279,28 @@
     
   };
 
+  function textChange(e) {
+    $dataClient.game.game_code = e.detail.data.value;
+  }
+  function editorChange(e) {
+    code_mirror = e.detail.data;
+  }
+
+  let loadDone = false;
   onMount(async () => {
+    loadDone = true;
     if (id > 0) {
-      dataClient.getGameCode();
+      
+      await dataClient.getGameCode();
+      code_mirror.setValue($dataClient.game.game_code);
+
     }
   })
 </script>
 <style>
-  
+  #edContainer {
+    display: flex;
+    height: 580px;
+    width: 90%;
+  }
 </style>
