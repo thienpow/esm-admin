@@ -9,7 +9,7 @@
   </Navbar>
   <br/><br/>
   <Row tag="p">
-    <Col width="100" medium="60">
+    <Col width="100" medium="65">
       <BlockTitle strong><Chip text="Current active prizes" color="green" /></BlockTitle>
       <Card>
         <CardContent>
@@ -48,7 +48,7 @@
       </Card>
       
     </Col>
-    <Col width="100" medium="40">
+    <Col width="100" medium="35">
 
       <BlockTitle strong><Chip text="Last 20 Prizes Awarded" color="gray" /></BlockTitle>
       <Card>

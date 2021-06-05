@@ -1846,7 +1846,7 @@ const dataClient = () => {
               tickets_collected: p.getTicketsCollected(),
               start_timestamp: timeConverter(p.getStartTimestamp()),
               end_timestamp: timeConverter(p.getEndTimestamp()),
-            }];
+            }].sort( (firstItem, secondItem) =>  secondItem.prize_id - firstItem.prize_id);
           }
             
         } catch (err) {
