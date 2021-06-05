@@ -2233,7 +2233,7 @@ const dataClient = () => {
         try {
           const response = await state.apiClient.listTournamentSetGameRule(request, {'authorization': state.jwtToken});
           state.tournament_set_game_rules = [];
-          for (let item of response.getResultList()) {
+          for ( let item of response.getResultList() ) {
             state.tournament_set_game_rules = [...state.tournament_set_game_rules,  {
               id: item.getId(),
               set_id: item.getSetId(),
@@ -2243,7 +2243,7 @@ const dataClient = () => {
               duration_hours: item.getDurationHours(),
               duration_minutes: item.getDurationMinutes(),
               group_id: item.getGroupId()
-            }];
+            }].sort( (firstItem, secondItem) =>  firstItem.group_id - secondItem.group_id);
           }
             
         } catch (err) {

@@ -242,7 +242,6 @@
   let duration_hours = 0;
   let duration_minutes = 0;
   let group_id = 0;
-  $: current_group_id = $dataClient.tournament_set.is_group ? group_id : 0;
 
   $: title = f7route.params.id > 0 ? "Edit Format Set" : "New Format Set";
 
@@ -258,12 +257,12 @@
 
   async function delAllFromList(gid) {
 
-  f7.dialog.confirm("Are you sure want to change Group/Single type? All Linked Games List below will be deleted!", async function () {
-    $dataClient.tournament_set.is_group = gid > 0; 
-    set_game_rules = [];
-    group_id=gid;
-    await dataClient.deleteAllTournamentSetGameRule(f7route.params.id);
-  });
+    f7.dialog.confirm("Are you sure want to change Group/Single type? All Linked Games List below will be deleted!", async function () {
+      $dataClient.tournament_set.is_group = gid > 0; 
+      set_game_rules = [];
+      group_id=gid;
+      await dataClient.deleteAllTournamentSetGameRule(f7route.params.id);
+    });
 
   }
 
@@ -288,8 +287,8 @@
       duration_days: duration_days,
       duration_hours: duration_hours,
       duration_minutes: duration_minutes,
-      group_id: current_group_id,
-    }];
+      group_id: group_id,
+    }].sort( (firstItem, secondItem) =>  firstItem.group_id - secondItem.group_id);
 
   }
 
@@ -333,6 +332,10 @@
     if (id > 0) {
       await dataClient.getGameList(1000, 0, "", 2);
       await dataClient.getTournamentSetGameRuleList(id);
+      if ($dataClient.tournament_set.is_group) {
+        group_id = 1;
+      }
+
       set_game_rules = $dataClient.tournament_set_game_rules;
     }
     
