@@ -20,8 +20,8 @@
           <Col width="100" medium="30">
               
             <List>
-              <ListItem radio value={$dataClient.tournament_set.is_group} checked={$dataClient.tournament_set.is_group == true} on:change={(e) => {$dataClient.tournament_set.is_group = e.detail[0].returnValue; set_game_rules = [];}} name="radio-repeat" title="Group" />
-              <ListItem radio value={!$dataClient.tournament_set.is_group} checked={$dataClient.tournament_set.is_group == false} on:change={(e) => {$dataClient.tournament_set.is_group = !e.detail[0].returnValue; set_game_rules = [];}} name="radio-repeat" title="Single" />
+              <ListItem radio value={$dataClient.tournament_set.is_group} checked={$dataClient.tournament_set.is_group == true} on:change={(e) => {delAllFromList(1);}} name="radio-repeat" title="Group" />
+              <ListItem radio value={!$dataClient.tournament_set.is_group} checked={$dataClient.tournament_set.is_group == false} on:change={(e) => {delAllFromList(0);}} name="radio-repeat" title="Single" />
             </List>
               
           </Col>
@@ -254,6 +254,17 @@
       set_game_rules = set_game_rules.filter(set => set.id != id);
     });
     
+  }
+
+  async function delAllFromList(gid) {
+
+  f7.dialog.confirm("Are you sure want to change Group/Single type? All Linked Games List below will be deleted!", async function () {
+    $dataClient.tournament_set.is_group = gid > 0; 
+    set_game_rules = [];
+    group_id=gid;
+    await dataClient.deleteAllTournamentSetGameRule(f7route.params.id);
+  });
+
   }
 
   async function addToList() {

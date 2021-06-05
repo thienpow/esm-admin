@@ -81,6 +81,7 @@ import {
   DeleteTournamentRequest,
   DeleteTournamentSetRequest,
   DeleteTournamentSetGameRuleRequest,
+  DeleteAllTournamentSetGameRuleRequest,
   GetTournamentCountRequest,
   GetTournamentSetCountRequest,
   ListTournamentRequest,
@@ -208,6 +209,7 @@ const dataClient = () => {
     deleteTournamentRequest: new DeleteTournamentRequest(),
     deleteTournamentSetRequest: new DeleteTournamentSetRequest(),
     deleteTournamentSetGameRuleRequest: new DeleteTournamentSetGameRuleRequest(),
+    deleteAllTournamentSetGameRuleRequest: new DeleteAllTournamentSetGameRuleRequest(),
     getTournamentCountRequest: new GetTournamentCountRequest(),
     getTournamentSetCountRequest: new GetTournamentSetCountRequest(),
     listTournamentRequest: new ListTournamentRequest(),
@@ -2114,6 +2116,19 @@ const dataClient = () => {
         
       },
 
+      async deleteAllTournamentSetGameRule(set_id) {
+
+        let request = state.deleteAllTournamentSetGameRuleRequest;
+        request.setSetId(set_id);
+        
+        try {
+          const response = await state.apiClient.deleteAllTournamentSetGameRule(request, {'authorization': state.jwtToken});
+          return response.getResult() > 0
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        
+      },
 
       async getTournamentCount() {
 
