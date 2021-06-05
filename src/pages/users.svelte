@@ -63,7 +63,7 @@
               <td class="label-cell">{user.username}</td>
               <td class="numeric-cell">{user.role_id}</td>
               {#if $show_last_login}
-              <td class="label-cell" style="font-size: 9px;">{timeConverter(user.last_login)}</td>
+              <td class="label-cell" style="font-size: 9px;">{user.last_login}</td>
               {/if}
               {#if $show_status}
               <td class="label-cell">{dataClient.displayUserStatusTitle(user.status)}</td>
@@ -195,10 +195,6 @@
     if (offset === 0)
       currentPage = 1;
     await dataClient.getUserList($row_count, offset, search, -1);
-  }
-
-  function timeConverter(UNIX_timestamp){
-    return new Date(UNIX_timestamp * 1000);
   }
 
   function onRowClick(user) {

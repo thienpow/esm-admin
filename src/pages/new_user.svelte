@@ -124,7 +124,13 @@
                     value={$dataClient.user.exp}
                     readonly />
                 </Col>
-                
+                <Col width="100" medium="50">
+                  <ListInput
+                    label="Last Login"
+                    type="text"
+                    value={$dataClient.user.last_login}
+                    readonly />
+                </Col>
               </Row>
             </List>
           </CardContent>
