@@ -103,9 +103,7 @@ import {
 } from '../js/adminapi_pb.js';
 //import PreloaderComponent from 'framework7/components/preloader/preloader';
 
-
-const serviceURL = 'https://esm-api.aadi.my';
-
+const serviceURL='https://dev-api.esportsmini.com';
 
 function timeConverter(UNIX_timestamp){
   return new Date(UNIX_timestamp * 1000);
@@ -766,6 +764,7 @@ const dataClient = () => {
             state.isLoggedIn = true;
           }   
         } catch (err) {
+          console.log(err);
           f7.dialog.alert(`Error code = ${err.code}, message = "${err.message}"`, "Error");
         }
         
