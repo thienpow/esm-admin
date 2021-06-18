@@ -172,6 +172,7 @@
   import { show_fbid, show_gid, show_last_login, show_gems, show_exp, show_avatar_url, show_status, row_count } from '../stores/ui';
   
   export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
@@ -257,7 +258,7 @@
 
   onMount(async () => {
     await dataClient.getUserCount();
-    await dataClient.getUserList($row_count, 0, "", 1);
+    await dataClient.getUserList($row_count, 0, "", f7route.params.st);
   });
 
 </script>

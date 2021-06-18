@@ -190,6 +190,7 @@
   
 
   export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
@@ -280,7 +281,7 @@
 
   onMount(async () => {
     await dataClient.getSubscriptionCount();
-    await dataClient.getSubscriptionList($row_count, 0, "", 2);
+    await dataClient.getSubscriptionList($row_count, 0, "", f7route.params.st);
   });
   
   

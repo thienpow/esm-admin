@@ -45,7 +45,7 @@ var routes = [
     component: DashboardPage,
   },
   {
-    path: '/users/',
+    path: '/users/:st/',
     component: UsersPage,
     options: {
       animate: false,
@@ -87,7 +87,7 @@ var routes = [
     },
   },
   {
-    path: '/prizes/',
+    path: '/prizes/:st/',
     component: PrizesPage,
     options: {
       animate: false,
@@ -101,7 +101,7 @@ var routes = [
     },
   },
   {
-    path: '/tournaments/',
+    path: '/tournaments/:st/',
     component: TournamentsPage,
     options: {
       animate: false,
@@ -130,7 +130,7 @@ var routes = [
     },
   },
   {
-    path: '/games/',
+    path: '/games/:st/',
     component: GamesPage,
     options: {
       animate: false,
@@ -155,7 +155,7 @@ var routes = [
     },
   },
   {
-    path: '/items/',
+    path: '/items/:st/',
     component: ItemsPage,
     options: {
       animate: false,
@@ -169,7 +169,7 @@ var routes = [
     },
   },
   {
-    path: '/subscriptions/',
+    path: '/subscriptions/:st/',
     component: SubscriptionsPage,
     options: {
       animate: false,
@@ -223,7 +223,7 @@ var routes = [
 
   // ***** Reports *****
   {
-    path: '/winners/',
+    path: '/winners/:st/',
     component: WinnersPage,
     options: {
       animate: false,
@@ -237,7 +237,7 @@ var routes = [
     },
   },
   {
-    path: '/buys/',
+    path: '/buys/:st/',
     component: BuysPage,
     options: {
       animate: false,

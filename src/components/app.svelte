@@ -14,7 +14,7 @@
           </span>
         </ListItem>
         
-        <ListItem link="/users/" view=".view-main" title="Users" selected={selected === 'users'} onClick={() => (selected = 'users')} >
+        <ListItem link="/users/1/" view=".view-main" title="Users" selected={selected === 'users'} onClick={() => (selected = 'users')} >
           <span slot="media">
             <Icon md="material:person" aurora="f7:person_fill" ios="f7:person_fill" />
           </span>
@@ -24,12 +24,12 @@
         <ListItem accordionItem title="Prize & Tournament">
           <AccordionContent>
   
-            <ListItem link="/prizes/" view=".view-main" title="Prizes" selected={selected === 'prizes'} onClick={() => (selected = 'prizes')}> 
+            <ListItem link="/prizes/2/" view=".view-main" title="Prizes" selected={selected === 'prizes'} onClick={() => (selected = 'prizes')}> 
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
             </ListItem>
-            <ListItem link="/tournaments/" view=".view-main" title="Tournaments" selected={selected === 'tournaments'} onClick={() => (selected = 'tournaments')}>
+            <ListItem link="/tournaments/2/" view=".view-main" title="Tournaments" selected={selected === 'tournaments'} onClick={() => (selected = 'tournaments')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
@@ -39,7 +39,7 @@
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
             </ListItem>
-            <ListItem link="/games/" view=".view-main" title="Games" selected={selected === 'games'} onClick={() => (selected = 'games')}>
+            <ListItem link="/games/2/" view=".view-main" title="Games" selected={selected === 'games'} onClick={() => (selected = 'games')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
@@ -52,12 +52,12 @@
         <ListItem accordionItem title="Shop">
           <AccordionContent>
   
-            <ListItem link="/items/" view=".view-main" title="IAP-Items" selected={selected === 'iap-items'} onClick={() => (selected = 'iap-items')}>
+            <ListItem link="/items/2/" view=".view-main" title="IAP-Items" selected={selected === 'iap-items'} onClick={() => (selected = 'iap-items')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
             </ListItem>
-            <ListItem link="/subscriptions/" view=".view-main" title="IAP-Subscriptions" selected={selected === 'iap-sub'} onClick={() => (selected = 'iap-sub')}>
+            <ListItem link="/subscriptions/2/" view=".view-main" title="IAP-Subscriptions" selected={selected === 'iap-sub'} onClick={() => (selected = 'iap-sub')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
@@ -91,12 +91,12 @@
         <ListItem accordionItem title="Reports">
           <AccordionContent>
   
-            <ListItem link="/winners/" view=".view-main" title="Winners Management" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
+            <ListItem link="/winners/1/" view=".view-main" title="Winners Management" selected={selected === 'winners'} onClick={() => (selected = 'winners')}>
               <span slot="media">
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>
             </ListItem>    
-            <ListItem link="/buys/" view=".view-main" title="Sales Management" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
+            <ListItem link="/buys/-1/" view=".view-main" title="Sales Management" selected={selected === 'sales'} onClick={() => (selected = 'sales')}>
               <span slot="media">
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>

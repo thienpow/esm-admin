@@ -179,7 +179,7 @@
 
 
       if (id > 0) {
-        f7router.navigate('/tournaments/');
+        f7router.navigate('/tournaments/' + $dataClient.tournament.status + '/');
       } else {
         $dataClient.tournament.id = result;
         id = result;

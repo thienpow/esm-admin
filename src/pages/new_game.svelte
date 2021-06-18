@@ -274,7 +274,7 @@
       });
       successToast.open();
 
-      f7router.navigate('/games/')
+      f7router.navigate('/games/' + $dataClient.game.status + '/')
     }
     
   };

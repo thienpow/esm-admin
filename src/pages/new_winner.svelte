@@ -236,7 +236,7 @@
       });
       successToast.open();
 
-      f7router.navigate('/winners/');
+      f7router.navigate('/winners/' + $dataClient.winner.status + '/');
     }
     
   };

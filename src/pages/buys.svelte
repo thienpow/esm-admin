@@ -104,7 +104,8 @@ import Paginator from '../components/Paginator.svelte';
   import {show_sub_title, show_img_url, show_image, show_status, show_type, show_timezone, show_scheduled_on, show_tickets_collected, row_count} from '../stores/ui';
   
 
-  //export let f7router;
+  export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
@@ -170,7 +171,7 @@ import Paginator from '../components/Paginator.svelte';
 
   onMount(async () => {
     await dataClient.getBuyCount();
-    await dataClient.getBuyList($row_count, 0, "", -1);
+    await dataClient.getBuyList($row_count, 0, "", f7route.params.st);
   });
   
 </script>

@@ -229,7 +229,8 @@ const dataClient = () => {
     listBuyRequest: new ListBuyRequest(),
     getBuyCountRequest: new GetBuyCountRequest(),
 
-
+    currentStatusType: 0,
+    
     statusTypes: [],
     statusProgressTypes: [],
     userStatusTypes: [],

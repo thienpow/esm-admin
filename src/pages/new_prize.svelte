@@ -437,7 +437,7 @@
 
 
       if (id > 0) {
-        f7router.navigate('/prizes/');
+        f7router.navigate('/prizes/' + $dataClient.prize.status + '/');
       } else {
         $dataClient.prize.id = result;
         id = result;

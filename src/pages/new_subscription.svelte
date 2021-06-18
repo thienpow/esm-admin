@@ -263,7 +263,7 @@
       });
       successToast.open();
 
-      f7router.navigate('/subscriptions/');
+      f7router.navigate('/subscriptions/' + $dataClient.subscription.status + '/');
     }
     
   };

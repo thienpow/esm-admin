@@ -145,9 +145,10 @@
   import { AccordionContent, NavLeft, NavTitle, NavRight, Link, Row, Col, Chip, List, ListItem, Icon, Page, Navbar } from 'framework7-svelte';
   import dataClient from '../stores/dataClient';
   import {show_sub_title, show_img_url, show_image, show_status, row_count} from '../stores/ui';
-  
+
 
   export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
@@ -243,7 +244,7 @@
 
   onMount(async () => {
     await dataClient.getGameCount();
-    await dataClient.getGameList($row_count, 0, "", 2);
+    await dataClient.getGameList($row_count, 0, "", f7route.params.st);
   });
   
 </script>

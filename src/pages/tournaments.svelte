@@ -110,6 +110,7 @@
   import {show_status, row_count} from '../stores/ui';
   
   export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
@@ -177,7 +178,7 @@
 
   onMount(async () => {
     await dataClient.getTournamentCount();
-    await dataClient.getTournamentList($row_count, 0, "", 2);
+    await dataClient.getTournamentList($row_count, 0, "", f7route.params.st);
   });
   
 </script>

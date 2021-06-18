@@ -195,7 +195,7 @@
       });
       successToast.open();
       
-      f7router.navigate('/items/');
+      f7router.navigate('/items/' + $dataClient.item.status + '/');
     }
     
   };

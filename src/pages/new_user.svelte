@@ -296,7 +296,7 @@
       });
       successToast.open();
 
-      f7router.navigate('/users/');
+      f7router.navigate('/users/' + $dataClient.user.status + '/');
     }
     
   };
