@@ -142,13 +142,15 @@
   }
 
   async function doUpdate(rule) {
+    
     f7.dialog.confirm('Are you sure want to update?', async function () {
       let result = await dataClient.updateGameLeaderRule(rule);
 
       if (result) {
+        
         let successToast = f7.toast.create({
           icon: theme.ios || theme.aurora ? '<i class="f7-icons">checkmark</i>' : '<i class="material-icons">done</i>',
-          text: 'Data is Updated for Rank ' + rule.rank,
+          text: 'Data is Updated for Rank ' + rule.rank_from,
           position: 'center',
           closeTimeout: 2000,
         });

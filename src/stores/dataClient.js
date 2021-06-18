@@ -1221,11 +1221,12 @@ const dataClient = () => {
       },
 
       async updateGameLeaderRule(rule) {
-        //console.log(rule);
+
         let request = state.updateGameLeaderRuleRequest;
+
         request.setGameId(rule.game_id);
-        request.setRankFrom(state.gameLeaderRule.rank_from);
-        request.setRankTo(state.gameLeaderRule.rank_to);
+        request.setRankFrom(rule.rank_from);
+        request.setRankTo(rule.rank_to);
         request.setTickets(rule.tickets);
         request.setExp(rule.exp);
         
