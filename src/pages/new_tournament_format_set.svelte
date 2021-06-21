@@ -243,7 +243,7 @@
   let duration_minutes = 0;
   let group_id = 0;
 
-  $: title = f7route.params.id > 0 ? "Edit Format Set" : "New Format Set";
+  $: title = id > 0 ? "Edit Format Set" : "New Format Set";
 
 
   async function delFromList(id) {
@@ -278,10 +278,10 @@
       return;
     } 
     
-    let id = await dataClient.addTournamentSetGameRule(f7route.params.id, game_id, duration_days, duration_hours, duration_minutes, group_id);    
+    let game_rules_id = await dataClient.addTournamentSetGameRule(id, game_id, duration_days, duration_hours, duration_minutes, group_id);    
 
     set_game_rules = [...set_game_rules, {
-      id: id,
+      id: game_rules_id,
       game_id: game_id,
       game_title: game_title,
       duration_days: duration_days,
@@ -329,8 +329,8 @@
 
   onMount(async () => {
 
+    await dataClient.getGameList(1000, 0, "", 2);
     if (id > 0) {
-      await dataClient.getGameList(1000, 0, "", 2);
       await dataClient.getTournamentSetGameRuleList(id);
       if ($dataClient.tournament_set.is_group) {
         group_id = 1;

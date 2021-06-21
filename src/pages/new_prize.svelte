@@ -462,18 +462,18 @@
       return;
     }
 
-    let id = await dataClient.addPrizeTour(f7route.params.id, tour_id);
-    await dataClient.getPrizeTourList(f7route.params.id);
+    await dataClient.addPrizeTour(id, tour_id);
+    await dataClient.getPrizeTourList(id);
     prize_tours = $dataClient.prize_tours;
 
   }
 
   onMount(async () => {
 
+    await dataClient.getTournamentList(1000, 0, "", 2);
     if (id > 0) {
       original_prize_status = $dataClient.prize.status;
 
-      await dataClient.getTournamentList(1000, 0, "", 2);
       await dataClient.getPrizeTourList(id);
       prize_tours = $dataClient.prize_tours;
 
