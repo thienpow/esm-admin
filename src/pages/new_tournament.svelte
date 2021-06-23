@@ -58,6 +58,7 @@
                 <Icon md="material:search" aurora="f7:search" ios="f7:search" />
               </span>
               <select name="car" bind:value={set_id}>
+                <option value={0}>Not Selected</option>
                 {#each $dataClient.tournament_sets as set}
                 <option value={set.id}>{set.title}</option>
                 {/each}
