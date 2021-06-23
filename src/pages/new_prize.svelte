@@ -288,7 +288,6 @@
             <tr>
               <th class="numeric-cell">TourID</th>
               <th class="label-cell">Title</th>
-              <th class="label-cell">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -296,7 +295,6 @@
               <tr>
                 <td class="numeric-cell">{p.tour_id}</td>
                 <td class="label-cell">{p.tour_title}</td>
-                <td class="label-cell">{p.status}</td>
                 <td>
                   <Link ignoreCache={true} on:click={(e) => delFromList(p.id)}>
                     <Chip text="Delete" mediaBgColor="red" iconIos="f7:minus_circle" iconAurora="f7:minus_circle" iconMd="material:remove_circle_outline" />
