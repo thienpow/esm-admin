@@ -2351,6 +2351,7 @@ const dataClient = () => {
               prize_type_id: item.getPrizeTypeId(),
               user_id: item.getUserId(),
               user_nick_name: item.getUserNickName(),
+              user_email: item.getUserEmail(),
               user_avatar_url: item.getUserAvatarUrl(),
               created_on: timeConverter(item.getCreatedOn()),
               claimed_on: timeConverter(item.getClaimedOn()),

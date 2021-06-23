@@ -68,7 +68,7 @@
                 <tr>
                   <td class="numeric-cell">{w.prize_id}</td>
                   <td class="label-cell">{w.prize_title}</td>
-                  <td class="label-cell">{w.user_nick_name}</td>
+                  <td class="xlarge-only" style="font-size: 9px;">{w.user_nick_name} -<br/>{w.user_email}</td>
                 </tr>
                 {/each}
               </tbody>
