@@ -2360,6 +2360,7 @@ const dataClient = () => {
             }];
           }
         } catch (err) {
+          console.log(err)
           state.isLoggedIn = false;
         }
         update(state => state);
