@@ -139,6 +139,7 @@
                   validate />
 
               </Col>
+              <!--
               <Col width="100" medium="33">
                 <ListInput
                   class="item-content-input"
@@ -153,13 +154,14 @@
                 </ListInput>
 
               </Col>
+             
               <Col width="100" medium="33">
                 <p>Limited to FirstTime Purchase Only:
                   <Checkbox name="checkbox-1" checked={$dataClient.subscription.one_time_is_firstonly} onChange={(e) => $dataClient.subscription.one_time_is_firstonly = e.target.checked}/>
                 </p>
                 
               </Col>
-              
+               -->
             </Row>
 
             <Row>
