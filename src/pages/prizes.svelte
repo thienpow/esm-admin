@@ -69,7 +69,9 @@
               {/if}
               {#if $show_status}
               <td class="label-cell">{dataClient.displayStatusTitle(prize.status)}</td>
-              <td class="label-cell">{dataClient.displayStatusProgressTitle(prize.status_progress)}</td>
+              <td class="label-cell">
+                <Chip text="{dataClient.displayStatusProgressTitle(prize.status_progress)}" style="height: 24px; font-size: 9px; color: #fff; background-color:{getStatusProgressColor(prize.status_progress)}" />
+              </td>
               {/if}
               {#if $show_type}
               <td class="numeric-cell">{dataClient.displayPrizeTypeTitle(prize.type_id)}</td>
@@ -317,6 +319,23 @@
     }
     
     await dataClient.getPrizeList($row_count, 0, "", status);
+  }
+
+  function getStatusProgressColor(status_progress) {
+    switch (status_progress) {
+      case 0: 
+        return '#808080';
+      case 1: 
+        return '#F0BB31';
+      case 2:
+        return '#3cd070';
+      case 666:
+        return '#DD482D';
+      case 999:
+        return '#4B4B4C';
+      case 9999:
+        return '#EE2201';
+    }
   }
 
   onMount(async () => {

@@ -27,9 +27,9 @@
     <table>
       <thead>
         <tr>
+          <th class="numeric-cell">ID</th>
           <th class="numeric-cell">Prize ID</th>
           <th class="numeric-cell">Game ID</th>
-          <th class="numeric-cell">WinFrom</th>
           <th class="numeric-cell">Tickets</th>
           <th class="label-cell">Timestamp</th>
           <th class="label-cell">IsClosed</th>
@@ -41,7 +41,7 @@
           <td class="numeric-cell">{p.id}</td>
           <td class="numeric-cell">{p.prize_id}</td>
           <td class="numeric-cell">{p.game_id}</td>
-          <td class="numeric-cell">{p.win_from}</td>
+          <td class="numeric-cell">{p.tickets}</td>
           <td class="label-cell">{p.created_on}</td>
           <td class="label-cell">{p.is_closed}</td>
         </tr>

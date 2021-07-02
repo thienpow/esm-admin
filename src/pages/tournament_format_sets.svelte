@@ -24,6 +24,11 @@
             <tr>
               <th class="numeric-cell">ID</th>
               <th class="label-cell">Title</th>
+
+              {#if $show_status}
+              <th>Status</th>
+              {/if}
+
               <th>Duration Days</th>
               <th>Duration Hours</th>
               <th>IsGroup</th>
@@ -35,6 +40,11 @@
             <tr on:click={onRowClick(set)}>
               <td class="numeric-cell">{set.id}</td>
               <td class="label-cell">{set.title}</td>
+              
+              {#if $show_status}
+              <td class="label-cell">{dataClient.displayStatusTitle(set.status)}</td>
+              {/if}
+    
               <td class="label-cell">{set.duration_days}</td>
               <td class="label-cell">{set.duration_hours}</td>
               <td class="label-cell">{set.is_group}</td>
@@ -54,7 +64,21 @@
 
       <List accordionList>
         <ListItem accordionItem accordionItemOpened title="Summary">
-          <AccordionContent></AccordionContent>
+          <AccordionContent>
+            <Row>
+              <Col>
+                <Chip outline text="Selected: {filter_selected}" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Link on:click={(e) => onFilterClick(-1)} href="#" animate={false} ignoreCache={true}><Chip text="Total: {$dataClient.tournamentSetCount.total}" color="blue" /></Link>
+                <Link on:click={(e) => onFilterClick(1)} href="#" animate={false} ignoreCache={true}><Chip text="Draft: {$dataClient.tournamentSetCount.draft}" color="red" /></Link>
+                <Link on:click={(e) => onFilterClick(2)} href="#" animate={false} ignoreCache={true}><Chip text="Published: {$dataClient.tournamentSetCount.published}" color="green" /></Link>
+                <Link on:click={(e) => onFilterClick(3)} href="#" animate={false} ignoreCache={true}><Chip text="Archived: {$dataClient.tournamentSetCount.archived}" color="gray" /></Link>
+              </Col>
+            </Row>
+          </AccordionContent>
         </ListItem>
         <ListItem accordionItem title="Show/Hide fields">
           <AccordionContent>
@@ -92,10 +116,12 @@
   import {show_status, row_count} from '../stores/ui';
 
   export let f7router;
+  export let f7route;
 
   let innerWidth = 0;
 
   $: searchString = "";
+  $: filter_selected = "Published";
 
   async function doSearch(value) {
     resetRows(0, value);
@@ -112,7 +138,7 @@
 
     if (offset === 0)
       currentPage = 1;
-    await dataClient.getTournamentSetList($row_count, offset, search);
+    await dataClient.getTournamentSetList($row_count, offset, search, -1);
   }
 
   function onNewClick() {
@@ -130,6 +156,7 @@
     $dataClient.tournament_set = {
         id: set.id, 
         title: set.title, 
+        status: set.status,
         duration_days: set.duration_days,
         duration_hours: set.duration_hours,
         is_group: set.is_group
@@ -137,9 +164,31 @@
     f7router.navigate("/newformatset/" + set.id + "/");
   };
 
+  async function onFilterClick(status) {
+    searchString = "";
+    currentPage = 1;
+
+    switch(status) {
+      case -1:
+        filter_selected = "Total";
+        break;
+      case 1:
+        filter_selected = "Draft";
+        break;
+      case 2:
+        filter_selected = "Published";
+        break;
+      case 3:
+        filter_selected = "Archived/Disabled";
+        break;
+    }
+    
+    await dataClient.getTournamentSetList($row_count, 0, "", status);
+  }
+
   onMount(async () => {
     await dataClient.getTournamentSetCount();
-    await dataClient.getTournamentSetList($row_count, 0, "");
+    await dataClient.getTournamentSetList($row_count, 0, "", f7route.params.st);
   });
   
 </script>

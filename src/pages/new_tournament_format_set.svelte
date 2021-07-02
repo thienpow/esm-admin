@@ -6,15 +6,38 @@
     <BlockTitle>Set Info</BlockTitle>
     <Card noShadow>
       <CardContent>
-        <ListInput
-          class="item-content-input"
-          label="Title"
-          type="text"
-          value={$dataClient.tournament_set.title}
-          onInput={(e) => $dataClient.tournament_set.title = e.target.value}
-          required
-          validate />
 
+        <Row>
+          <Col>
+            <ListInput
+                class="item-content-input"
+                label="Status"
+                type="select"
+                value={$dataClient.tournament_set.status}
+                onInput={(e) => $dataClient.tournament_set.status = e.target.value}
+                placeholder="Please choose...">
+  
+                {#each $dataClient.statusTypes as sT}
+                <option value={sT.id}>{sT.title}</option>
+                {/each}
+  
+            </ListInput>
+  
+          </Col>
+          <Col>
+            <ListInput
+              class="item-content-input"
+              label="Title"
+              type="text"
+              value={$dataClient.tournament_set.title}
+              onInput={(e) => $dataClient.tournament_set.title = e.target.value}
+              required
+              validate />
+          </Col>
+          
+  
+        </Row>
+        
         <Row>
 
           <Col width="100" medium="30">
@@ -318,7 +341,7 @@
       successToast.open();
 
       if (id > 0) {
-        f7router.navigate('/formatsets/');
+        f7router.navigate('/formatsets/' + $dataClient.tournament_set.status + '/');
       } else {
         $dataClient.tournament_set.id = result;
         id = result;

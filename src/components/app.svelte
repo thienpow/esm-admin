@@ -34,7 +34,7 @@
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>
             </ListItem>
-            <ListItem link="/formatsets/" view=".view-main" title="Format Sets" selected={selected === 'formatsets'} onClick={() => (selected = 'formatsets')}>
+            <ListItem link="/formatsets/2/" view=".view-main" title="Format Sets" selected={selected === 'formatsets'} onClick={() => (selected = 'formatsets')}>
               <span slot="media">
                 <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
               </span>

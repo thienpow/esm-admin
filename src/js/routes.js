@@ -115,7 +115,7 @@ var routes = [
     },
   },
   {
-    path: '/formatsets/',
+    path: '/formatsets/:st/',
     component: TournamentFormatSetsPage,
     options: {
       animate: false,

@@ -463,6 +463,9 @@ const dataClient = () => {
     tournament_sets: [],
     tournamentSetCount: {
       total: 0,
+      draft: 0,
+      published: 0,
+      archived: 0,
     },
     tournament_set_game_rule: {
       id: 0, 
@@ -1726,7 +1729,7 @@ const dataClient = () => {
         request.setIsRepeat(state.prize.is_repeat);
         request.setRepeatedOnList(repeated_on);
         request.setStatus(state.prize.status);
-        request.setStatusProgress(state.prize.status_progress);
+        request.setStatusProgress(0);
         
         try {
           const response = await state.apiClient.updatePrize(request, {'authorization': state.jwtToken});
@@ -1987,6 +1990,7 @@ const dataClient = () => {
 
         let request = state.addTournamentSetRequest;
         request.setTitle(state.tournament_set.title);
+        request.setStatus(state.tournament_set.status);
         request.setDurationDays(state.tournament_set.duration_days);
         request.setDurationHours(state.tournament_set.duration_hours);
         request.setIsGroup(state.tournament_set.is_group);
@@ -2040,6 +2044,7 @@ const dataClient = () => {
         let request = state.updateTournamentSetRequest;
         request.setId(state.tournament_set.id);
         request.setTitle(state.tournament_set.title);
+        request.setStatus(state.tournament_set.status);
         request.setDurationDays(state.tournament_set.duration_days);
         request.setDurationHours(state.tournament_set.duration_hours);
         request.setIsGroup(state.tournament_set.is_group);
@@ -2188,7 +2193,10 @@ const dataClient = () => {
           const response = await state.apiClient.getTournamentSetCount(request, {'authorization': state.jwtToken});
 
           let count = await response.getResult();
-          state.tournamentSetCount.total = count.getTotal();
+          state.tournamentSetCount.draft = count.getDraft();
+          state.tournamentSetCount.published = count.getPublished();
+          state.tournamentSetCount.archived = count.getArchived();
+          state.tournamentSetCount.total = state.tournamentSetCount.draft + state.tournamentSetCount.published + state.tournamentSetCount.archived;
           
         } catch (err) {
           state.isLoggedIn = false;
@@ -2197,13 +2205,14 @@ const dataClient = () => {
         
       },
 
-      async getTournamentSetList(row_count, offset, search_title) {
+      async getTournamentSetList(row_count, offset, search_title, status) {
           
         let request = state.listTournamentSetRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
         request.setSearchTitle(search_title);
-
+        request.setStatus(status);
+        
         try {
           const response = await state.apiClient.listTournamentSet(request, {'authorization': state.jwtToken});
 
@@ -2212,6 +2221,7 @@ const dataClient = () => {
             state.tournament_sets = [...state.tournament_sets,  {
               id: item.getId(),
               title: item.getTitle(),
+              status: item.getStatus(),
               duration_days: item.getDurationDays(),
               duration_hours: item.getDurationHours(),
               is_group: item.getIsGroup()

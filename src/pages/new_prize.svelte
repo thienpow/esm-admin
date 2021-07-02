@@ -78,7 +78,7 @@
               <Col width="100" medium="30" />
               <Col width="100" medium="40">
                   
-                {#if $dataClient.prize.status_progress == 1}
+                {#if $dataClient.prize.status_progress > 0 && $dataClient.prize.status_progress < 10}
                 <Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSOSStop}>SOS Stop</Button>
                 {/if}
                 {#if $dataClient.prize.status_progress == 0}
@@ -382,7 +382,7 @@
       f7.dialog.alert("Please select a Type");
       return;
     }
-    if ($dataClient.prize.status_progress == 1 && original_prize_status !== $dataClient.prize.status) {
+    if ($dataClient.prize.status_progress >= 1 && $dataClient.prize.status_progress <= 2 && original_prize_status !== $dataClient.prize.status) {
       f7.dialog.alert("Modifying data after the prize started is not allowed!");
       return;
     }
@@ -439,6 +439,10 @@
       } else {
         $dataClient.prize.id = result;
         id = result;
+
+        if ($dataClient.prize.type_id == 4) {
+          f7router.navigate('/prizes/' + $dataClient.prize.status + '/');
+        }
       }
     }
     
