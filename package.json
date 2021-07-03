@@ -20,8 +20,15 @@
     "Samsung >= 5"
   ],
   "dependencies": {
+    "@codemirror/basic-setup": "^0.17.1",
+    "@codemirror/highlight": "^0.17.2",
+    "@codemirror/lang-markdown": "^0.17.1",
+    "@codemirror/state": "^0.17.1",
+    "@codemirror/theme-one-dark": "^0.17.4",
+    "@codemirror/view": "^0.17.7",
     "@grpc/grpc-js": "^1.2.0",
     "@grpc/proto-loader": "^0.5.5",
+    "@octokit/rest": "^18.1.1",
     "dom7": "^3.0.0",
     "framework7": "^6.0.17",
     "framework7-icons": "^4.0.2",
@@ -29,14 +36,7 @@
     "google-protobuf": "^3.14.0",
     "grpc-web": "^1.2.1",
     "skeleton-elements": "^3.3.0",
-    "svelte": "^3.38.2",
-    "@codemirror/basic-setup": "^0.17.1",
-    "@codemirror/highlight": "^0.17.2",
-    "@codemirror/lang-markdown": "^0.17.1",
-    "@codemirror/state": "^0.17.1",
-    "@codemirror/theme-one-dark": "^0.17.4",
-    "@codemirror/view": "^0.17.7",
-    "@octokit/rest": "^18.1.1"
+    "svelte": "^3.38.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
