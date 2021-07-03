@@ -355,7 +355,7 @@
       let result = await dataClient.sosStopPrize(id);
       if (result) {
         f7.dialog.alert("Damage Done!");
-        f7router.navigate('/prizes/');
+        f7router.navigate('/prizes/' + $dataClient.prize.status + '/');
       }
     });
   }
@@ -365,7 +365,7 @@
       let result = await dataClient.deletePrize(id);
       if (result) {
         f7.dialog.alert("Delete Done!");
-        f7router.navigate('/prizes/');
+        f7router.navigate('/prizes/' + $dataClient.prize.status + '/');
       }
         
     });
