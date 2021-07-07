@@ -81,7 +81,7 @@
                 {#if $dataClient.prize.status_progress > 0 && $dataClient.prize.status_progress < 10}
                 <Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doSOSStop}>SOS Stop</Button>
                 {/if}
-                {#if $dataClient.prize.status_progress == 0}
+                {#if $dataClient.prize.status_progress == 0 && $dataClient.prize.id > 0} 
                 <Button class="col" large fill raised color="red" animate={true} transition="f7-fade" on:click={doDelete}>Delete</Button>
                 {/if}
                 {#if $dataClient.prize.status_progress == 9999}
@@ -378,23 +378,28 @@
       return;
     }
 
-    if ($dataClient.prize.type_id == 0) {
-      f7.dialog.alert("Please select a Type");
-      return;
-    }
-    if ($dataClient.prize.status_progress >= 1 && $dataClient.prize.status_progress <= 2 && original_prize_status !== $dataClient.prize.status) {
-      f7.dialog.alert("Modifying data after the prize started is not allowed!");
-      return;
-    }
-    if ($dataClient.prize.scheduled_on < Date.now()) {
-      f7.dialog.alert("Date must be after today/now!");
-      return;
-    }
+    if ($dataClient.prize.status_progress == 999 && $dataClient.prize.status == 3) {
+      // we allow proceed  to change the status to 3
+    } else {
+      if ($dataClient.prize.type_id == 0) {
+        f7.dialog.alert("Please select a Type");
+        return;
+      }
+      if ($dataClient.prize.status_progress >= 1 && $dataClient.prize.status_progress <= 2 && original_prize_status !== $dataClient.prize.status) {
+        f7.dialog.alert("Modifying data after the prize started is not allowed!");
+        return;
+      }
+      if ($dataClient.prize.scheduled_on < Date.now()) {
+        f7.dialog.alert("Date must be after today/now!");
+        return;
+      }
 
-    if ($dataClient.prize.status_progress == 9999) {
-      f7.dialog.alert("Prize is under SOS Stopped. No more changes allowed until issue is resolved.");
-      return;
+      if ($dataClient.prize.status_progress == 9999) {
+        f7.dialog.alert("Prize is under SOS Stopped. No more changes allowed until issue is resolved.");
+        return;
+      }
     }
+    
 
 
     let repeated_on = [];
