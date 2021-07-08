@@ -35,6 +35,8 @@ import LogPrizePoolPage from '../pages/log_prize_pool.svelte';
 
 import BuysPage from '../pages/buys.svelte';
 
+import LeaderboardHistoryPage from '../pages/leaderboard_history.svelte';
+
 import NotFoundPage from '../pages/404.svelte';
 
 import LoggedOutPage from '../pages/logged_out.svelte';
@@ -243,7 +245,13 @@ var routes = [
       animate: false,
     }
   },
-  
+  {
+    path: '/lbhistory/',
+    component: LeaderboardHistoryPage,
+    options: {
+      animate: false,
+    }
+  },
 
 
 

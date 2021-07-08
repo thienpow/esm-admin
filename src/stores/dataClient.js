@@ -99,6 +99,8 @@ import {
   // Shop
   ListBuyRequest,
   GetBuyCountRequest,
+  ListLeaderboardHistoryRequest,
+  ListClosedCurrentGameRequest,
   
 } from '../js/adminapi_pb.js';
 //import PreloaderComponent from 'framework7/components/preloader/preloader';
@@ -229,6 +231,9 @@ const dataClient = () => {
     listBuyRequest: new ListBuyRequest(),
     getBuyCountRequest: new GetBuyCountRequest(),
 
+    listLeaderboardHistoryRequest: new ListLeaderboardHistoryRequest(),
+    listClosedCurrentGameRequest: new ListClosedCurrentGameRequest(),
+    
     currentStatusType: 0,
     
     statusTypes: [],
@@ -518,7 +523,9 @@ const dataClient = () => {
       payment_id: 0, 
       price: 0,
       created_on: 0,
-    }
+    },
+    leaderboard_history: [],
+    closed_current_games: [],
 	}
 	
 
@@ -2206,7 +2213,7 @@ const dataClient = () => {
       },
 
       async getTournamentSetList(row_count, offset, search_title, status) {
-          
+        
         let request = state.listTournamentSetRequest;
         request.setLimit(row_count);
         request.setOffset(offset);
@@ -2543,6 +2550,72 @@ const dataClient = () => {
         update(state => state);
       
       },
+
+
+      async getLeaderboardHistoryList(cg_id, row_count, offset) {
+          
+        let request = state.listLeaderboardHistoryRequest;
+        request.setCgId(cg_id);
+        request.setLimit(row_count);
+        request.setOffset(offset);
+
+        try {
+          const response = await state.apiClient.listLeaderboardHistory(request, {'authorization': state.jwtToken});
+
+          state.leaderboard_history = [];
+          for (let item of response.getResultList()) {
+            state.leaderboard_history = [...state.leaderboard_history,  {
+              rank: item.getRank(),
+              user_id: item.getUserId(),
+              nick_name: item.getNickName(),
+              avatar_url: item.getAvatarUrl(),
+              exp: item.getExp(),
+              game_score: item.getGameScore(),
+              tickets: item.getTickets()
+            }];
+          }
+        } catch (err) {
+          //console.log("ERROR getLeaderboardHistoryList", err);
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+
+      async getClosedCurrentGameList(prize_id, row_count, offset) {
+          
+        let request = state.listClosedCurrentGameRequest;
+        request.setPrizeId(prize_id);
+        request.setLimit(row_count);
+        request.setOffset(offset);
+
+        try {
+          const response = await state.apiClient.listClosedCurrentGame(request, {'authorization': state.jwtToken});
+
+          state.closed_current_games = [];
+          for (let item of response.getResultList()) {
+            state.closed_current_games = [...state.closed_current_games,  {
+              id: item.getId(),
+              prize_id: item.getPrizeId(),
+              tour_id: item.getTourId(),
+              set_id: item.getSetId(),
+              tsg_id: item.getTsgId(),
+              game_id: item.getGameId(),
+              game_title: item.getGameTitle(),
+              start_timestamp: timeConverter(item.getStartTimestamp()),
+              end_timestamp: timeConverter(item.getEndTimestamp()),
+              set_duration_countdown: item.getSetDurationCountdown(),
+            }];
+          }
+            
+        } catch (err) {
+          state.isLoggedIn = false;
+        }
+        update(state => state);
+      
+      },
+      
+
 	}
 
 	return {

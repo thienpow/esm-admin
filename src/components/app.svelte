@@ -101,7 +101,11 @@
                 <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
               </span>
             </ListItem>
-  
+            <ListItem link="/lbhistory/" view=".view-main" title="Leaderboard History" selected={selected === 'lbhistory'} onClick={() => (selected = 'lbhistory')}>
+              <span slot="media">
+                <Icon md="material:assessment" aurora="f7:chart_bar" ios="f7:chart_bar" />
+              </span>
+            </ListItem>
           </AccordionContent>
         </ListItem>
   
