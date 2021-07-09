@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import dataClient from '../stores/dataClient';
   import { 
     Row, Col,
@@ -8,20 +9,43 @@
     Toolbar,
     Link,
     ListItem,
+    ListInput,
     PageContent, } from 'framework7-svelte';
 
-    $: selected_value = cg_id == 0 ? 'Not Selected' : cg_id + ': ' + cg_game_title;
-    let cg_id = 0;
-    let cg_game_title = '';
-    async function doFilterLeaderboardHistory(cg) {
-      cg_id = cg.id;
-      cg_game_title = cg.game_title;
-      if (cg_id > 0) {
-        await dataClient.getLeaderboardHistoryList(cg_id, 1000, 0);
-      }
-    };
+  $: selected_value = cg_id == 0 ? 'Not Selected' : cg_id + ': ' + cg_game_title;
+  let cg_id = 0;
+  let cg_game_title = '';
+  async function doFilterLeaderboardHistory(cg) {
+    cg_id = cg.id;
+    cg_game_title = cg.game_title;
+    if (cg_id > 0) {
+      await dataClient.getLeaderboardHistoryList(cg_id, 1000, 0);
+    }
+  };
+
+  export let closed_date;
+  export let prize_id;
+
+  async function doFilterClosedCurrentGame() {
+    if (prize_id > 0) {
+      await dataClient.getClosedCurrentGameList(prize_id, 1000, 0, closed_date);
+    }
+  }
+
+
+  onMount(async () => {
+    await doFilterClosedCurrentGame();
+  });
 
 </script>
+<ListInput
+    label="Closed Date"
+    type="date"
+    bind:value={closed_date}
+    placeholder="Please choose..."
+  >
+    <i class="icon demo-list-icon" slot="media"/>
+</ListInput>
 <ListItem link="#" sheetOpen=".help-sheet" title="Select Closed Games" after="{selected_value}">
   <i slot="media" class="icon material-icons">search</i>
 </ListItem>
@@ -30,6 +54,7 @@ push
 style="height: 480px;"
 swipeToClose
 swipeToStep
+on:sheetOpen={doFilterClosedCurrentGame}
 >
 <Toolbar>
   <div class="left"></div>

@@ -2582,16 +2582,18 @@ const dataClient = () => {
       
       },
 
-      async getClosedCurrentGameList(prize_id, row_count, offset) {
-          
+      async getClosedCurrentGameList(prize_id, row_count, offset, closed_date) {
+        
+        let closed_date_num = parseInt(closed_date.replaceAll('-', ''));
         let request = state.listClosedCurrentGameRequest;
         request.setPrizeId(prize_id);
+        request.setClosedDate(closed_date_num);
         request.setLimit(row_count);
         request.setOffset(offset);
 
         try {
           const response = await state.apiClient.listClosedCurrentGame(request, {'authorization': state.jwtToken});
-
+          console.log("response", response);
           state.closed_current_games = [];
           for (let item of response.getResultList()) {
             state.closed_current_games = [...state.closed_current_games,  {

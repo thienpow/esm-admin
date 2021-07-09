@@ -14,8 +14,7 @@
     <Col class="toolpanel" width="100" large="40" xlarge="30">
 
       <List accordionList>
-        <ShowRows on:resetRows={(e) => resetRows(e.detail.offset)} />
-
+        
         <ListItem accordionItem accordionItemOpened title="Published Prizes">
           <AccordionContent>
             
@@ -25,7 +24,7 @@
                 { openIn: 'popup', searchbar: true, searchbarPlaceholder: 'Search',
                   on: {
                     closed: function () {
-                      doFilterClosedCurrentGame();
+                      //doFilterClosedCurrentGame();
                     }
                   }
                 }}>
@@ -34,13 +33,13 @@
             </span>
             <select bind:value={prize_id}>
               <option value={0}>Not Selected</option>
-              {#each $dataClient.prizes as prize}
+              {#each $dataClient.prizes.filter(p=>p.type_id<4) as prize}
                 <option value={prize.id}>{prize.title}</option>
               {/each}
             </select>
           </ListItem>
 
-          <FindClosedCG />
+          <FindClosedCG bind:closed_date bind:prize_id />
 
           </AccordionContent>
         </ListItem>
@@ -105,17 +104,17 @@
 
   let innerWidth = 0;
 
+
   let prize_id = 0;
+  let now = new Date();
+  let closed_date = now.getFullYear() + '-' + pad(now.getMonth() + 1, 2) + '-' + pad(now.getDate(), 2);
 
-  $: currentPage = 1;
-  async function resetRows(offset, search) {
-    await dataClient.getClosedCurrentGameList(prize_id, 1000, 0);
-  }
-
-  async function doFilterClosedCurrentGame() {
-    if (prize_id > 0) {
-      await dataClient.getClosedCurrentGameList(prize_id, 1000, 0);
+  function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
     }
+    return str;
   }
 
   onMount(async () => {
