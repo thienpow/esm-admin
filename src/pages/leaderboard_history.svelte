@@ -25,6 +25,7 @@
                   on: {
                     closed: function () {
                       //doFilterClosedCurrentGame();
+                      cg_id = 0;
                     }
                   }
                 }}>
@@ -39,7 +40,7 @@
             </select>
           </ListItem>
 
-          <FindClosedCG bind:closed_date bind:prize_id />
+          <FindClosedCG bind:closed_date bind:prize_id bind:cg_id />
 
           </AccordionContent>
         </ListItem>
@@ -106,6 +107,7 @@
 
 
   let prize_id = 0;
+  let cg_id = 0;
   let now = new Date();
   let closed_date = now.getFullYear() + '-' + pad(now.getMonth() + 1, 2) + '-' + pad(now.getDate(), 2);
 
