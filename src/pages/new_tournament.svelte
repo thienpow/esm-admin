@@ -213,7 +213,7 @@
 
   onMount(async () => {
 
-    await dataClient.getTournamentSetList(1000, 0, "");
+    await dataClient.getTournamentSetList(1000, 0, "", 2);
     if (id > 0) {
       await dataClient.getTourSetList(f7route.params.id);
       tour_sets = $dataClient.tour_sets;
