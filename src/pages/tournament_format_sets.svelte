@@ -147,7 +147,8 @@
         title: "", 
         duration_days: 0,
         duration_hours: 0,
-        is_group: false
+        is_group: false,
+        status: 1
       };
     f7router.navigate("/newformatset/0/");
   };
