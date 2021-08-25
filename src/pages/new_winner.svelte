@@ -133,7 +133,7 @@
 
       <List>
 
-        <ListItem accordionItem title="Address">
+        <ListItem accordionItem title="Details">
           <span slot="media">
             <Icon md="material:settings" aurora="f7:gear_alt_fill" ios="f7:gear_alt_fill" />
           </span>
@@ -143,31 +143,39 @@
                 <tbody>
                   <tr>
                     <td class="text-cell">Fullname</td>
-                    <td class="text-cell">{$dataClient.user.full_name}</td>
+                    <td class="text-cell">{$dataClient.winner.full_name}</td>
                   </tr>
                   <tr>
-                    <td class="text-cell">Address</td>
-                    <td class="text-cell">{$dataClient.user.address}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-cell">City</td>
-                    <td class="text-cell">{$dataClient.user.city}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-cell">State</td>
-                    <td class="text-cell">{$dataClient.user.state}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-cell">ZipCode</td>
-                    <td class="text-cell">{$dataClient.user.zip_code}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-cell">Country</td>
-                    <td class="text-cell">{$dataClient.user.country}</td>
+                    <td class="text-cell">Email</td>
+                    <td class="text-cell">{$dataClient.winner.email}</td>
                   </tr>
                   <tr>
                     <td class="text-cell">Country Code</td>
-                    <td class="text-cell">{$dataClient.user.country_code}</td>
+                    <td class="text-cell">{$dataClient.winner.country_code}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">Phone</td>
+                    <td class="text-cell">{$dataClient.winner.phone}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">Address</td>
+                    <td class="text-cell">{$dataClient.winner.address}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">City</td>
+                    <td class="text-cell">{$dataClient.winner.city}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">State</td>
+                    <td class="text-cell">{$dataClient.winner.state}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">ZipCode</td>
+                    <td class="text-cell">{$dataClient.winner.zip_code}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-cell">Country</td>
+                    <td class="text-cell">{$dataClient.winner.country}</td>
                   </tr>
                 </tbody>
               </table>

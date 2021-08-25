@@ -142,7 +142,16 @@ import Paginator from '../components/Paginator.svelte';
       status: winner.status,
       created_on: winner.created_on,
       claimed_on: winner.claimed_on,
-      ship_tracking: winner.ship_tracking
+      ship_tracking: winner.ship_tracking,
+      full_name: winner.full_name,
+      email: winner.email,
+      country_code: winner.country_code,
+      phone: winner.phone,
+      address: winner.address,
+      city: winner.city,
+      state: winner.state,
+      zip_code: winner.zip_code,
+      country: winner.country,
     };
 
     

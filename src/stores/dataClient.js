@@ -2373,7 +2373,16 @@ const dataClient = () => {
               created_on: timeConverter(item.getCreatedOn()),
               claimed_on: timeConverter(item.getClaimedOn()),
               status: item.getStatus(),
-              ship_tracking: item.getShipTracking()
+              ship_tracking: item.getShipTracking(),
+              full_name: item.getFullName(),
+              email: item.getEmail(),
+              country_code: item.getCountryCode(),
+              phone: item.getPhone(),
+              address: item.getAddress(),
+              city: item.getCity(),
+              state: item.getState(),
+              zip_code: item.getZipCode(),
+              country: item.getCountry(),
             }];
           }
         } catch (err) {
